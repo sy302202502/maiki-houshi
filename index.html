@@ -11,6 +11,36 @@
 </head>
 <body>
 
+  <!-- ===== LOADING ===== -->
+  <div id="loading">
+    <div class="loading-inner">
+      <img src="images/舞鬼ロゴ.png" alt="舞鬼法師" class="loading-logo">
+      <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ===== CUSTOM CURSOR ===== -->
+  <div id="cursor"></div>
+  <div id="cursor-trail"></div>
+
+  <!-- ===== SCROLL PROGRESS ===== -->
+  <div id="scroll-progress"></div>
+
+  <!-- ===== NEWS TICKER ===== -->
+  <div class="news-ticker">
+    <span class="ticker-label">NEWS</span>
+    <div class="ticker-wrap">
+      <div class="ticker-inner">
+        <span>🎤 新曲「シャルル」公開中 — YouTubeでチェック！</span>
+        <span>🍶 「酔いどれ知らず」歌ってみた公開中！</span>
+        <span>📢 配信スケジュールはXをフォローして確認！</span>
+        <span>🎤 新曲「シャルル」公開中 — YouTubeでチェック！</span>
+        <span>🍶 「酔いどれ知らず」歌ってみた公開中！</span>
+        <span>📢 配信スケジュールはXをフォローして確認！</span>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== HEADER / NAV ===== -->
   <header id="header">
     <div class="header-inner">
@@ -55,7 +85,7 @@
       <div class="hero-text">
         <p class="hero-tag">VTUBER / LIVER</p>
         <h1 class="hero-title">
-          <span class="title-main">舞鬼法師</span>
+          <span class="title-main" data-text="舞鬼法師">舞鬼法師</span>
           <span class="title-sub">MIKEY MASTER</span>
         </h1>
         <p class="hero-catch">酒と馬と唄。</p>
@@ -330,6 +360,11 @@
       <p class="footer-copy">&copy; 2024 舞鬼法師 / MIKEY MASTER. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <!-- ===== BACK TO TOP ===== -->
+  <button id="back-to-top" aria-label="トップへ戻る">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
 
   <script src="script.js"></script>
 </body>
