@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VTuber・Vライバー向けHP制作 | 舞鬼法師</title>
+  <meta name="description" content="Web知識ゼロ・サーバー代0円からVTuber・VライバーのホームページをプロっぽくつくるHP制作サービス。案件受付・活動まとめに最適。">
+  <meta property="og:title" content="VTuber・Vライバー向けHP制作 | 舞鬼法師">
+  <meta property="og:description" content="Web知識ゼロ・サーバー代0円から。案件受付・活動まとめに最適なHP制作サービス。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mikey-master.pages.dev/lp.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Bebas+Neue&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF6B00;
+      --orange-light: #FF8C2F;
+      --green: #ADFF2F;
+      --dark: #0A0A0A;
+      --dark2: #111111;
+      --dark3: #1A1A1A;
+      --white: #F5F5F5;
+      --gray: rgba(255,255,255,0.55);
+      --font-en: 'Bebas Neue', 'Oswald', sans-serif;
+      --font-jp: 'Noto Sans JP', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--dark); color: var(--white); font-family: var(--font-jp); line-height: 1.7; overflow-x: hidden; }
+
+    /* ===== HEADER ===== */
+    .lp-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,107,0,0.15);
+    }
+    .lp-header-logo {
+      font-family: var(--font-en);
+      font-size: 1.4rem;
+      color: var(--orange);
+      letter-spacing: 0.1em;
+      text-decoration: none;
+    }
+    .lp-header-cta {
+      background: var(--orange);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: background 0.2s;
+    }
+    .lp-header-cta:hover { background: var(--orange-light); }
+
+    /* ===== HERO ===== */
+    .lp-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .lp-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,107,0,0.12) 0%, transparent 70%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px);
+    }
+    .lp-hero-inner { position: relative; z-index: 1; max-width: 800px; }
+    .lp-hero-eyebrow {
+      display: inline-block;
+      background: rgba(255,107,0,0.15);
+      border: 1px solid rgba(255,107,0,0.4);
+      color: var(--orange);
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      font-weight: 700;
+      margin-bottom: 32px;
+    }
+    .lp-hero-title {
+      font-size: clamp(2.2rem, 6vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.3;
+      margin-bottom: 28px;
+      letter-spacing: -0.01em;
+    }
+    .lp-hero-title .hl { color: var(--orange); }
+    .lp-hero-title .hl-green { color: var(--green); }
+    .lp-hero-sub {
+      color: var(--gray);
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      margin-bottom: 48px;
+      line-height: 1.9;
+    }
+    .lp-hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary-lp {
+      background: var(--orange);
+      color: #fff;
+      padding: 16px 40px;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 900;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary-lp:hover { background: var(--orange-light); transform: translateY(-2px); }
+    .btn-outline-lp {
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      padding: 16px 32px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-outline-lp:hover { border-color: var(--orange); color: var(--orange); }
+    .lp-hero-proof {
+      margin-top: 48px;
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .proof-item { text-align: center; }
+    .proof-num {
+      font-family: var(--font-en);
+      font-size: 2.4rem;
+      color: var(--orange);
+      line-height: 1;
+    }
+    .proof-label {
+      font-size: 0.75rem;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
+
+    /* ===== SECTIONS ===== */
+    .lp-section { padding: 100px 40px; }
+    .lp-section-inner { max-width: 960px; margin: 0 auto; }
+    .lp-section-title {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .lp-section-title h2 {
+      font-family: var(--font-en);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .lp-section-title p {
+      font-size: 0.85rem;
+      color: var(--orange);
+      letter-spacing: 0.2em;
+    }
+
+    /* ===== PAIN ===== */
+    .pain { background: var(--dark2); }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .pain-card {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 28px;
+      position: relative;
+    }
+    .pain-card::before {
+      content: attr(data-num);
+      font-family: var(--font-en);
+      font-size: 3rem;
+      color: rgba(255,255,255,0.04);
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      line-height: 1;
+    }
+    .pain-icon { font-size: 1.8rem; margin-bottom: 12px; }
+    .pain-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .pain-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; }
+    .pain-cta {
+      text-align: center;
+      margin-top: 52px;
+    }
+    .pain-cta p {
+      color: var(--gray);
+      margin-bottom: 24px;
+      font-size: 1.05rem;
+    }
+    .pain-cta strong { color: var(--white); }
+
+    /* ===== FEATURES ===== */
+    .features { background: var(--dark); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .feature-card {
+      background: var(--dark2);
+      border-radius: 12px;
+      padding: 36px 28px;
+      border: 1px solid rgba(255,107,0,0.15);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+    .feature-num {
+      font-family: var(--font-en);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .feature-icon { font-size: 2.4rem; margin-bottom: 16px; display: block; }
+    .feature-card h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 12px; }
+    .feature-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.8; }
+
+    /* ===== PLANS ===== */
+    .plans { background: var(--dark2); }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    .plan-card {
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 36px 28px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .plan-card:hover { border-color: rgba(255,107,0,0.4); }
+    .plan-card.recommended {
+      border-color: var(--orange);
+    }
+    .plan-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: #fff;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-family: var(--font-en);
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    .plan-name-jp {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-bottom: 20px;
+      letter-spacing: 0.1em;
+    }
+    .plan-price {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .plan-price span { font-size: 0.9rem; font-weight: 400; color: var(--gray); }
+    .plan-delivery {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .plan-features li {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.75);
+      padding-left: 20px;
+      position: relative;
+    }
+    .plan-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+    .plan-note {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin-top: 8px;
+    }
+
+    /* ===== FLOW ===== */
+    .flow { background: var(--dark); }
+    .flow-list { display: flex; flex-direction: column; gap: 0; max-width: 700px; margin: 0 auto; }
+    .flow-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .flow-item:last-child { border-bottom: none; }
+    .flow-step {
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(255,107,0,0.1);
+      border: 1.5px solid var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-en);
+      font-size: 1rem;
+      color: var(--orange);
+      letter-spacing: 0.05em;
+    }
+    .flow-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+    .flow-content p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; }
+    .flow-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+    .flow-tag.client { background: rgba(173,255,47,0.1); color: var(--green); border: 1px solid rgba(173,255,47,0.3); }
+    .flow-tag.maker { background: rgba(255,107,0,0.1); color: var(--orange); border: 1px solid rgba(255,107,0,0.3); }
+
+    /* ===== FAQ ===== */
+    .faq { background: var(--dark2); }
+    .faq-list { display: flex; flex-direction: column; gap: 0; max-width: 760px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      padding: 24px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      color: var(--white);
+      font-family: var(--font-jp);
+      font-size: 0.95rem;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+    .faq-q-mark {
+      flex: 0 0 auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-en);
+      font-size: 0.9rem;
+      color: #fff;
+      margin-top: 1px;
+    }
+    .faq-q-text { flex: 1; }
+    .faq-icon {
+      flex: 0 0 auto;
+      font-size: 1.2rem;
+      color: var(--orange);
+      transition: transform 0.2s;
+      margin-top: 2px;
+    }
+    .faq-a {
+      padding: 0 0 24px 44px;
+      font-size: 0.88rem;
+      color: var(--gray);
+      line-height: 1.85;
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* ===== CTA ===== */
+    .lp-cta {
+      background: linear-gradient(135deg, #0A0A0A 0%, #1a0a00 50%, #0A0A0A 100%);
+      padding: 100px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .lp-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,107,0,0.15) 0%, transparent 70%);
+    }
+    .lp-cta-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+    .lp-cta h2 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .lp-cta p { color: var(--gray); margin-bottom: 40px; font-size: 0.95rem; line-height: 1.9; }
+    .lp-cta-sub {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* ===== FOOTER ===== */
+    .lp-footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255,107,0,0.15);
+      padding: 40px;
+      text-align: center;
+    }
+    .lp-footer-name {
+      font-family: var(--font-en);
+      font-size: 1.4rem;
+      color: var(--orange);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .lp-footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .lp-footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+    }
+    .lp-footer-links a:hover { color: var(--orange); }
+    .lp-footer-copy { font-size: 0.75rem; color: rgba(255,255,255,0.2); }
+
+    /* ===== SCROLL ANIMATE ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .lp-header { padding: 14px 20px; }
+      .lp-section { padding: 72px 24px; }
+      .lp-hero { padding: 100px 24px 64px; }
+      .lp-hero-proof { gap: 24px; }
+      .lp-cta { padding: 72px 24px; }
+      .lp-footer { padding: 32px 24px; }
+    }
+    @media (max-width: 480px) {
+      .plans-grid, .features-grid, .pain-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="lp-header">
+    <a href="#" class="lp-header-logo">MIKEY MASTER</a>
+    <a href="#cta" class="lp-header-cta">無料で相談する →</a>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="lp-hero">
+    <div class="lp-hero-inner">
+      <span class="lp-hero-eyebrow">VTuber・Vライバー向け HP制作サービス</span>
+      <h1 class="lp-hero-title">
+        <span class="hl">Web知識ゼロ</span>・<span class="hl-green">サーバー代0円</span>から<br>
+        あなたの活動をホームページに。
+      </h1>
+      <p class="lp-hero-sub">
+        ヒアリングシートに答えるだけ。<br>
+        案件依頼を受けやすくなる、プロっぽいHPが手に入ります。
+      </p>
+      <div class="lp-hero-btns">
+        <a href="#cta" class="btn-primary-lp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          ヒアリングシートで無料相談
+        </a>
+        <a href="https://mikey-master.pages.dev" class="btn-outline-lp" target="_blank">制作実績を見る</a>
+      </div>
+      <div class="lp-hero-proof">
+        <div class="proof-item">
+          <div class="proof-num">¥0</div>
+          <div class="proof-label">サーバー代</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-num">5日〜</div>
+          <div class="proof-label">最短納期</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-num">¥3,000〜</div>
+          <div class="proof-label">制作費</div>
+        </div>
+        <div class="proof-item">
+          <div class="proof-num">全プラン</div>
+          <div class="proof-label">SP・PC対応</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAIN ===== -->
+  <section class="lp-section pain">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>PROBLEM</h2>
+        <p>こんなお悩みありませんか？</p>
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card fade-in" data-num="01">
+          <div class="pain-icon">😔</div>
+          <h3>案件の連絡先、どこに書けばいいかわからない</h3>
+          <p>SNSのプロフィール欄に書いても見落とされがち。専用の窓口ページがほしい。</p>
+        </div>
+        <div class="pain-card fade-in" data-num="02">
+          <div class="pain-icon">😵</div>
+          <h3>Web知識がなくて作れない・怖い</h3>
+          <p>HTMLとかCSSとか、プログラミングとか全然わからない。難しそうで諦めていた。</p>
+        </div>
+        <div class="pain-card fade-in" data-num="03">
+          <div class="pain-icon">💸</div>
+          <h3>サーバー代や維持費が高そう</h3>
+          <p>月額費用がかかるなら続けられるか不安。活動が小さいうちはコストを抑えたい。</p>
+        </div>
+        <div class="pain-card fade-in" data-num="04">
+          <div class="pain-icon">📱</div>
+          <h3>SNSだけじゃ情報が散らばっている</h3>
+          <p>YouTube・X・IRIAM・TikTok……どこで活動してるか一目でわかるページがほしい。</p>
+        </div>
+        <div class="pain-card fade-in" data-num="05">
+          <div class="pain-icon">😟</div>
+          <h3>プロっぽく見せたいけど方法がわからない</h3>
+          <p>個人勢でもちゃんとした活動ページがあると印象が全然違う、とは聞いているが……</p>
+        </div>
+        <div class="pain-card fade-in" data-num="06">
+          <div class="pain-icon">🤔</div>
+          <h3>何から始めればいいかわからない</h3>
+          <p>ドメイン？サーバー？GitHub？言葉は聞いたことあるけど何が何だかわからない。</p>
+        </div>
+      </div>
+      <div class="pain-cta fade-in">
+        <p><strong>全部、解決できます。</strong><br>ヒアリングシートに答えるだけで、あとは全部こちらがやります。</p>
+        <a href="#cta" class="btn-primary-lp">無料でヒアリングシートを記入する →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="lp-section features">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>FEATURES</h2>
+        <p>このサービスの特長</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-num">FEATURE 01</span>
+          <span class="feature-icon">🎓</span>
+          <h3>Web知識ゼロでOK</h3>
+          <p>専門用語なし。ヒアリングシートに「好きなデザイン」「載せたい内容」を選ぶだけ。わからないところは「おまかせ」でOK。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">FEATURE 02</span>
+          <span class="feature-icon">💴</span>
+          <h3>サーバー代0円〜スタート</h3>
+          <p>Vercel＋GitHubを使えば月額ランニングコストゼロ。制作費だけで本番公開できます（独自ドメインは別途実費）。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">FEATURE 03</span>
+          <span class="feature-icon">📱</span>
+          <h3>スマホ・PC両対応</h3>
+          <p>全プランでレスポンシブデザイン対応。スマホで見ても、PCで見ても、きれいに表示されます。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">FEATURE 04</span>
+          <span class="feature-icon">🎨</span>
+          <h3>キャラに合ったデザイン</h3>
+          <p>クール・ポップ・ダーク・和風・ゲーミングなど、あなたのキャラクターや活動スタイルに合わせてカスタマイズ。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">FEATURE 05</span>
+          <span class="feature-icon">📮</span>
+          <h3>案件受付フォーム設置</h3>
+          <p>企業案件・コラボ依頼・ファンからのメッセージを受けるお問い合わせフォーム（Google Forms連携）を組み込めます。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-num">FEATURE 06</span>
+          <span class="feature-icon">🎮</span>
+          <h3>VTuber目線の制作者</h3>
+          <p>制作者自身がVライバーとして活動中。活動に何が必要かを理解した上でホームページを設計します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLANS ===== -->
+  <section class="lp-section plans">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>PLANS</h2>
+        <p>料金・プラン</p>
+      </div>
+      <div class="plans-grid">
+        <div class="plan-card fade-in">
+          <div class="plan-name">LIGHT</div>
+          <div class="plan-name-jp">ライトプラン</div>
+          <div class="plan-price">¥3,000<span>〜5,000</span></div>
+          <div class="plan-delivery">納期目安：5〜7日</div>
+          <ul class="plan-features">
+            <li>1ページ構成（シングルページ）</li>
+            <li>プロフィール・自己紹介</li>
+            <li>SNSリンク一覧</li>
+            <li>お問い合わせ導線</li>
+            <li>スマホ・PC対応</li>
+            <li>Vercelデプロイ</li>
+            <li>修正2回まで</li>
+          </ul>
+        </div>
+        <div class="plan-card recommended fade-in">
+          <div class="plan-badge">おすすめ</div>
+          <div class="plan-name">STANDARD</div>
+          <div class="plan-name-jp">スタンダードプラン</div>
+          <div class="plan-price">¥8,000<span>〜12,000</span></div>
+          <div class="plan-delivery">納期目安：10〜14日</div>
+          <ul class="plan-features">
+            <li>複数セクション（5〜8種）</li>
+            <li>プロフィール・活動紹介・実績</li>
+            <li>お問い合わせフォーム付き</li>
+            <li>デザインカスタマイズ</li>
+            <li>SNSリンク一覧</li>
+            <li>スマホ・PC対応</li>
+            <li>Vercelデプロイ</li>
+            <li>修正3回・2週間サポート</li>
+          </ul>
+        </div>
+        <div class="plan-card fade-in">
+          <div class="plan-name">PREMIUM</div>
+          <div class="plan-name-jp">プレミアムプラン</div>
+          <div class="plan-price">¥18,000<span>〜30,000</span></div>
+          <div class="plan-delivery">納期目安：2〜4週間</div>
+          <ul class="plan-features">
+            <li>フルカスタムデザイン</li>
+            <li>アニメーション・エフェクト</li>
+            <li>複数ページ対応</li>
+            <li>ブログ・お知らせ機能</li>
+            <li>SEO基本設定（OGP等）</li>
+            <li>独自ドメイン設定サポート</li>
+            <li>修正5回・1ヶ月サポート</li>
+          </ul>
+        </div>
+      </div>
+      <p class="plan-note">※ サーバー費用は別途0円〜（Vercel＋GitHub利用の場合）<br>月額サポート（更新代行）は ¥1,000〜2,000/月で別途対応可</p>
+    </div>
+  </section>
+
+  <!-- ===== FLOW ===== -->
+  <section class="lp-section flow">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>FLOW</h2>
+        <p>制作の流れ</p>
+      </div>
+      <div class="flow-list">
+        <div class="flow-item fade-in">
+          <div class="flow-step">01</div>
+          <div class="flow-content">
+            <span class="flow-tag client">お客様</span>
+            <h3>ヒアリングシートに記入（5〜10分）</h3>
+            <p>活動名・デザインの好み・載せたい内容などを選択式で回答。「わからない・おまかせ」でもOK。</p>
+          </div>
+        </div>
+        <div class="flow-item fade-in">
+          <div class="flow-step">02</div>
+          <div class="flow-content">
+            <span class="flow-tag maker">こちら</span>
+            <h3>構成・デザイン・費用をご提案（1〜2日）</h3>
+            <p>ヒアリング内容をもとに、ページ構成・デザイン方向性・費用をDMまたはメールでご連絡します。</p>
+          </div>
+        </div>
+        <div class="flow-item fade-in">
+          <div class="flow-step">03</div>
+          <div class="flow-content">
+            <span class="flow-tag client">お客様</span>
+            <h3>ご確認・注文確定</h3>
+            <p>提案内容のご確認・調整。納得いただけたらご注文確定です。</p>
+          </div>
+        </div>
+        <div class="flow-item fade-in">
+          <div class="flow-step">04</div>
+          <div class="flow-content">
+            <span class="flow-tag maker">こちら</span>
+            <h3>制作・デザイン・コーディング</h3>
+            <p>確定後、制作をスタート。希望があれば途中経過のURLをお送りします。</p>
+          </div>
+        </div>
+        <div class="flow-item fade-in">
+          <div class="flow-step">05</div>
+          <div class="flow-content">
+            <span class="flow-tag client">お客様</span>
+            <h3>初稿確認・修正フィードバック</h3>
+            <p>確認用URLをお送りします。スマホ・PCで確認していただき、気になる点をお伝えください。</p>
+          </div>
+        </div>
+        <div class="flow-item fade-in">
+          <div class="flow-step">06</div>
+          <div class="flow-content">
+            <span class="flow-tag maker">こちら</span>
+            <h3>修正対応・本番デプロイ・納品</h3>
+            <p>修正完了後、Vercel本番環境にデプロイ。URLをお渡しして納品完了です。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="lp-section faq">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>FAQ</h2>
+        <p>よくある質問</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">Webやプログラミングの知識がなくても本当に大丈夫ですか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">大丈夫です。ヒアリングシートに答えていただくだけで、こちらがすべて設計・制作します。専門用語は使いません。「わからない・おまかせ」の選択肢もあります。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">サーバー代0円というのは本当ですか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">本当です。Vercel（ホスティング）とGitHub（コード管理）を使うことで月額ゼロで公開できます。ただし独自ドメイン（例：○○.com）を使う場合は年間1,000〜2,000円程度の実費がかかります。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">フォロワーが少なくても依頼できますか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">もちろんです。フォロワー数・活動歴は問いません。「これから本気でやっていきたい」という気持ちがある方を歓迎します。むしろ早めにホームページを持っておくと後で楽になります。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">使いたい画像・素材がない場合は？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">ご用意できる素材だけで大丈夫です。キャラクターイラストや写真がなくてもテキストとフリー素材で対応できます。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">納品後に自分で内容を更新できますか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">コードを直接編集する必要があるため、ある程度のリテラシーが必要です。更新代行が必要な場合は月額サポート（¥1,000〜2,000/月）をご利用ください。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">まず見積もりだけもらえますか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">もちろんです。ヒアリングシートに記入いただければ無料で見積もりをお出しします。依頼しなくてもOKです。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="lp-cta" id="cta">
+    <div class="lp-cta-inner">
+      <h2>まずはヒアリングシートを<br>記入してみてください。</h2>
+      <p>
+        5〜10分で記入できます。<br>
+        記入後1〜2日以内に、構成・デザイン・費用をご提案します。<br>
+        相談だけでも、見積もりだけでも大歓迎です。
+      </p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform" class="btn-primary-lp" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        無料でヒアリングシートを記入する
+      </a>
+      <p class="lp-cta-sub">XのDMからのご相談も歓迎です → <a href="https://x.com/mai1k_master" style="color:var(--orange);text-decoration:none;" target="_blank">@mai1k_master</a></p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="lp-footer">
+    <div class="lp-footer-name">MIKEY MASTER</div>
+    <div class="lp-footer-links">
+      <a href="https://mikey-master.pages.dev" target="_blank">ホームページ</a>
+      <a href="https://x.com/mai1k_master" target="_blank">Twitter / X</a>
+      <a href="https://www.youtube.com/@MikeyMaster" target="_blank">YouTube</a>
+      <a href="https://mikey-master.pages.dev/#commission">HP制作依頼</a>
+    </div>
+    <p class="lp-footer-copy">&copy; 2025 舞鬼法師 / MIKEY MASTER. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // FAQ アコーディオン
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    // スクロールアニメーション
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
