@@ -32,12 +32,13 @@
     /* 立ち絵 */
     #char {
       position:absolute;
-      right:2%; bottom:0;
-      height:96%;
+      right:1%; top:6%;
+      height:116%;
+      max-width:46%; object-fit:contain; object-position:bottom right;
       image-rendering:auto;
       pointer-events:none;
       opacity:0; transition:opacity .4s;
-      filter:drop-shadow(0 0 12px rgba(0,0,0,.5));
+      filter:drop-shadow(0 -2px 14px rgba(0,0,0,.45));
     }
     #char.show { opacity:1; }
     /* ハート */
@@ -200,7 +201,8 @@ function processStanding(img){
   const dat=o.getImageData(0,0,iw,ih), d=dat.data;
   const isBg=(i)=>{const r=d[i*4],g=d[i*4+1],b=d[i*4+2];
     const mx=Math.max(r,g,b),mn=Math.min(r,g,b);
-    return (mx-mn)<42 && mx>150;};   // 薄グレー/白の地のみ
+    // ほぼ無彩色(白/グレー)かつ明るい地のみ。薄青ジーンズ(彩度あり)は除外
+    return (mx-mn)<22 && mx>205;};
   const vis=new Uint8Array(iw*ih), st=[];
   for(let x=0;x<iw;x++){st.push(x,(ih-1)*iw+x);}
   for(let y=0;y<ih;y++){st.push(y*iw,y*iw+iw-1);}
