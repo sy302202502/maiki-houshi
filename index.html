@@ -382,17 +382,77 @@
   </section>
 
   <!-- ===== GAME ===== -->
+  <style>
+    .game-cards {
+      display:grid; grid-template-columns:repeat(2,1fr);
+      gap:24px; max-width:840px; margin:0 auto;
+    }
+    .game-card {
+      display:flex; flex-direction:column;
+      background:#0e0e12; border:1px solid rgba(255,255,255,0.1);
+      border-radius:12px; overflow:hidden; text-decoration:none; color:#fff;
+      transition:transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .game-card:hover { transform:translateY(-6px); }
+    .game-card.action:hover { border-color:#FF6B00; box-shadow:0 12px 30px rgba(255,107,0,.3); }
+    .game-card.love:hover   { border-color:#7aa8ff; box-shadow:0 12px 30px rgba(90,140,255,.3); }
+    .game-card-thumb {
+      aspect-ratio:16/9; background-size:cover; background-position:center;
+      position:relative;
+    }
+    .game-card.action .game-card-thumb {
+      background:radial-gradient(circle at 50% 40%, #2a1500, #0a0a0a 75%);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .game-card.action .game-card-thumb .pix {
+      font-family:'Courier New',monospace; font-weight:bold;
+      font-size:clamp(1.4rem,4vw,2.2rem); color:#FF6B00; letter-spacing:.15em;
+      text-shadow:2px 2px #6a3300, 0 0 18px rgba(255,107,0,.5);
+    }
+    .game-card-body { padding:18px 20px 22px; display:flex; flex-direction:column; gap:8px; }
+    .game-card-tag {
+      align-self:flex-start; font-size:.68rem; letter-spacing:.2em;
+      padding:3px 12px; border-radius:4px; font-weight:bold;
+    }
+    .game-card.action .game-card-tag { background:#FF6B00; color:#000; }
+    .game-card.love   .game-card-tag { background:#7aa8ff; color:#000; }
+    .game-card-body h3 { font-size:1.15rem; letter-spacing:.08em; margin:0; }
+    .game-card-body p { font-size:.82rem; color:rgba(255,255,255,.55); line-height:1.7; margin:0; }
+    .game-card-btn {
+      align-self:flex-start; margin-top:6px; font-size:.82rem; letter-spacing:.15em;
+      padding:7px 22px; border-radius:6px; border:1px solid currentColor;
+    }
+    .game-card.action .game-card-btn { color:#FF6B00; }
+    .game-card.love   .game-card-btn { color:#7aa8ff; }
+    @media screen and (max-width:680px) {
+      .game-cards { grid-template-columns:1fr; gap:18px; }
+    }
+  </style>
   <section id="game" class="section">
     <div class="section-inner">
       <div class="section-title-wrap">
         <h2 class="section-title">GAME</h2>
         <span class="section-title-jp">ミニゲーム</span>
       </div>
-      <p style="text-align:center; color: rgba(255,255,255,0.55); font-size:0.9rem; margin-bottom:20px; letter-spacing:0.1em;">
-        スペース / タップ でジャンプ &nbsp;|&nbsp; 二段ジャンプあり &nbsp;|&nbsp; スコアが上がるほど難しくなるぞ！
-      </p>
-      <div style="max-width:700px; margin:0 auto; border:2px solid #FF6B00; border-radius:6px; overflow:hidden; box-shadow:0 0 30px rgba(255,107,0,0.3);">
-        <iframe src="game.html" width="100%" height="300" style="display:block; border:none;" title="鬼の道中" scrolling="no"></iframe>
+      <div class="game-cards">
+        <a class="game-card action" href="game.html">
+          <div class="game-card-thumb"><span class="pix">鬼の道中</span></div>
+          <div class="game-card-body">
+            <span class="game-card-tag">ACTION</span>
+            <h3>鬼の道中</h3>
+            <p>走って障害物を飛び越えろ！スコアが上がるほど加速する横スクロールアクション。二段ジャンプあり。</p>
+            <span class="game-card-btn">▶ PLAY</span>
+          </div>
+        </a>
+        <a class="game-card love" href="love-game.html">
+          <div class="game-card-thumb" style="background-image:url('assets/images/vn-title.png')"></div>
+          <div class="game-card-body">
+            <span class="game-card-tag">ROMANCE</span>
+            <h3>競馬場の鬼</h3>
+            <p>馬券売り場で出会った、涼しげな彼。選択次第で変わる、ふたつの結末。恋愛ノベルゲーム。</p>
+            <span class="game-card-btn">▶ PLAY</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
