@@ -199,21 +199,41 @@ function processStanding(img){
   const o=off.getContext('2d');
   o.drawImage(img,0,0);
   const dat=o.getImageData(0,0,iw,ih), d=dat.data;
-  const isBg=(i)=>{const r=d[i*4],g=d[i*4+1],b=d[i*4+2];
-    const mx=Math.max(r,g,b),mn=Math.min(r,g,b);
-    // ほぼ無彩色(白/グレー)かつ明るい地のみ。薄青ジーンズ(彩度あり)は除外
-    return (mx-mn)<22 && mx>205;};
-  const vis=new Uint8Array(iw*ih), st=[];
-  for(let x=0;x<iw;x++){st.push(x,(ih-1)*iw+x);}
-  for(let y=0;y<ih;y++){st.push(y*iw,y*iw+iw-1);}
-  while(st.length){
-    const idx=st.pop();
-    if(idx<0||idx>=iw*ih||vis[idx])continue;
-    vis[idx]=1; if(!isBg(idx))continue;
-    d[idx*4+3]=0;
-    const x=idx%iw,y=(idx/iw)|0;
-    if(x>0)st.push(idx-1); if(x<iw-1)st.push(idx+1);
-    if(y>0)st.push(idx-iw); if(y<ih-1)st.push(idx+iw);
+
+  // 四隅をサンプリングして背景タイプを自動判別
+  const corner=(cx,cy)=>{const i=(cy*iw+cx)*4;return [d[i],d[i+1],d[i+2]];};
+  const cs=[corner(2,2),corner(iw-3,2),corner(2,ih-3),corner(iw-3,ih-3)];
+  const avg=cs.reduce((a,c)=>[a[0]+c[0],a[1]+c[1],a[2]+c[2]],[0,0,0]).map(v=>v/4);
+  const greenBg = avg[1] > avg[0]+40 && avg[1] > avg[2]+40;   // 緑背景か
+
+  if(greenBg){
+    // ── グリーンバック：緑だけを全面除去（髪・白服を完全保持）──
+    for(let i=0;i<iw*ih;i++){
+      const r=d[i*4],g=d[i*4+1],b=d[i*4+2];
+      if(g>r+25 && g>b+25 && g>80){
+        d[i*4+3]=0;
+        // 緑スピル抑制：縁の緑かぶりを中和
+        const m=Math.max(r,b);
+        d[i*4+1]=Math.min(g,m);
+      }
+    }
+  } else {
+    // ── 白/グレー背景：縁から flood fill（髪が同色だと透ける場合あり）──
+    const isBg=(i)=>{const r=d[i*4],g=d[i*4+1],b=d[i*4+2];
+      const mx=Math.max(r,g,b),mn=Math.min(r,g,b);
+      return (mx-mn)<22 && mx>205;};
+    const vis=new Uint8Array(iw*ih), st=[];
+    for(let x=0;x<iw;x++){st.push(x,(ih-1)*iw+x);}
+    for(let y=0;y<ih;y++){st.push(y*iw,y*iw+iw-1);}
+    while(st.length){
+      const idx=st.pop();
+      if(idx<0||idx>=iw*ih||vis[idx])continue;
+      vis[idx]=1; if(!isBg(idx))continue;
+      d[idx*4+3]=0;
+      const x=idx%iw,y=(idx/iw)|0;
+      if(x>0)st.push(idx-1); if(x<iw-1)st.push(idx+1);
+      if(y>0)st.push(idx-iw); if(y<ih-1)st.push(idx+iw);
+    }
   }
   o.putImageData(dat,0,0);
   let minX=iw,minY=ih,maxX=0,maxY=0;
