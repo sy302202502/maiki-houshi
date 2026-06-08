@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>競馬場の鬼</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      background:#000;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      min-height:100vh;
+      font-family:'Hiragino Mincho ProN','Yu Mincho',serif;
+      color:#fff; touch-action:manipulation;
+      user-select:none; -webkit-user-select:none;
+    }
+    #vn {
+      position:relative;
+      width:min(900px,100vw);
+      aspect-ratio:16/9;
+      overflow:hidden;
+      background:#000; cursor:pointer;
+    }
+    /* 背景 */
+    #bg {
+      position:absolute; inset:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      transition:opacity .5s;
+    }
+    /* 立ち絵 */
+    #char {
+      position:absolute;
+      right:2%; bottom:0;
+      height:96%;
+      image-rendering:auto;
+      pointer-events:none;
+      opacity:0; transition:opacity .4s;
+      filter:drop-shadow(0 0 12px rgba(0,0,0,.5));
+    }
+    #char.show { opacity:1; }
+    /* ハート */
+    #hearts {
+      position:absolute; top:14px; right:16px;
+      display:flex; gap:6px; z-index:20;
+    }
+    .heart { font-size:clamp(1rem,2.6vw,1.4rem); color:rgba(255,255,255,.25);
+      text-shadow:0 1px 3px rgba(0,0,0,.8); transition:color .4s,transform .3s; }
+    .heart.on { color:#ff5a7a; transform:scale(1.25); }
+    /* メッセージ窓 */
+    #textbox {
+      position:absolute; left:3%; right:3%; bottom:3.5%;
+      min-height:24%;
+      background:rgba(8,10,20,.82);
+      border:1px solid rgba(120,160,255,.45);
+      border-radius:10px;
+      padding:clamp(10px,2%,18px) clamp(16px,3%,28px) clamp(10px,2%,16px);
+      backdrop-filter:blur(3px);
+      z-index:10;
+    }
+    #speaker {
+      display:inline-block;
+      font-size:clamp(.8rem,2.1vw,1rem);
+      letter-spacing:.1em; margin-bottom:8px;
+      padding:3px 16px; border-radius:4px;
+      background:linear-gradient(135deg,#3a6ad8,#5a9be8); color:#fff;
+      box-shadow:0 2px 8px rgba(0,40,120,.4);
+    }
+    #speaker.narr { background:transparent; color:rgba(200,220,255,.5);
+      padding:0; font-size:clamp(.7rem,1.8vw,.85rem); }
+    #text {
+      font-size:clamp(.82rem,2.3vw,1.08rem);
+      line-height:1.95; color:#f0f4ff;
+      min-height:3.4em; text-shadow:0 1px 4px rgba(0,0,0,.6);
+    }
+    #hint {
+      position:absolute; bottom:10px; right:18px;
+      font-size:clamp(.6rem,1.7vw,.75rem); color:rgba(140,180,255,.7);
+      animation:blink 1.3s infinite;
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+    /* 選択肢 */
+    #choices {
+      position:absolute; left:0; right:0; top:34%;
+      display:flex; flex-direction:column; gap:clamp(7px,1.4%,11px);
+      align-items:center;
+      padding:0 clamp(30px,8%,90px);
+      opacity:0; pointer-events:none; transition:opacity .35s; z-index:15;
+    }
+    #choices.show { opacity:1; pointer-events:all; }
+    .cbtn {
+      width:100%;
+      background:rgba(10,14,28,.88);
+      border:1px solid rgba(120,160,255,.5);
+      color:#eef3ff;
+      padding:clamp(9px,1.7%,14px) clamp(14px,3%,24px);
+      border-radius:8px;
+      font-family:inherit; font-size:clamp(.78rem,2.1vw,.98rem);
+      text-align:center; cursor:pointer; letter-spacing:.03em;
+      backdrop-filter:blur(2px);
+      transition:background .2s,border-color .2s,transform .15s;
+    }
+    .cbtn:hover { background:rgba(60,110,230,.35); border-color:#8fc0ff;
+      transform:translateY(-2px); }
+    /* タイトル */
+    #title {
+      position:absolute; inset:0;
+      background:url('assets/images/vn-title.png') center/cover no-repeat, #0a0e1a;
+      display:flex; flex-direction:column;
+      align-items:flex-start; justify-content:flex-end;
+      padding:0 0 6% 7%;
+      z-index:100;
+    }
+    #start-btn {
+      background:rgba(10,20,45,.7);
+      border:2px solid #8fc0ff; color:#fff;
+      padding:clamp(10px,1.8%,14px) clamp(30px,6%,52px);
+      border-radius:8px;
+      font-family:inherit; font-size:clamp(.85rem,2.2vw,1.05rem);
+      letter-spacing:.3em; cursor:pointer; backdrop-filter:blur(3px);
+      transition:background .25s,box-shadow .25s;
+      box-shadow:0 0 20px rgba(80,140,255,.3);
+    }
+    #start-btn:hover { background:rgba(60,110,230,.6); box-shadow:0 0 30px rgba(120,170,255,.6); }
+    /* エンディング */
+    #ending {
+      position:absolute; inset:0;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      background:rgba(0,0,0,.55);
+      z-index:60; opacity:0; pointer-events:none; transition:opacity 1.2s;
+    }
+    #ending.show { opacity:1; pointer-events:all; }
+    #end-title { font-size:clamp(1.1rem,3.4vw,1.7rem); letter-spacing:.35em; margin-bottom:16px;
+      text-shadow:0 2px 10px rgba(0,0,0,.9); }
+    #end-text { font-size:clamp(.74rem,2vw,.96rem); color:#eef3ff; text-align:center;
+      line-height:2.2; max-width:78%; margin-bottom:14px; text-shadow:0 1px 6px rgba(0,0,0,.9);
+      background:rgba(8,10,20,.5); padding:18px 24px; border-radius:10px; }
+    #end-label { font-size:clamp(.82rem,2.2vw,1.05rem); letter-spacing:.2em; margin-bottom:24px;
+      text-shadow:0 1px 6px rgba(0,0,0,.9); }
+    #retry-btn {
+      background:rgba(10,20,45,.7); border:1px solid #8fc0ff; color:#fff;
+      padding:9px 30px; border-radius:8px; font-family:inherit;
+      font-size:clamp(.7rem,1.9vw,.88rem); letter-spacing:.15em; cursor:pointer;
+    }
+    #retry-btn:hover { background:rgba(60,110,230,.5); }
+  </style>
+</head>
+<body>
+<div id="vn">
+  <img id="bg" alt="">
+  <canvas id="char" width="800" height="1200"></canvas>
+
+  <div id="hearts">
+    <span class="heart" id="h1">♡</span>
+    <span class="heart" id="h2">♡</span>
+    <span class="heart" id="h3">♡</span>
+  </div>
+
+  <div id="choices">
+    <button class="cbtn" id="c0"></button>
+    <button class="cbtn" id="c1"></button>
+    <button class="cbtn" id="c2"></button>
+  </div>
+
+  <div id="textbox">
+    <div id="speaker" class="narr">──</div>
+    <div id="text"></div>
+    <span id="hint">▼ クリック</span>
+  </div>
+
+  <div id="title">
+    <button id="start-btn" onclick="startGame()">START ▶</button>
+  </div>
+
+  <div id="ending">
+    <div id="end-title"></div>
+    <div id="end-text"></div>
+    <div id="end-label"></div>
+    <button id="retry-btn" onclick="retry()">もう一度</button>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────
+//  立ち絵ローダー（薄背景を自動透明化・キャッシュ）
+//  ファイルが無ければキャラ非表示で続行
+// ─────────────────────────────────────────
+const charCache = {};   // key: expr → {canvas,bbox} or 'missing'
+const charCv = document.getElementById('char');
+const charCtx = charCv.getContext('2d');
+
+function processStanding(img){
+  const iw=img.naturalWidth, ih=img.naturalHeight;
+  const off=document.createElement('canvas');
+  off.width=iw; off.height=ih;
+  const o=off.getContext('2d');
+  o.drawImage(img,0,0);
+  const dat=o.getImageData(0,0,iw,ih), d=dat.data;
+  const isBg=(i)=>{const r=d[i*4],g=d[i*4+1],b=d[i*4+2];
+    const mx=Math.max(r,g,b),mn=Math.min(r,g,b);
+    return (mx-mn)<42 && mx>150;};   // 薄グレー/白の地のみ
+  const vis=new Uint8Array(iw*ih), st=[];
+  for(let x=0;x<iw;x++){st.push(x,(ih-1)*iw+x);}
+  for(let y=0;y<ih;y++){st.push(y*iw,y*iw+iw-1);}
+  while(st.length){
+    const idx=st.pop();
+    if(idx<0||idx>=iw*ih||vis[idx])continue;
+    vis[idx]=1; if(!isBg(idx))continue;
+    d[idx*4+3]=0;
+    const x=idx%iw,y=(idx/iw)|0;
+    if(x>0)st.push(idx-1); if(x<iw-1)st.push(idx+1);
+    if(y>0)st.push(idx-iw); if(y<ih-1)st.push(idx+iw);
+  }
+  o.putImageData(dat,0,0);
+  let minX=iw,minY=ih,maxX=0,maxY=0;
+  for(let y=0;y<ih;y++)for(let x=0;x<iw;x++){
+    if(d[(y*iw+x)*4+3]>40){if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;}
+  }
+  return {canvas:off, bbox:{x:minX,y:minY,w:Math.max(1,maxX-minX),h:Math.max(1,maxY-minY)}};
+}
+
+function setExpression(expr){
+  if(!expr || expr==='none'){ charCv.classList.remove('show'); return; }
+  const key=expr;
+  const draw=(entry)=>{
+    if(entry==='missing'){ charCv.classList.remove('show'); return; }
+    const {canvas,bbox}=entry;
+    // キャンバスを立ち絵の縦横比に合わせる
+    const ar=bbox.w/bbox.h;
+    charCv.width=Math.round(600*ar); charCv.height=600;
+    charCtx.clearRect(0,0,charCv.width,charCv.height);
+    charCtx.imageSmoothingEnabled=true;
+    charCtx.drawImage(canvas,bbox.x,bbox.y,bbox.w,bbox.h,0,0,charCv.width,charCv.height);
+    charCv.classList.add('show');
+  };
+  if(charCache[key]){ draw(charCache[key]); return; }
+  const img=new Image();
+  img.onload=()=>{ charCache[key]=processStanding(img); draw(charCache[key]); };
+  img.onerror=()=>{ charCache[key]='missing'; draw('missing'); };
+  img.src='assets/images/vn-char-'+key+'.png';
+}
+
+// ─────────────────────────────────────────
+//  背景
+// ─────────────────────────────────────────
+const bgEl=document.getElementById('bg');
+const BG_MAP={ tickets:'vn-bg-counter', stand:'vn-bg-stand', dusk:'vn-bg-dusk' };
+let curBgName=null;
+function setBg(name){
+  const file=BG_MAP[name]; if(!file||curBgName===name)return;
+  curBgName=name; bgEl.src='assets/images/'+file+'.png';
+}
+
+// ─────────────────────────────────────────
+//  シナリオ（char: normal / blush / smile / surprised / none）
+// ─────────────────────────────────────────
+const NODES = {
+  start:{type:'narration', bg:'tickets', char:'none',
+    text:'ウインズの窓口に長い列ができていた。\n第3レースの馬券を買おうと並んでいると、\n隣に涼しげな雰囲気の男が立っていた。', next:'n1'},
+  n1:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'……チッ。混んでんな。', next:'n2'},
+  n2:{type:'narration', char:'normal',
+    text:'思わず、声をかけてしまった。', next:'q1'},
+  q1:{type:'choice', choices:[
+    {text:'競馬、お好きなんですか？', aff:1, next:'r1a'},
+    {text:'えっと…邪魔でしたか？すみません', aff:0, next:'r1b'},
+    {text:'今日のおすすめ馬、教えてもらえますか？', aff:1, next:'r1c'},
+  ]},
+  r1a:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'あ？　……まあな。\n珍しいな、女で競馬か。\n7レース、サクラノキセキ。買ってみろ。', next:'s2'},
+  r1b:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'…………（無言で前を向く）', next:'r1b2'},
+  r1b2:{type:'narration', char:'normal',
+    text:'気まずい沈黙。彼は何も言わなかった。', next:'s2'},
+  r1c:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'は？　なんで俺が……\n（ため息）\n……7レース、サクラノキセキ。それだけだ。', next:'s2'},
+
+  s2:{type:'narration', bg:'stand', char:'none',
+    text:'気がついたら、一緒にスタンドでレースを\n観ていた。', next:'s2b'},
+  s2b:{type:'narration', char:'none',
+    text:'第7レース、スタート──！\nサクラノキセキが第4コーナーを回り、\n先頭に躍り出た──！', next:'s2c'},
+  s2c:{type:'dialogue', speaker:'舞鬼', char:'surprised',
+    text:'……来い。来い来い来い……っ、よし！', next:'s2d'},
+  s2d:{type:'narration', char:'smile',
+    text:'サクラノキセキ、1着。\n男が珍しく声を上げた。\n横顔を見ると、少しだけ笑っていた。', next:'q2'},
+  q2:{type:'choice', choices:[
+    {text:'すごい！予想通りでしたね！', aff:1, next:'r2a'},
+    {text:'私も買っておけばよかった…', aff:0, next:'r2b'},
+    {text:'あなたの予想、本物ですね', aff:1, next:'r2c'},
+  ]},
+  r2a:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'……当たり前だ。\n（ふいと目をそらして）\n……今日は、調子が良かっただけだ。', next:'s3'},
+  r2b:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'……（何も言わず馬券を財布にしまう）', next:'s3'},
+  r2c:{type:'dialogue', speaker:'舞鬼', char:'blush',
+    text:'…………っ、\n（小さく咳払いして）\n……当然だ。', next:'s3'},
+
+  s3:{type:'narration', bg:'dusk', char:'none',
+    text:'レースが終わり、出口へ向かう頃には\n夕方になっていた。', next:'s3b'},
+  s3b:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'……お前、また来るのか。ここに。', next:'q3'},
+  q3:{type:'choice', choices:[
+    {text:'はい、来週も来るつもりです', aff:1, next:'r3a'},
+    {text:'気分次第ですかね…', aff:0, next:'r3b'},
+    {text:'あなたがいるなら、来ます', aff:1, next:'r3c'},
+  ]},
+  r3a:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'……そうか。\n（少し間を置いて）\n来週の第11レースも押さえとけ。', next:'end_calc'},
+  r3b:{type:'dialogue', speaker:'舞鬼', char:'normal',
+    text:'……ふん。\nまあ、来たいなら来ればいい。', next:'end_calc'},
+  r3c:{type:'dialogue', speaker:'舞鬼', char:'blush',
+    text:'──っ、\n（顔を背けて）\n…………好きにしろ。', next:'end_calc'},
+  end_calc:{type:'end_calc'},
+};
+
+// ─────────────────────────────────────────
+//  エンジン
+// ─────────────────────────────────────────
+let aff=0, cur='start', waiting=false, typing=false, fullTxt='', typTimer=null;
+
+function updateHearts(){
+  for(let i=1;i<=3;i++){const h=document.getElementById('h'+i);
+    const on=aff>=i; h.classList.toggle('on',on); h.textContent=on?'♥':'♡';}
+}
+function showTxt(t){
+  clearTimeout(typTimer); fullTxt=t; typing=true;
+  document.getElementById('hint').style.visibility='hidden';
+  document.getElementById('text').innerHTML='';
+  let i=0;
+  (function step(){
+    if(i<fullTxt.length){ i++;
+      document.getElementById('text').innerHTML=fullTxt.slice(0,i).replace(/\n/g,'<br>');
+      typTimer=setTimeout(step,40);
+    } else { typing=false; document.getElementById('hint').style.visibility='visible'; }
+  })();
+}
+function skipTxt(){
+  clearTimeout(typTimer);
+  document.getElementById('text').innerHTML=fullTxt.replace(/\n/g,'<br>');
+  typing=false; document.getElementById('hint').style.visibility='visible';
+}
+function go(id){
+  cur=id; const n=NODES[id]; if(!n)return;
+  document.getElementById('choices').classList.remove('show');
+  if(n.bg) setBg(n.bg);
+  if(n.char!==undefined) setExpression(n.char);
+
+  if(n.type==='narration'||n.type==='dialogue'){
+    const sp=document.getElementById('speaker');
+    if(n.type==='dialogue'){ sp.textContent=n.speaker; sp.className=''; }
+    else { sp.textContent='──'; sp.className='narr'; }
+    showTxt(n.text); waiting=true;
+  } else if(n.type==='choice'){
+    document.getElementById('hint').style.visibility='hidden';
+    document.getElementById('text').innerHTML='';
+    const sp=document.getElementById('speaker'); sp.textContent='選択してください'; sp.className='narr';
+    const box=document.getElementById('choices');
+    n.choices.forEach((ch,i)=>{
+      const b=document.getElementById('c'+i);
+      b.textContent=ch.text; b.style.display='block';
+      b.onclick=(e)=>{ e.stopPropagation(); aff+=ch.aff; updateHearts();
+        box.classList.remove('show'); go(ch.next); };
+    });
+    for(let i=n.choices.length;i<3;i++) document.getElementById('c'+i).style.display='none';
+    setTimeout(()=>box.classList.add('show'),80); waiting=false;
+  } else if(n.type==='end_calc'){ showEnding(); }
+}
+function advance(){
+  if(!waiting)return;
+  if(typing){ skipTxt(); return; }
+  waiting=false; const n=NODES[cur];
+  if(n&&n.next) go(n.next);
+}
+function showEnding(){
+  const scr=document.getElementById('ending');
+  const ttl=document.getElementById('end-title');
+  const txt=document.getElementById('end-text');
+  const lbl=document.getElementById('end-label');
+  setBg('dusk');
+  if(aff>=2){
+    setExpression('blush');
+    ttl.textContent='GOOD END'; ttl.style.color='#ff7a9a';
+    txt.innerHTML='「……来週、第11レースに穴馬がいる。」<br><br>不器用な誘い方だったけど、<br>それが彼なりの言葉だとわかった。<br>夕日に染まった横顔が、ずっと頭に残った。<br><br>「……悪くなかった、今日。」';
+    lbl.textContent='♥ また来週 END ♥'; lbl.style.color='#ff7a9a';
+  } else {
+    setExpression('normal');
+    ttl.textContent='NORMAL END'; ttl.style.color='rgba(220,230,255,.7)';
+    txt.innerHTML='「……まあ、競馬は面白いだろ。また来い。」<br><br>それだけ言って、彼は人混みに消えた。<br>また会えるかな、と思いながら、<br>私は外れ馬券を握りしめた。';
+    lbl.textContent='「また来い」 END'; lbl.style.color='rgba(220,230,255,.6)';
+  }
+  setTimeout(()=>scr.classList.add('show'),500);
+}
+function startGame(){
+  document.getElementById('title').style.display='none';
+  aff=0; updateHearts(); go('start');
+}
+function retry(){
+  document.getElementById('ending').classList.remove('show');
+  aff=0; updateHearts(); setTimeout(()=>go('start'),350);
+}
+
+const vn=document.getElementById('vn');
+vn.addEventListener('click', advance);
+vn.addEventListener('touchend', e=>{ if(e.target.closest('.cbtn')||e.target.closest('button'))return;
+  e.preventDefault(); advance(); }, {passive:false});
+
+// 背景を先読み
+['vn-bg-counter','vn-bg-stand','vn-bg-dusk'].forEach(f=>{ const i=new Image(); i.src='assets/images/'+f+'.png'; });
+</script>
+</body>
+</html>
