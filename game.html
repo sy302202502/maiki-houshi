@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鬼の道中</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Courier New', monospace;
+      color: #fff;
+      image-rendering: pixelated;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #gameWrapper {
+      position: relative;
+      image-rendering: pixelated;
+      width: min(700px, 100vw);
+    }
+    canvas {
+      display: block;
+      image-rendering: pixelated;
+      width: 100%;
+      height: auto;
+    }
+    #ui {
+      display: flex;
+      justify-content: space-between;
+      width: min(700px, 100vw);
+      margin-top: 6px;
+      padding: 0 4px;
+      font-size: clamp(0.65rem, 2.5vw, 0.85rem);
+    }
+    .ui-score { color: #FF6B00; }
+    .ui-hint  { color: #ADFF2F; font-size: clamp(0.55rem, 2vw, 0.72rem); }
+  </style>
+</head>
+<body>
+  <div id="gameWrapper">
+    <canvas id="gameCanvas" width="700" height="260"></canvas>
+  </div>
+  <div id="ui">
+    <div class="ui-score">SCORE: <span id="score">0</span></div>
+    <div class="ui-hint">SPACE / TAP = JUMP &nbsp;|&nbsp; 二段ジャンプあり</div>
+    <div class="ui-score">BEST: <span id="best">0</span></div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    const W = canvas.width, H = canvas.height;
+    const GROUND = H - 48;
+    const S = 3; // pixel scale
+
+    // ── カラーパレット（HP準拠）─────────────────────
+    const C = {
+      _: null,
+      W: '#e8e8f0', w: '#b8b8cc',       // 白銀髪
+      S: '#1a1a2e',                       // 輪郭
+      K: '#1a0828', k: '#2a1040',         // 黒着物
+      G: '#FF6B00', g: '#cc4400',         // オレンジ（金→オレンジに変更）
+      P: '#ADFF2F', p: '#7DCB00',         // グリーン（紫→グリーンに変更）
+      F: '#f5c8a0', f: '#e0a880',         // 肌
+      E: '#FF6B00',                       // 目（オレンジ）
+      H: '#1a1428',                       // 角
+      R: '#e87050',                       // 頬紅
+      O: '#ffffff', o: '#d8d8e8',         // 羽織
+      B: '#2a1818',                       // 黒手袋
+    };
+
+    const SPRITE_IDLE = [
+      '_,_,_,_,_,H,W,W,W,W,H,_,_,_,_,_',
+      '_,_,_,H,W,W,W,W,W,W,W,W,H,_,_,_',
+      '_,_,H,W,W,W,w,W,W,w,W,W,W,H,_,_',
+      '_,_,W,W,W,W,W,W,W,W,W,W,W,W,_,_',
+      '_,_,W,W,F,F,W,W,W,W,F,F,W,W,_,_',
+      '_,_,W,W,F,E,F,W,W,F,f,F,W,W,_,_',
+      '_,_,w,W,R,F,F,F,F,F,F,R,W,w,_,_',
+      '_,_,_,W,W,F,F,F,F,F,F,W,W,_,_,_',
+      '_,_,_,W,W,W,W,W,W,W,W,W,W,_,_,_',
+      '_,O,O,O,K,K,K,K,K,K,K,K,O,O,O,_',
+      'O,O,o,K,G,K,K,P,K,K,G,K,K,o,O,O',
+      'O,o,K,K,K,G,K,K,K,G,K,K,K,K,o,O',
+      'O,o,K,K,K,K,K,K,K,K,K,K,K,K,o,O',
+      'O,o,K,B,K,K,K,K,K,K,K,B,K,K,o,O',
+      'O,o,K,B,G,K,K,K,K,K,G,B,K,K,o,O',
+      'O,o,K,K,K,K,K,K,K,K,K,K,K,K,o,O',
+      '_,O,K,K,P,K,K,K,K,K,P,K,K,O,O,_',
+      '_,_,O,K,K,K,K,K,K,K,K,K,O,_,_,_',
+      '_,_,O,K,K,G,K,K,K,G,K,K,O,_,_,_',
+      '_,_,O,K,K,K,K,K,K,K,K,K,O,_,_,_',
+      '_,_,_,O,K,K,K,K,K,K,K,O,_,_,_,_',
+      '_,_,_,O,K,K,K,K,K,K,K,O,_,_,_,_',
+      '_,_,_,_,S,S,_,_,_,_,S,S,_,_,_,_',
+      '_,_,_,_,S,S,_,_,_,_,S,S,_,_,_,_',
+    ];
+    const SPRITE_JUMP = [
+      '_,_,_,_,_,H,W,W,W,W,H,_,_,_,_,_',
+      '_,_,_,H,W,W,W,W,W,W,W,W,H,_,_,_',
+      '_,_,H,W,W,W,w,W,W,w,W,W,W,H,_,_',
+      '_,_,W,W,W,W,W,W,W,W,W,W,W,W,_,_',
+      '_,_,W,W,F,F,W,W,W,W,F,F,W,W,_,_',
+      '_,_,W,W,F,E,F,W,W,F,f,F,W,W,_,_',
+      '_,_,w,W,R,F,F,F,F,F,F,R,W,w,_,_',
+      '_,_,_,W,W,F,F,F,F,F,F,W,W,_,_,_',
+      '_,_,_,W,W,W,W,W,W,W,W,W,W,_,_,_',
+      '_,O,O,O,K,K,K,K,K,K,K,K,O,O,O,_',
+      'O,O,o,K,G,K,K,P,K,K,G,K,K,o,O,O',
+      'O,o,K,K,K,G,K,K,K,G,K,K,K,K,o,O',
+      'O,o,K,K,K,K,K,K,K,K,K,K,K,K,o,O',
+      'O,o,K,B,K,K,K,K,K,K,K,B,K,K,o,O',
+      'O,o,K,B,G,K,K,K,K,K,G,B,K,K,o,O',
+      'O,o,K,K,K,K,K,K,K,K,K,K,K,K,o,O',
+      '_,O,K,K,P,K,K,K,K,K,P,K,K,O,O,_',
+      '_,_,O,K,K,K,K,K,K,K,K,K,O,_,_,_',
+      '_,_,O,K,K,G,K,K,K,G,K,K,O,_,_,_',
+      '_,_,_,O,K,K,K,K,K,K,K,O,_,_,_,_',
+      '_,_,_,_,_,O,K,K,K,O,_,_,_,_,_,_',
+      '_,_,_,_,S,S,_,_,_,_,S,S,_,_,_,_',
+      '_,_,_,S,S,_,_,_,_,_,_,S,S,_,_,_',
+      '_,_,_,_,_,_,_,_,_,_,_,_,_,_,_,_',
+    ];
+    function parseSprite(rows) {
+      return rows.map(r => r.split(',').map(k => C[k] ?? null));
+    }
+    const sprIdle = parseSprite(SPRITE_IDLE);
+    const sprJump = parseSprite(SPRITE_JUMP);
+    function drawSprite(spr, px, py) {
+      spr.forEach((row, ry) => row.forEach((col, rx) => {
+        if (!col) return;
+        ctx.fillStyle = col;
+        ctx.fillRect(Math.floor(px + rx * S), Math.floor(py + ry * S), S, S);
+      }));
+    }
+
+    // ── 障害物ドット絵 ──────────────────────────────
+    const OBS_TORII = [
+      'S,G,G,G,G,G,G,G,G,G,G,S',
+      'S,G,g,g,g,g,g,g,g,g,G,S',
+      'S,S,S,S,S,S,S,S,S,S,S,S',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,G,G,_,_,G,G,S,_,_',
+      '_,_,S,S,S,_,_,S,S,S,_,_',
+    ].map(r => r.split(',').map(k => C[k] ?? null));
+
+    const OBS_ROCK = [
+      '_,_,S,S,S,S,S,S,_,_',
+      '_,S,S,a,a,a,a,S,S,_',
+      'S,S,a,a,a,a,a,a,S,S',
+      'S,a,a,S,a,a,S,a,a,S',
+      'S,a,a,a,a,a,a,a,a,S',
+      'S,S,a,a,a,a,a,S,S,_',
+      '_,S,S,S,S,S,S,S,_,_',
+      '_,_,S,S,S,S,S,_,_,_',
+    ].map(r => r.split(',').map(k => k==='a'?'#557755':k==='S'?'#1a1a2e':null));
+
+    const OBS_CANDLE = [
+      '_,_,P,P,P,P,_,_',
+      '_,P,G,G,G,G,P,_',
+      '_,P,G,g,g,G,P,_',
+      '_,P,G,G,G,G,P,_',
+      '_,_,P,G,G,P,_,_',
+      '_,_,_,P,P,_,_,_',
+      '_,_,_,P,P,_,_,_',
+      '_,_,_,P,P,_,_,_',
+      '_,_,_,P,P,_,_,_',
+      '_,_,_,P,P,_,_,_',
+      '_,_,_,P,P,_,_,_',
+      'P,P,P,P,P,P,P,P',
+      'P,G,G,G,G,G,G,P',
+      'S,S,S,S,S,S,S,S',
+    ].map(r => r.split(',').map(k => C[k] ?? null));
+
+    // 高い壁（後半登場）
+    const OBS_WALL = [
+      'S,G,G,G,S',
+      'S,G,g,G,S',
+      'S,G,G,G,S',
+      'S,G,g,G,S',
+      'S,G,G,G,S',
+      'S,G,g,G,S',
+      'S,G,G,G,S',
+      'S,G,g,G,S',
+      'S,G,G,G,S',
+      'S,G,g,G,S',
+      'S,G,G,G,S',
+      'S,G,g,G,S',
+      'S,G,G,G,S',
+      'S,S,S,S,S',
+    ].map(r => r.split(',').map(k => C[k] ?? null));
+
+    const OBS_DEFS = [
+      { sprite: OBS_TORII,  cols: 12, rows: 16, hitW: 10, hitH: 16, minScore: 0   },
+      { sprite: OBS_ROCK,   cols: 10, rows: 8,  hitW: 8,  hitH: 8,  minScore: 0   },
+      { sprite: OBS_CANDLE, cols: 8,  rows: 14, hitW: 6,  hitH: 14, minScore: 0   },
+      { sprite: OBS_WALL,   cols: 5,  rows: 14, hitW: 4,  hitH: 14, minScore: 300 },
+    ];
+
+    // ── 状態 ─────────────────────────────────────
+    let state = 'title';
+    let score = 0, bestScore = 0, frame = 0;
+
+    // ── 難易度計算（スムーズに上昇）─────────────────
+    function getSpeed() {
+      // score 0→100: 4→5, 100→300: 5→7, 300→600: 7→9, 600+: 9→12（上限）
+      if (score < 100)  return 4 + score / 100;
+      if (score < 300)  return 5 + (score - 100) / 100;
+      if (score < 600)  return 7 + (score - 300) / 150;
+      return Math.min(12, 9 + (score - 600) / 300);
+    }
+    function getObsInterval() {
+      // score 0→500: 95→48フレーム
+      return Math.max(48, Math.floor(95 - score / 10));
+    }
+
+    // ── キャラクター ──────────────────────────────
+    const CHAR_W = 16 * S, CHAR_H = 24 * S;
+    const player = {
+      x: 100, _y: GROUND,
+      vy: 0, jumping: false, doubleJumped: false,
+      update() {
+        if (this.jumping) {
+          this.vy += 0.55;
+          this._y += this.vy;
+          if (this._y >= GROUND) {
+            this._y = GROUND; this.vy = 0;
+            this.jumping = false; this.doubleJumped = false;
+          }
+        }
+      },
+      jump() {
+        if (!this.jumping)       { this.vy = -13; this.jumping = true; }
+        else if (!this.doubleJumped) { this.vy = -11; this.doubleJumped = true; }
+      },
+      draw() {
+        const spr = this.jumping ? sprJump : sprIdle;
+        drawSprite(spr, this.x - CHAR_W / 2, this._y - CHAR_H);
+        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        ctx.fillRect(this.x - CHAR_W / 2 + 6, GROUND + 2, CHAR_W - 12, 4);
+      },
+      getRect() {
+        const m = S * 2;
+        return { x: this.x - CHAR_W/2 + m, y: this._y - CHAR_H + m, w: CHAR_W - m*2, h: CHAR_H - m };
+      }
+    };
+
+    // ── 障害物 ────────────────────────────────────
+    const obstacles = [];
+    let obsTimer = 0;
+
+    function spawnObstacle() {
+      const available = OBS_DEFS.filter(d => score >= d.minScore);
+      const def = available[Math.floor(Math.random() * available.length)];
+      const h = def.rows * S, w = def.cols * S;
+      obstacles.push({
+        x: W + 10, y: GROUND - h, w, h,
+        hitW: def.hitW * S, hitH: def.hitH * S,
+        sprite: def.sprite, cols: def.cols,
+        speed: getSpeed() + Math.random() * 0.8
+      });
+    }
+
+    // ── 背景 ──────────────────────────────────────
+    const stars = Array.from({ length: 50 }, () => ({
+      x: Math.random() * W, y: Math.random() * (H * 0.55),
+      size: Math.random() < 0.3 ? 2 : 1,
+      speed: Math.random() * 0.25 + 0.05
+    }));
+    const buildings = Array.from({ length: 7 }, (_, i) => ({
+      x: i * 110 + Math.random() * 50,
+      h: 30 + Math.floor(Math.random() * 35),
+      w: 30 + Math.floor(Math.random() * 30),
+      speed: 0.7
+    }));
+    let groundScroll = 0;
+    const petals = [];
+
+    function drawBg() {
+      ctx.fillStyle = '#0A0A0A';
+      ctx.fillRect(0, 0, W, H);
+
+      // 月（オレンジグロー）
+      const mx = W - 90, my = 50, mr = 28;
+      ctx.fillStyle = '#FF6B00';
+      for (let dy = -mr; dy <= mr; dy++)
+        for (let dx = -mr; dx <= mr; dx++)
+          if (dx*dx + dy*dy <= mr*mr) ctx.fillRect(mx+dx, my+dy, 1, 1);
+      ctx.fillStyle = '#cc4400';
+      [[-8,-6,4,3],[5,2,6,4],[-3,8,5,3]].forEach(([x,y,w,h]) =>
+        ctx.fillRect(mx+x, my+y, w, h));
+      ctx.fillStyle = 'rgba(255,107,0,0.06)';
+      for (let r = mr+5; r <= mr+22; r+=4) {
+        ctx.beginPath(); ctx.arc(mx, my, r, 0, Math.PI*2); ctx.fill();
+      }
+
+      // 星
+      stars.forEach(s => {
+        ctx.fillStyle = s.size === 2 ? '#ADFF2F' : '#557722';
+        ctx.fillRect(Math.floor(s.x), Math.floor(s.y), s.size, s.size);
+        if (state === 'playing') { s.x -= s.speed; if (s.x < 0) s.x = W; }
+      });
+
+      // 遠景シルエット
+      buildings.forEach(b => {
+        ctx.fillStyle = '#111111';
+        ctx.fillRect(Math.floor(b.x), GROUND - b.h, b.w, b.h);
+        ctx.fillStyle = '#0A0A0A';
+        ctx.beginPath();
+        ctx.moveTo(Math.floor(b.x)-6, GROUND-b.h);
+        ctx.lineTo(Math.floor(b.x)+b.w/2, GROUND-b.h-14);
+        ctx.lineTo(Math.floor(b.x)+b.w+6, GROUND-b.h);
+        ctx.fill();
+        if (state === 'playing') { b.x -= b.speed; if (b.x+b.w < 0) b.x = W+10; }
+      });
+    }
+
+    function drawGround() {
+      ctx.fillStyle = '#111111';
+      ctx.fillRect(0, GROUND, W, H - GROUND);
+      ctx.fillStyle = '#FF6B00';
+      ctx.fillRect(0, GROUND, W, 2);
+      ctx.fillStyle = '#1A1A1A';
+      const tw = 32;
+      for (let x = (Math.floor(groundScroll) % tw); x < W + tw; x += tw)
+        ctx.fillRect(x - tw, GROUND + 2, 2, H - GROUND - 2);
+      ctx.fillStyle = '#222222';
+      ctx.fillRect(0, GROUND + 16, W, 2);
+      if (state === 'playing') groundScroll += getSpeed();
+    }
+
+    function updatePetals() {
+      if (state === 'playing' && frame % 25 === 0) {
+        petals.push({
+          x: W + 4, y: GROUND - 20 - Math.random() * 60,
+          vx: -(getSpeed() * 0.6 + Math.random()),
+          vy: -0.5 + Math.random(), life: 1.0,
+          color: Math.random() < 0.5 ? '#ADFF2F' : '#7DCB00'
+        });
+      }
+      for (let i = petals.length - 1; i >= 0; i--) {
+        const p = petals[i];
+        p.x += p.vx; p.y += p.vy; p.vy += 0.03; p.life -= 0.008;
+        if (p.life <= 0 || p.x < -4) { petals.splice(i, 1); continue; }
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.fillRect(Math.floor(p.x), Math.floor(p.y), 3, 2);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function checkCollision() {
+      const pr = player.getRect();
+      return obstacles.some(o => {
+        const ox = o.x + (o.w - o.hitW) / 2;
+        const oy = o.y + (o.h - o.hitH);
+        return pr.x < ox+o.hitW && pr.x+pr.w > ox && pr.y < oy+o.hitH && pr.y+pr.h > oy;
+      });
+    }
+
+    // ── HUD ──────────────────────────────────────
+    function drawHUD() {
+      ctx.font = 'bold 14px "Courier New"';
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#FF6B00';
+      ctx.fillText(`SCORE: ${score}`, 10, 22);
+
+      // 難易度バー
+      const spd = getSpeed(), maxSpd = 12;
+      const bw = 70, filled = Math.floor((spd - 4) / (maxSpd - 4) * bw);
+      ctx.fillStyle = '#222';
+      ctx.fillRect(10, 28, bw, 5);
+      const barColor = spd < 7 ? '#ADFF2F' : spd < 10 ? '#FF6B00' : '#ff2222';
+      ctx.fillStyle = barColor;
+      ctx.fillRect(10, 28, Math.max(0, filled), 5);
+      ctx.font = '9px "Courier New"';
+      ctx.fillStyle = '#555';
+      ctx.fillText('SPD', bw + 14, 33);
+
+      // フェーズ表示
+      let phase = '';
+      if (score >= 600) phase = '⚡ HELL';
+      else if (score >= 300) phase = '🔥 HARD';
+      else if (score >= 100) phase = '⚡ NORMAL';
+      else phase = '✦ EASY';
+
+      if (phase) {
+        ctx.font = '11px "Courier New"';
+        ctx.fillStyle = score >= 600 ? '#ff2222' : score >= 300 ? '#FF6B00' : '#ADFF2F';
+        ctx.textAlign = 'right';
+        ctx.fillText(phase, W - 10, 22);
+      }
+
+      if (player.doubleJumped) {
+        ctx.font = '10px "Courier New"';
+        ctx.fillStyle = '#FF6B00';
+        ctx.textAlign = 'left';
+        ctx.fillText('2ND JUMP!', 10, 46);
+      }
+    }
+
+    function drawTitle() {
+      ctx.fillStyle = 'rgba(10,10,10,0.8)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = '#FF6B00'; ctx.lineWidth = 2;
+      ctx.strokeRect(W/2-155, H/2-55, 310, 110);
+      ctx.strokeStyle = '#ADFF2F'; ctx.lineWidth = 1;
+      ctx.strokeRect(W/2-151, H/2-51, 302, 102);
+      ctx.font = 'bold 38px serif';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#FF6B00';
+      ctx.fillText('鬼の道中', W/2+2, H/2-2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText('鬼の道中', W/2, H/2-4);
+      ctx.font = '14px "Courier New"';
+      ctx.fillStyle = Math.floor(Date.now()/600)%2===0 ? '#ADFF2F' : '#7DCB00';
+      ctx.fillText('[ SPACE / TAP ] START', W/2, H/2+28);
+      ctx.font = '11px "Courier New"';
+      ctx.fillStyle = '#444';
+      ctx.fillText('二段ジャンプあり  |  スコアが上がるほど難しくなるぞ！', W/2, H/2+50);
+    }
+
+    function drawDead() {
+      ctx.fillStyle = 'rgba(10,10,10,0.8)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = '#ff2222'; ctx.lineWidth = 2;
+      ctx.strokeRect(W/2-155, H/2-58, 310, 120);
+      ctx.font = 'bold 32px serif';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ff2222';
+      ctx.fillText('GAME OVER', W/2, H/2-18);
+      ctx.font = '16px "Courier New"';
+      ctx.fillStyle = '#FF6B00';
+      ctx.fillText(`SCORE: ${score}`, W/2, H/2+10);
+      if (score >= bestScore && score > 0) {
+        ctx.fillStyle = '#ADFF2F';
+        ctx.fillText('★ NEW RECORD! ★', W/2, H/2+34);
+      }
+      ctx.font = '12px "Courier New"';
+      ctx.fillStyle = Math.floor(Date.now()/600)%2===0 ? '#ADFF2F' : '#7DCB00';
+      ctx.fillText('[ SPACE / TAP ] RETRY', W/2, H/2+60);
+    }
+
+    // ── ゲームループ ──────────────────────────────
+    function update() {
+      if (state !== 'playing') return;
+      frame++;
+      score = Math.floor(frame / 6);
+      document.getElementById('score').textContent = score;
+
+      obsTimer++;
+      if (obsTimer >= getObsInterval()) { spawnObstacle(); obsTimer = 0; }
+
+      const spd = getSpeed();
+      for (let i = obstacles.length - 1; i >= 0; i--) {
+        obstacles[i].x -= obstacles[i].speed;
+        if (obstacles[i].x + obstacles[i].w < -10) obstacles.splice(i, 1);
+      }
+      player.update();
+
+      if (checkCollision()) {
+        state = 'dead';
+        if (score > bestScore) {
+          bestScore = score;
+          document.getElementById('best').textContent = bestScore;
+        }
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      drawBg();
+      drawGround();
+      updatePetals();
+      obstacles.forEach(o => {
+        drawSprite(o.sprite, o.x, o.y);
+        ctx.fillStyle = 'rgba(0,0,0,0.2)';
+        ctx.fillRect(o.x+3, GROUND+1, o.w-6, 4);
+      });
+      player.draw();
+      if (state === 'playing') drawHUD();
+      if (state === 'title')   drawTitle();
+      if (state === 'dead')    drawDead();
+    }
+
+    function loop() { update(); draw(); requestAnimationFrame(loop); }
+
+    function action() {
+      if (state === 'title' || state === 'dead') {
+        state = 'playing';
+        frame = 0; score = 0;
+        obstacles.length = 0; petals.length = 0;
+        obsTimer = 0; groundScroll = 0;
+        player._y = GROUND; player.vy = 0;
+        player.jumping = false; player.doubleJumped = false;
+        document.getElementById('score').textContent = '0';
+      } else {
+        player.jump();
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); action(); }
+    });
+    canvas.addEventListener('touchstart', e => { e.preventDefault(); action(); }, { passive: false });
+    canvas.addEventListener('mousedown', action);
+    loop();
+  </script>
+</body>
+</html>
