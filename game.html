@@ -230,8 +230,63 @@
       return Math.max(48, Math.floor(95 - score / 10));
     }
 
-    // ── キャラクター ──────────────────────────────
-    const CHAR_W = 16 * S, CHAR_H = 24 * S;
+    // ── キャラクター画像（背景を縁から自動透明化）───────
+    let CHAR_H = 88;        // 表示する高さ(px)
+    let CHAR_W = 60;        // 読み込み後にアスペクト比から再計算
+    let charReady = false;
+    let charCanvas = null;  // 背景除去済みのオフスクリーン
+    let charBBox = { x: 0, y: 0, w: 1, h: 1 };
+
+    const charImg = new Image();
+    charImg.onload = () => {
+      const iw = charImg.naturalWidth, ih = charImg.naturalHeight;
+      const off = document.createElement('canvas');
+      off.width = iw; off.height = ih;
+      const octx = off.getContext('2d');
+      octx.drawImage(charImg, 0, 0);
+      const imgData = octx.getImageData(0, 0, iw, ih);
+      const d = imgData.data;
+
+      // 背景判定：低彩度かつ暗すぎない（=グレー系の地）。輪郭線(暗)は壁になる
+      const isBg = (i) => {
+        const r = d[i*4], g = d[i*4+1], b = d[i*4+2];
+        const mx = Math.max(r,g,b), mn = Math.min(r,g,b);
+        return (mx - mn) < 46 && mx > 92;
+      };
+
+      // 縁から塗りつぶし（flood fill）で背景だけ透明化
+      const visited = new Uint8Array(iw * ih);
+      const stack = [];
+      for (let x = 0; x < iw; x++) { stack.push(x, (ih-1)*iw + x); }
+      for (let y = 0; y < ih; y++) { stack.push(y*iw, y*iw + iw-1); }
+      while (stack.length) {
+        const idx = stack.pop();
+        if (idx < 0 || idx >= iw*ih || visited[idx]) continue;
+        visited[idx] = 1;
+        if (!isBg(idx)) continue;
+        d[idx*4+3] = 0;
+        const x = idx % iw, y = (idx / iw) | 0;
+        if (x > 0)    stack.push(idx-1);
+        if (x < iw-1) stack.push(idx+1);
+        if (y > 0)    stack.push(idx-iw);
+        if (y < ih-1) stack.push(idx+iw);
+      }
+      octx.putImageData(imgData, 0, 0);
+
+      // 残ったキャラ部分の外接矩形
+      let minX = iw, minY = ih, maxX = 0, maxY = 0;
+      for (let y = 0; y < ih; y++) for (let x = 0; x < iw; x++) {
+        if (d[(y*iw + x)*4 + 3] > 40) {
+          if (x < minX) minX = x; if (x > maxX) maxX = x;
+          if (y < minY) minY = y; if (y > maxY) maxY = y;
+        }
+      }
+      charBBox = { x: minX, y: minY, w: Math.max(1, maxX-minX), h: Math.max(1, maxY-minY) };
+      CHAR_W = Math.round(CHAR_H * charBBox.w / charBBox.h);
+      charCanvas = off;
+      charReady = true;
+    };
+    charImg.src = 'assets/images/run.png';
     const player = {
       x: 100, _y: GROUND,
       vy: 0, jumping: false, doubleJumped: false,
@@ -250,14 +305,39 @@
         else if (!this.doubleJumped) { this.vy = -11; this.doubleJumped = true; }
       },
       draw() {
-        const spr = this.jumping ? sprJump : sprIdle;
-        drawSprite(spr, this.x - CHAR_W / 2, this._y - CHAR_H);
-        ctx.fillStyle = 'rgba(0,0,0,0.25)';
-        ctx.fillRect(this.x - CHAR_W / 2 + 6, GROUND + 2, CHAR_W - 12, 4);
+        const dw = CHAR_W, dh = CHAR_H;
+        const dx = this.x - dw / 2, dy = this._y - dh;
+        // 影
+        ctx.fillStyle = 'rgba(0,0,0,0.28)';
+        ctx.beginPath();
+        ctx.ellipse(this.x, GROUND + 3, dw * 0.4, 4, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        if (charReady) {
+          ctx.imageSmoothingEnabled = true;
+          if (this.jumping) {
+            // ジャンプ中は少し前傾
+            ctx.save();
+            ctx.translate(this.x, dy + dh / 2);
+            ctx.rotate(-0.12);
+            ctx.drawImage(charCanvas, charBBox.x, charBBox.y, charBBox.w, charBBox.h,
+                          -dw/2, -dh/2, dw, dh);
+            ctx.restore();
+          } else {
+            ctx.drawImage(charCanvas, charBBox.x, charBBox.y, charBBox.w, charBBox.h,
+                          dx, dy, dw, dh);
+          }
+          ctx.imageSmoothingEnabled = false;
+        } else {
+          // 読み込み前のフォールバック（ドット絵）
+          drawSprite(this.jumping ? sprJump : sprIdle,
+                     this.x - 16*S/2, this._y - 24*S);
+        }
       },
       getRect() {
-        const m = S * 2;
-        return { x: this.x - CHAR_W/2 + m, y: this._y - CHAR_H + m, w: CHAR_W - m*2, h: CHAR_H - m };
+        // 当たり判定は見た目より少し小さめ（理不尽防止）
+        const w = CHAR_W * 0.5, h = CHAR_H * 0.78;
+        return { x: this.x - w/2, y: this._y - h, w, h };
       }
     };
 
