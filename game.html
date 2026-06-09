@@ -23,6 +23,15 @@
       image-rendering: pixelated;
       width: min(700px, 100vw);
     }
+    #bgm-btn {
+      position:absolute; top:8px; right:8px; z-index:10;
+      width:34px; height:34px; border-radius:50%;
+      background:rgba(10,10,10,.6); border:1px solid #FF6B00;
+      color:#fff; font-size:.95rem; cursor:pointer; display:none;
+      align-items:center; justify-content:center;
+    }
+    #bgm-btn:hover { background:rgba(255,107,0,.4); }
+    #bgm-btn.on { display:flex; }
     canvas {
       display: block;
       image-rendering: pixelated;
@@ -44,6 +53,10 @@
 <body>
   <div id="gameWrapper">
     <canvas id="gameCanvas" width="700" height="260"></canvas>
+    <button id="bgm-btn" aria-label="BGM">🔊</button>
+    <audio id="bgm" loop preload="auto">
+      <source src="assets/audio/game-bgm.mp3" type="audio/mpeg">
+    </audio>
   </div>
   <div id="ui">
     <div class="ui-score">SCORE: <span id="score">0</span></div>
@@ -484,7 +497,7 @@
         ctx.font = '11px "Courier New"';
         ctx.fillStyle = score >= 600 ? '#ff2222' : score >= 300 ? '#FF6B00' : '#ADFF2F';
         ctx.textAlign = 'right';
-        ctx.fillText(phase, W - 10, 22);
+        ctx.fillText(phase, W - 48, 22);
       }
 
       if (player.doubleJumped) {
@@ -581,8 +594,24 @@
 
     function loop() { update(); draw(); requestAnimationFrame(loop); }
 
+    // ── BGM ──────────────────────────────────
+    const bgm = document.getElementById('bgm');
+    const bgmBtn = document.getElementById('bgm-btn');
+    let bgmMuted = false;
+    bgm.volume = 0.4;
+    bgm.addEventListener('canplay', () => { bgmBtn.classList.add('on'); });
+    bgm.addEventListener('error', () => { bgmBtn.classList.remove('on'); });
+    function startBgm() { if (!bgmMuted) bgm.play().catch(() => {}); }
+    bgmBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      bgmMuted = !bgmMuted;
+      if (bgmMuted) { bgm.pause(); bgmBtn.textContent = '🔇'; }
+      else { bgm.play().catch(() => {}); bgmBtn.textContent = '🔊'; }
+    });
+
     function action() {
       if (state === 'title' || state === 'dead') {
+        startBgm();   // ユーザー操作を起点に再生
         state = 'playing';
         frame = 0; score = 0;
         obstacles.length = 0; petals.length = 0;
