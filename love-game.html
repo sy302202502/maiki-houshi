@@ -46,6 +46,17 @@
       position:absolute; top:14px; left:16px;
       display:flex; gap:6px; z-index:20;
     }
+    /* BGMボタン */
+    #bgm-btn {
+      position:absolute; top:12px; right:14px; z-index:25;
+      width:38px; height:38px; border-radius:50%;
+      background:rgba(8,10,20,.7); border:1px solid rgba(120,160,255,.5);
+      color:#fff; font-size:1rem; cursor:pointer; display:none;
+      align-items:center; justify-content:center; backdrop-filter:blur(2px);
+      transition:background .2s, transform .15s;
+    }
+    #bgm-btn:hover { background:rgba(60,110,230,.45); transform:scale(1.08); }
+    #bgm-btn.on { display:flex; }
     .heart { font-size:clamp(1rem,2.6vw,1.4rem); color:rgba(255,255,255,.25);
       text-shadow:0 1px 3px rgba(0,0,0,.8); transition:color .4s,transform .3s; }
     .heart.on { color:#ff5a7a; transform:scale(1.25); }
@@ -158,6 +169,11 @@
     <span class="heart" id="h2">♡</span>
     <span class="heart" id="h3">♡</span>
   </div>
+
+  <button id="bgm-btn" onclick="toggleBgm(event)" aria-label="BGM">🔊</button>
+  <audio id="bgm" loop preload="auto">
+    <source src="assets/audio/vn-bgm.mp3" type="audio/mpeg">
+  </audio>
 
   <div id="choices">
     <button class="cbtn" id="c0"></button>
@@ -414,8 +430,28 @@ function showEnding(){
   }
   setTimeout(()=>scr.classList.add('show'),500);
 }
+// ── BGM ──────────────────────────────────────
+const bgm = document.getElementById('bgm');
+const bgmBtn = document.getElementById('bgm-btn');
+let bgmMuted = false;
+bgm.volume = 0.45;
+// 音源が読み込めたらボタン表示（無ければ非表示のまま）
+bgm.addEventListener('canplay', ()=>{ bgmBtn.classList.add('on'); });
+bgm.addEventListener('error', ()=>{ bgmBtn.classList.remove('on'); });
+function startBgm(){
+  if(bgmMuted) return;
+  bgm.play().catch(()=>{});   // 自動再生がブロックされても無視
+}
+function toggleBgm(e){
+  if(e) e.stopPropagation();
+  bgmMuted = !bgmMuted;
+  if(bgmMuted){ bgm.pause(); bgmBtn.textContent='🔇'; }
+  else { bgm.play().catch(()=>{}); bgmBtn.textContent='🔊'; }
+}
+
 function startGame(){
   document.getElementById('title').style.display='none';
+  startBgm();   // ユーザー操作(START)を起点に再生
   aff=0; updateHearts(); go('start');
 }
 function retry(){
