@@ -41,6 +41,10 @@
       filter:drop-shadow(0 -2px 14px rgba(0,0,0,.45));
     }
     #char.show { opacity:1; }
+    /* バストアップ（キュン演出）：顔を大きく右寄りに */
+    #char.closeup {
+      height:128%; top:auto; bottom:-12%; right:0;
+    }
     /* ハート */
     #hearts {
       position:absolute; top:14px; left:16px;
@@ -265,12 +269,23 @@ function setExpression(expr){
   const draw=(entry)=>{
     if(entry==='missing'){ charCv.classList.remove('show'); return; }
     const {canvas,bbox}=entry;
-    // キャンバスを立ち絵の縦横比に合わせる
-    const ar=bbox.w/bbox.h;
+    // 微笑む・照れる時は顔をバストアップ（キュン演出）
+    const closeup = (key==='blush' || key==='smile');
+    let sx,sy,sw,sh;
+    if(closeup){
+      sh = bbox.h*0.46;            // 頭〜胸まで
+      sw = Math.min(bbox.w, sh*0.95); // 顔まわりに寄せて少し縦長に
+      sx = bbox.x + (bbox.w - sw)/2;
+      sy = bbox.y;
+    } else {
+      sx=bbox.x; sy=bbox.y; sw=bbox.w; sh=bbox.h;
+    }
+    const ar=sw/sh;
     charCv.width=Math.round(600*ar); charCv.height=600;
     charCtx.clearRect(0,0,charCv.width,charCv.height);
     charCtx.imageSmoothingEnabled=true;
-    charCtx.drawImage(canvas,bbox.x,bbox.y,bbox.w,bbox.h,0,0,charCv.width,charCv.height);
+    charCtx.drawImage(canvas,sx,sy,sw,sh,0,0,charCv.width,charCv.height);
+    charCv.classList.toggle('closeup', closeup);
     charCv.classList.add('show');
   };
   if(charCache[key]){ draw(charCache[key]); return; }
