@@ -463,6 +463,13 @@ function toggleBgm(e){
   if(bgmMuted){ bgm.pause(); bgmBtn.textContent='🔇'; }
   else { bgm.play().catch(()=>{}); bgmBtn.textContent='🔊'; }
 }
+// ページ離脱(HP戻る/閉じる)・タブ切替で確実に停止
+const titleEl = document.getElementById('title');
+window.addEventListener('pagehide', ()=>bgm.pause());
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden) bgm.pause();
+  else if(!bgmMuted && titleEl.style.display==='none') bgm.play().catch(()=>{});
+});
 
 function startGame(){
   document.getElementById('title').style.display='none';

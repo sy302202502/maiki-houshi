@@ -609,6 +609,12 @@
       if (bgmMuted) { bgm.pause(); bgmBtn.textContent = '🔇'; }
       else { bgm.play().catch(() => {}); bgmBtn.textContent = '🔊'; }
     });
+    // ページ離脱(HP戻る/閉じる)・タブ切替で確実に停止
+    window.addEventListener('pagehide', () => bgm.pause());
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) bgm.pause();
+      else if (!bgmMuted && state === 'playing') bgm.play().catch(() => {});
+    });
 
     function action() {
       if (state === 'title' || state === 'dead') {
