@@ -569,6 +569,7 @@
 
       if (checkCollision()) {
         state = 'dead';
+        bgm.pause();   // ゲームオーバーでBGM停止
         if (score > bestScore) {
           bestScore = score;
           document.getElementById('best').textContent = bestScore;
