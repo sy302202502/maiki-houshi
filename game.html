@@ -11,6 +11,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       font-family: 'Courier New', monospace;
       color: #fff;
       image-rendering: pixelated;
@@ -52,7 +54,7 @@
 </head>
 <body>
   <div id="gameWrapper">
-    <canvas id="gameCanvas" width="700" height="260"></canvas>
+    <canvas id="gameCanvas" width="700" height="330"></canvas>
     <button id="bgm-btn" aria-label="BGM">🔊</button>
     <audio id="bgm" loop preload="auto">
       <source src="assets/audio/game-bgm.mp3" type="audio/mpeg">
@@ -219,11 +221,27 @@
       'S,S,S,S,S',
     ].map(r => r.split(',').map(k => C[k] ?? null));
 
+    // 鬼火（空中障害物・難易度上昇で登場）
+    const OBS_ONIBI = [
+      '_,_,_,P,P,_,_,_',
+      '_,_,P,G,G,P,_,_',
+      '_,P,G,G,G,G,P,_',
+      '_,P,G,O,O,G,G,P',
+      'P,G,G,O,O,G,G,P',
+      'P,G,G,G,G,G,G,P',
+      '_,P,G,G,G,G,P,_',
+      '_,P,G,G,G,P,_,_',
+      '_,_,P,G,P,_,_,_',
+      '_,_,_,P,_,_,_,_',
+    ].map(r => r.split(',').map(k => C[k] ?? null));
+
     const OBS_DEFS = [
       { sprite: OBS_TORII,  cols: 12, rows: 16, hitW: 10, hitH: 16, minScore: 0   },
       { sprite: OBS_ROCK,   cols: 10, rows: 8,  hitW: 8,  hitH: 8,  minScore: 0   },
       { sprite: OBS_CANDLE, cols: 8,  rows: 14, hitW: 6,  hitH: 14, minScore: 0   },
       { sprite: OBS_WALL,   cols: 5,  rows: 14, hitW: 4,  hitH: 14, minScore: 300 },
+      // 空中：鬼火（地上では頭上を通過、ジャンプ時のみ当たる）
+      { sprite: OBS_ONIBI,  cols: 8,  rows: 10, hitW: 5,  hitH: 6,  minScore: 250, fly: 95 },
     ];
 
     // ── 状態 ─────────────────────────────────────
@@ -362,8 +380,9 @@
       const available = OBS_DEFS.filter(d => score >= d.minScore);
       const def = available[Math.floor(Math.random() * available.length)];
       const h = def.rows * S, w = def.cols * S;
+      const fly = def.fly || 0;
       obstacles.push({
-        x: W + 10, y: GROUND - h, w, h,
+        x: W + 10, y: GROUND - h - fly, w, h, fly,
         hitW: def.hitW * S, hitH: def.hitH * S,
         sprite: def.sprite, cols: def.cols,
         speed: getSpeed() + Math.random() * 0.8
