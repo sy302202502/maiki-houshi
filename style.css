@@ -1420,3 +1420,43 @@ body { padding-bottom: 32px; }
   .activity-grid { grid-template-columns: 1fr; }
   .links-grid { grid-template-columns: 1fr; }
 }
+
+/* ===== セクションちびキャラ ===== */
+.section-title-wrap {
+  position: relative;
+}
+
+.section-chara {
+  position: absolute;
+  right: 0;
+  bottom: -24px;
+  width: 110px;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+  animation: chara-bob 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes chara-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media (max-width: 768px) {
+  .section-chara {
+    width: 72px;
+    right: 4px;
+    bottom: -16px;
+  }
+}
+
+/* ===== ロゴ視認性アップ（暗背景用の淡い発光） ===== */
+.header-logo img,
+.footer-logo img,
+.loading-logo {
+  filter:
+    drop-shadow(0 0 6px rgba(255, 255, 255, 0.45))
+    drop-shadow(0 0 18px rgba(167, 139, 250, 0.35));
+}
