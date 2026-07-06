@@ -1460,3 +1460,9 @@ body { padding-bottom: 32px; }
     drop-shadow(0 0 6px rgba(255, 255, 255, 0.45))
     drop-shadow(0 0 18px rgba(167, 139, 250, 0.35));
 }
+
+/* ===== COMMISSION → LP導線ボタン ===== */
+.commission-lp-link {
+  text-align: center;
+  margin-top: 28px;
+}
