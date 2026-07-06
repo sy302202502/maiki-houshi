@@ -20,6 +20,35 @@
   <link rel="icon" type="image/png" href="assets/images/icons/favicon.png">
   <link rel="apple-touch-icon" href="assets/images/icons/apple-touch-icon.png">
 
+  <!-- 構造化データ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "name": "舞鬼法師",
+        "alternateName": "MIKEY MASTER",
+        "url": "https://mikey-master.pages.dev/",
+        "image": "https://mikey-master.pages.dev/assets/images/og/og-image.png",
+        "description": "競馬予想・歌ってみた・ゲーム実況で活動する個人勢Vライバー",
+        "sameAs": [
+          "https://x.com/mai1k_master",
+          "https://www.youtube.com/@mikey-master",
+          "https://www.tiktok.com/@mikey_master"
+        ]
+      },
+      {
+        "@type": "MusicRecording",
+        "name": "Coastline Radio",
+        "byArtist": { "@type": "Person", "name": "舞鬼法師" },
+        "url": "https://youtu.be/qkdBPhUHyPw",
+        "datePublished": "2026-06"
+      }
+    ]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Bebas+Neue&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
@@ -72,6 +101,7 @@
           <li><a href="#activity">ACTIVITY</a></li>
           <li><a href="#music">MUSIC</a></li>
           <li><a href="#schedule">SCHEDULE</a></li>
+          <li><a href="#news">NEWS</a></li>
           <li><a href="#goods">GOODS</a></li>
           <li><a href="#links">LINKS</a></li>
           <li><a href="#game">GAME</a></li>
@@ -92,6 +122,7 @@
       <li><a href="#activity" class="mobile-link">ACTIVITY</a></li>
       <li><a href="#music" class="mobile-link">MUSIC</a></li>
       <li><a href="#schedule" class="mobile-link">SCHEDULE</a></li>
+      <li><a href="#news" class="mobile-link">NEWS</a></li>
       <li><a href="#goods" class="mobile-link">GOODS</a></li>
       <li><a href="#links" class="mobile-link">LINKS</a></li>
       <li><a href="#game" class="mobile-link">GAME</a></li>
@@ -147,7 +178,7 @@
         <div class="profile-content">
           <div class="profile-avatar">
             <div class="avatar-ring"></div>
-            <img src="assets/images/chibi-maiki.png" alt="舞鬼法師">
+            <img src="assets/images/chibi-maiki.png" alt="舞鬼法師" loading="lazy">
           </div>
           <div class="profile-info">
             <h3 class="profile-name">
@@ -229,12 +260,12 @@
       <div class="section-title-wrap">
         <h2 class="section-title">MUSIC</h2>
         <span class="section-title-jp">歌ってみた</span>
-        <img src="assets/images/chibi-sing.png" alt="" class="section-chara" aria-hidden="true">
+        <img src="assets/images/chibi-sing.png" alt="" class="section-chara" aria-hidden="true" loading="lazy">
       </div>
       <!-- オリジナル曲フィーチャーバナー -->
-      <a href="https://youtu.be/qkdBPhUHyPw" class="music-featured" target="_blank">
+      <a href="https://youtu.be/qkdBPhUHyPw" class="music-featured" target="_blank" data-video="qkdBPhUHyPw" data-video-title="Coastline Radio">
         <div class="music-featured-thumb">
-          <img src="https://img.youtube.com/vi/qkdBPhUHyPw/maxresdefault.jpg" alt="Coastline Radio" onerror="this.src='https://img.youtube.com/vi/qkdBPhUHyPw/hqdefault.jpg'">
+          <img src="https://img.youtube.com/vi/qkdBPhUHyPw/maxresdefault.jpg" alt="Coastline Radio" loading="lazy" onerror="this.src='https://img.youtube.com/vi/qkdBPhUHyPw/hqdefault.jpg'">
           <div class="music-featured-overlay">
             <div class="music-featured-play">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -253,9 +284,9 @@
       </a>
 
       <div class="music-grid">
-        <a href="https://youtu.be/rMBv-4_VAtc" class="music-card" target="_blank">
+        <a href="https://youtu.be/rMBv-4_VAtc" class="music-card" target="_blank" data-video="rMBv-4_VAtc" data-video-title="シャルル 歌ってみた">
           <div class="music-thumb">
-            <img src="https://img.youtube.com/vi/rMBv-4_VAtc/maxresdefault.jpg" alt="シャルル 歌ってみた" onerror="this.src='https://img.youtube.com/vi/rMBv-4_VAtc/hqdefault.jpg'">
+            <img src="https://img.youtube.com/vi/rMBv-4_VAtc/maxresdefault.jpg" alt="シャルル 歌ってみた" loading="lazy" onerror="this.src='https://img.youtube.com/vi/rMBv-4_VAtc/hqdefault.jpg'">
             <div class="music-play">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
@@ -266,9 +297,9 @@
             <p class="music-artist">バルーン / cover by 舞鬼法師</p>
           </div>
         </a>
-        <a href="https://youtu.be/gUv6OLai54A" class="music-card" target="_blank">
+        <a href="https://youtu.be/gUv6OLai54A" class="music-card" target="_blank" data-video="gUv6OLai54A" data-video-title="酔いどれ知らず 歌ってみた">
           <div class="music-thumb">
-            <img src="https://img.youtube.com/vi/gUv6OLai54A/maxresdefault.jpg" alt="酔いどれ知らず 歌ってみた" onerror="this.src='https://img.youtube.com/vi/gUv6OLai54A/hqdefault.jpg'">
+            <img src="https://img.youtube.com/vi/gUv6OLai54A/maxresdefault.jpg" alt="酔いどれ知らず 歌ってみた" loading="lazy" onerror="this.src='https://img.youtube.com/vi/gUv6OLai54A/hqdefault.jpg'">
             <div class="music-play">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
             </div>
@@ -309,6 +340,33 @@
           @mai1k_master をフォロー
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWS ===== -->
+  <section id="news" class="section news">
+    <div class="section-inner">
+      <div class="section-title-wrap">
+        <h2 class="section-title">NEWS</h2>
+        <span class="section-title-jp">お知らせ</span>
+      </div>
+      <ul class="news-list">
+        <li class="news-item">
+          <time class="news-date" datetime="2026-06">2026.06</time>
+          <span class="news-tag news-tag-release">RELEASE</span>
+          <p class="news-text">オリジナル曲「Coastline Radio」をリリースしました！<a href="https://youtu.be/qkdBPhUHyPw" target="_blank">YouTubeで聴く →</a></p>
+        </li>
+        <li class="news-item">
+          <time class="news-date" datetime="2026-06">2026.06</time>
+          <span class="news-tag news-tag-info">INFO</span>
+          <p class="news-text">VTuber・Vライバー向けHP制作サービスの受付を開始しました。<a href="#commission">詳しくはこちら →</a></p>
+        </li>
+        <li class="news-item">
+          <time class="news-date" datetime="2026-06">2026.06</time>
+          <span class="news-tag news-tag-info">INFO</span>
+          <p class="news-text">公式サイトをリニューアルしました（新ロゴ・新ミニキャラ）。</p>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -442,7 +500,7 @@
       <div class="section-title-wrap">
         <h2 class="section-title">GAME</h2>
         <span class="section-title-jp">ミニゲーム</span>
-        <img src="assets/images/chibi-game.png" alt="" class="section-chara" aria-hidden="true">
+        <img src="assets/images/chibi-game.png" alt="" class="section-chara" aria-hidden="true" loading="lazy">
       </div>
       <div class="game-cards">
         <a class="game-card action" href="game.html">
@@ -473,7 +531,7 @@
       <div class="section-title-wrap">
         <h2 class="section-title">COMMISSION</h2>
         <span class="section-title-jp">HP制作依頼</span>
-        <img src="assets/images/chibi-letter.png" alt="" class="section-chara" aria-hidden="true">
+        <img src="assets/images/chibi-letter.png" alt="" class="section-chara" aria-hidden="true" loading="lazy">
       </div>
       <div class="commission-intro">
         <div class="commission-badges">
@@ -513,7 +571,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div class="footer-logo">
-        <img src="assets/images/maiki-logo.png" alt="舞鬼法師">
+        <img src="assets/images/maiki-logo.png" alt="舞鬼法師" loading="lazy">
       </div>
       <div class="footer-social">
         <a href="https://www.youtube.com/@mikey-master" target="_blank" aria-label="YouTube">

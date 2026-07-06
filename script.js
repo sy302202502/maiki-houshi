@@ -144,3 +144,23 @@ const navObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.4 });
 document.querySelectorAll('section[id]').forEach(s => navObserver.observe(s));
+
+// ===== MUSIC: クリックでその場再生（YouTube埋め込み） =====
+document.querySelectorAll('[data-video]').forEach(card => {
+  card.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (card.classList.contains('is-playing')) return;
+    const id = card.dataset.video;
+    const title = card.dataset.videoTitle || 'YouTube video';
+    const thumb = card.querySelector('.music-thumb, .music-featured-thumb');
+    if (!thumb) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+    iframe.title = title;
+    iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+    iframe.allowFullscreen = true;
+    thumb.innerHTML = '';
+    thumb.appendChild(iframe);
+    card.classList.add('is-playing');
+  });
+});
