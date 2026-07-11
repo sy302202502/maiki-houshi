@@ -474,6 +474,18 @@ ul { list-style: none; }
   box-shadow: 0 8px 24px rgba(173,255,47,0.2);
 }
 
+.btn-yt {
+  background: #FF0000;
+  color: var(--white);
+  border-color: #FF0000;
+}
+.btn-yt:hover {
+  background: #CC0000;
+  border-color: #CC0000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255,0,0,0.4);
+}
+
 .btn-small {
   padding: 10px 20px;
   font-size: 0.85rem;
