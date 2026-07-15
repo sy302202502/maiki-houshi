@@ -437,6 +437,31 @@ ul { list-style: none; }
   flex-wrap: wrap;
 }
 
+/* ヒーロー主役CTA */
+.btn-hero-main {
+  padding: 17px 34px;
+  font-size: 1.05rem;
+}
+
+/* ヒーロー二次導線 */
+.hero-sub-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.hero-sub-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.25s;
+}
+.hero-sub-link svg { width: 16px; height: 16px; }
+.hero-sub-link:hover { color: var(--orange); }
+
 /* ===== BUTTONS ===== */
 .btn {
   display: inline-flex;
