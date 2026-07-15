@@ -202,7 +202,10 @@ body.hovering #cursor-trail { border-color: rgba(173,255,47,0.5); transform: tra
   --font-jp: 'Noto Sans JP', sans-serif;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: smooth; font-size: 16px; scroll-padding-top: 84px; }
+
+/* アンカーリンクのオフセット（固定ヘッダー分） */
+section[id], [id="top"] { scroll-margin-top: 84px; }
 
 body {
   background: var(--black);
@@ -1573,4 +1576,74 @@ body { padding-bottom: 32px; }
   #cursor-trail {
     display: none !important;
   }
+}
+
+/* ===== アクセシビリティ改善（Codexレビュー反映） ===== */
+
+/* スキップリンク */
+.skip-link {
+  position: fixed;
+  top: -60px;
+  left: 12px;
+  z-index: 9999;
+  padding: 10px 18px;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* キーボード操作時のフォーカスリング */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav a:focus-visible,
+.mobile-link:focus-visible,
+.link-card:focus-visible,
+.music-card:focus-visible,
+.game-card:focus-visible,
+.share-btn:focus-visible,
+.hamburger:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* フッターナビ */
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 28px;
+  margin: 8px 0 18px;
+}
+.footer-nav a {
+  font-family: var(--font-en, sans-serif);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-nav a:hover {
+  color: var(--orange);
+}
+
+/* COMMISSIONフォームの代替導線 */
+.commission-form-fallback {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.commission-form-fallback a {
+  color: var(--orange);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 700;
 }

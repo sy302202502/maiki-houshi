@@ -50,27 +50,44 @@ backToTop.addEventListener('click', () => {
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 
+function setMenu(open) {
+  hamburger.classList.toggle('active', open);
+  mobileMenu.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  hamburger.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+  // 閉じている間はメニュー内リンクをキーボード操作の対象から外す
+  mobileMenu.inert = !open;
+}
+
 hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('active');
-  mobileMenu.classList.toggle('open');
+  setMenu(!mobileMenu.classList.contains('open'));
 });
 
 document.querySelectorAll('.mobile-link').forEach(link => {
-  link.addEventListener('click', () => {
-    hamburger.classList.remove('active');
-    mobileMenu.classList.remove('open');
-  });
+  link.addEventListener('click', () => setMenu(false));
 });
 
-// ===== SMOOTH SCROLL =====
+// Escキーでメニューを閉じる
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && mobileMenu.classList.contains('open')) setMenu(false);
+});
+
+// ===== SMOOTH SCROLL（ヘッダー高さを動的計測してオフセット） =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
+    const href = this.getAttribute('href');
+    if (href === '#' || href.length < 2) return;
+    const target = document.querySelector(href);
+    if (!target) return;
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      const top = target.getBoundingClientRect().top + window.scrollY - 70;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
+    const headerH = document.getElementById('header').offsetHeight || 70;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerH - 14;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top, behavior: reduce ? 'auto' : 'smooth' });
+    history.pushState(null, '', href);
+    // キーボード/スクリーンリーダー利用者のためフォーカスも移動
+    if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
   });
 });
 
@@ -95,7 +112,9 @@ const canvas = document.createElement('canvas');
 const ctx = canvas.getContext('2d');
 const particleContainer = document.getElementById('particles');
 
-if (particleContainer) {
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (particleContainer && !reduceMotion) {
   canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;';
   particleContainer.appendChild(canvas);
 

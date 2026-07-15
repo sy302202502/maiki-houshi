@@ -64,6 +64,9 @@
 </head>
 <body>
 
+  <!-- ===== SKIP LINK ===== -->
+  <a href="#top" class="skip-link">メインコンテンツへスキップ</a>
+
   <!-- ===== LOADING ===== -->
   <div id="loading">
     <div class="loading-inner">
@@ -116,14 +119,14 @@
           <li><a href="#commission">COMMISSION</a></li>
         </ul>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobileMenu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
   <!-- モバイルメニュー -->
-  <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" inert>
     <ul>
       <li><a href="#top" class="mobile-link">TOP</a></li>
       <li><a href="#profile" class="mobile-link">PROFILE</a></li>
@@ -152,15 +155,15 @@
         </h1>
         <p class="hero-catch">酒と馬と唄。</p>
         <div class="hero-btns">
-          <a href="https://youtu.be/i1CnU-3uneM" class="btn btn-primary" target="_blank">
+          <a href="https://youtu.be/i1CnU-3uneM" class="btn btn-primary" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
             🎵 最新MV「August Fade」
           </a>
-          <a href="https://www.youtube.com/@mikey-master?sub_confirmation=1" class="btn btn-yt" target="_blank">
+          <a href="https://www.youtube.com/@mikey-master?sub_confirmation=1" class="btn btn-yt" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
             チャンネル登録
           </a>
-          <a href="https://x.com/mai1k_master" class="btn btn-outline" target="_blank">
+          <a href="https://x.com/mai1k_master" class="btn btn-outline" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             Twitter / X
           </a>
@@ -260,7 +263,7 @@
         <div class="activity-card" data-num="05">
           <div class="activity-icon">🎵</div>
           <h3>オリジナル曲</h3>
-          <p>最新曲「August Fade」公開中。<a href="https://youtu.be/i1CnU-3uneM" target="_blank" style="color:var(--orange);text-decoration:none;font-weight:700;">今すぐ聴く →</a></p>
+          <p>最新曲「August Fade」公開中。<a href="https://youtu.be/i1CnU-3uneM" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:none;font-weight:700;">今すぐ聴く →</a></p>
         </div>
       </div>
     </div>
@@ -275,7 +278,7 @@
         <img src="assets/images/chibi-sing.png" alt="" class="section-chara" aria-hidden="true" loading="lazy">
       </div>
       <!-- オリジナル曲フィーチャーバナー -->
-      <a href="https://youtu.be/i1CnU-3uneM" class="music-featured" target="_blank" data-video="i1CnU-3uneM" data-video-title="August Fade">
+      <a href="https://youtu.be/i1CnU-3uneM" class="music-featured" target="_blank" rel="noopener" data-video="i1CnU-3uneM" data-video-title="August Fade">
         <div class="music-featured-thumb">
           <img src="https://img.youtube.com/vi/i1CnU-3uneM/maxresdefault.jpg" alt="August Fade" loading="lazy" onerror="this.src='https://img.youtube.com/vi/i1CnU-3uneM/hqdefault.jpg'">
           <div class="music-featured-overlay">
@@ -296,7 +299,7 @@
       </a>
 
       <div class="music-grid">
-        <a href="https://youtu.be/qkdBPhUHyPw" class="music-card" target="_blank" data-video="qkdBPhUHyPw" data-video-title="Coastline Radio">
+        <a href="https://youtu.be/qkdBPhUHyPw" class="music-card" target="_blank" rel="noopener" data-video="qkdBPhUHyPw" data-video-title="Coastline Radio">
           <div class="music-thumb">
             <img src="https://img.youtube.com/vi/qkdBPhUHyPw/maxresdefault.jpg" alt="Coastline Radio" loading="lazy" onerror="this.src='https://img.youtube.com/vi/qkdBPhUHyPw/hqdefault.jpg'">
             <div class="music-play">
@@ -309,7 +312,7 @@
             <p class="music-artist">舞鬼法師</p>
           </div>
         </a>
-        <a href="https://youtu.be/rMBv-4_VAtc" class="music-card" target="_blank" data-video="rMBv-4_VAtc" data-video-title="シャルル 歌ってみた">
+        <a href="https://youtu.be/rMBv-4_VAtc" class="music-card" target="_blank" rel="noopener" data-video="rMBv-4_VAtc" data-video-title="シャルル 歌ってみた">
           <div class="music-thumb">
             <img src="https://img.youtube.com/vi/rMBv-4_VAtc/maxresdefault.jpg" alt="シャルル 歌ってみた" loading="lazy" onerror="this.src='https://img.youtube.com/vi/rMBv-4_VAtc/hqdefault.jpg'">
             <div class="music-play">
@@ -322,7 +325,7 @@
             <p class="music-artist">バルーン / cover by 舞鬼法師</p>
           </div>
         </a>
-        <a href="https://youtu.be/gUv6OLai54A" class="music-card" target="_blank" data-video="gUv6OLai54A" data-video-title="酔いどれ知らず 歌ってみた">
+        <a href="https://youtu.be/gUv6OLai54A" class="music-card" target="_blank" rel="noopener" data-video="gUv6OLai54A" data-video-title="酔いどれ知らず 歌ってみた">
           <div class="music-thumb">
             <img src="https://img.youtube.com/vi/gUv6OLai54A/maxresdefault.jpg" alt="酔いどれ知らず 歌ってみた" loading="lazy" onerror="this.src='https://img.youtube.com/vi/gUv6OLai54A/hqdefault.jpg'">
             <div class="music-play">
@@ -337,7 +340,7 @@
         </a>
       </div>
       <div class="music-more">
-        <a href="https://www.youtube.com/@mikey-master" class="btn btn-outline" target="_blank">
+        <a href="https://www.youtube.com/@mikey-master" class="btn btn-outline" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
           もっと見る
         </a>
@@ -360,7 +363,7 @@
           決まった日はないけど、気まぐれに現れます。<br>
           Xをフォローしておくと通知が届きます。
         </p>
-        <a href="https://x.com/mai1k_master" class="btn btn-primary" target="_blank">
+        <a href="https://x.com/mai1k_master" class="btn btn-primary" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           @mai1k_master をフォロー
         </a>
@@ -379,12 +382,12 @@
         <li class="news-item">
           <time class="news-date" datetime="2026-07">2026.07</time>
           <span class="news-tag news-tag-release">RELEASE</span>
-          <p class="news-text">2ndオリジナル曲「August Fade」を公開しました！<a href="https://youtu.be/i1CnU-3uneM" target="_blank">YouTubeで聴く →</a></p>
+          <p class="news-text">2ndオリジナル曲「August Fade」を公開しました！<a href="https://youtu.be/i1CnU-3uneM" target="_blank" rel="noopener">YouTubeで聴く →</a></p>
         </li>
         <li class="news-item">
           <time class="news-date" datetime="2026-06">2026.06</time>
           <span class="news-tag news-tag-release">RELEASE</span>
-          <p class="news-text">オリジナル曲「Coastline Radio」をリリースしました！<a href="https://youtu.be/qkdBPhUHyPw" target="_blank">YouTubeで聴く →</a></p>
+          <p class="news-text">オリジナル曲「Coastline Radio」をリリースしました！<a href="https://youtu.be/qkdBPhUHyPw" target="_blank" rel="noopener">YouTubeで聴く →</a></p>
         </li>
         <li class="news-item">
           <time class="news-date" datetime="2026-06">2026.06</time>
@@ -415,7 +418,7 @@
             只今鋭意準備中。<br>
             リリースの際はXでお知らせします。
           </p>
-          <a href="https://x.com/mai1k_master" class="btn btn-outline" target="_blank">
+          <a href="https://x.com/mai1k_master" class="btn btn-outline" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             @mai1k_master をフォロー
           </a>
@@ -432,7 +435,7 @@
         <span class="section-title-jp">各種リンク</span>
       </div>
       <div class="links-grid">
-        <a href="https://www.youtube.com/@mikey-master" class="link-card youtube" target="_blank">
+        <a href="https://www.youtube.com/@mikey-master" class="link-card youtube" target="_blank" rel="noopener">
           <div class="link-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
           </div>
@@ -442,7 +445,7 @@
           </div>
           <span class="link-arrow">→</span>
         </a>
-        <a href="https://x.com/mai1k_master" class="link-card twitter" target="_blank">
+        <a href="https://x.com/mai1k_master" class="link-card twitter" target="_blank" rel="noopener">
           <div class="link-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </div>
@@ -452,7 +455,7 @@
           </div>
           <span class="link-arrow">→</span>
         </a>
-        <a href="https://www.tiktok.com/@mikey_master" class="link-card tiktok" target="_blank">
+        <a href="https://www.tiktok.com/@mikey_master" class="link-card tiktok" target="_blank" rel="noopener">
           <div class="link-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg>
           </div>
@@ -462,7 +465,7 @@
           </div>
           <span class="link-arrow">→</span>
         </a>
-        <a href="https://www.twitch.tv/MikeyMaster" class="link-card twitch" target="_blank">
+        <a href="https://www.twitch.tv/MikeyMaster" class="link-card twitch" target="_blank" rel="noopener">
           <div class="link-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
           </div>
@@ -472,7 +475,7 @@
           </div>
           <span class="link-arrow">→</span>
         </a>
-        <a href="https://web.iriam.app/s/user/XR7cgAVLM7?uuid=e4538963" class="link-card iriam" target="_blank">
+        <a href="https://web.iriam.app/s/user/XR7cgAVLM7?uuid=e4538963" class="link-card iriam" target="_blank" rel="noopener">
           <div class="link-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
           </div>
@@ -618,7 +621,7 @@
           まずはヒアリングシートにお気軽にご記入ください。
         </p>
         <div class="commission-lp-link">
-          <a href="lp.html" class="btn btn-primary" target="_blank">
+          <a href="lp.html" class="btn btn-primary" target="_blank" rel="noopener">
             💰 料金プラン・制作の流れ・FAQはこちら
           </a>
         </div>
@@ -635,6 +638,10 @@
           loading="lazy">
           読み込んでいます…
         </iframe>
+        <p class="commission-form-fallback">
+          フォームが表示されない場合は
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform" target="_blank" rel="noopener">こちらから直接開けます →</a>
+        </p>
       </div>
     </div>
   </section>
@@ -646,17 +653,24 @@
         <img src="assets/images/maiki-logo.png" alt="舞鬼法師" loading="lazy">
       </div>
       <div class="footer-social">
-        <a href="https://www.youtube.com/@mikey-master" target="_blank" aria-label="YouTube">
+        <a href="https://www.youtube.com/@mikey-master" target="_blank" rel="noopener" aria-label="YouTube">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
         </a>
-        <a href="https://x.com/mai1k_master" target="_blank" aria-label="Twitter">
+        <a href="https://x.com/mai1k_master" target="_blank" rel="noopener" aria-label="Twitter">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
-        <a href="https://www.tiktok.com/@mikey_master" target="_blank" aria-label="TikTok">
+        <a href="https://www.tiktok.com/@mikey_master" target="_blank" rel="noopener" aria-label="TikTok">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg>
         </a>
       </div>
-      <p class="footer-copy">&copy; 2024 舞鬼法師 / MIKEY MASTER. All Rights Reserved.</p>
+      <nav class="footer-nav" aria-label="フッターナビゲーション">
+        <a href="#profile">PROFILE</a>
+        <a href="#music">MUSIC</a>
+        <a href="#news">NEWS</a>
+        <a href="#links">LINKS</a>
+        <a href="#commission">COMMISSION</a>
+      </nav>
+      <p class="footer-copy">&copy; 2024–2026 舞鬼法師 / MIKEY MASTER. All Rights Reserved.</p>
     </div>
   </footer>
 
