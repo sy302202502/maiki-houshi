@@ -1672,3 +1672,8 @@ button:focus-visible,
   text-underline-offset: 3px;
   font-weight: 700;
 }
+
+/* モバイルではスクロールヒントを非表示（CTA・サブリンクとの重なり防止） */
+@media (max-width: 768px) {
+  .scroll-hint { display: none; }
+}
