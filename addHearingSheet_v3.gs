@@ -1,11 +1,11 @@
 /**
  * VTuber・Vライバー向け HP制作ヒアリングシート v3
  * ------------------------------------------------------------
- * 目的: 回答をそのままAI(Claude+Codex)に渡し、依頼者の理想を正確にHPへ落とし込む「設計図」にする。
+ * 目的: 回答をそのまま「設計図」として使い、依頼者の理想を正確にHPへ落とし込む。
  * 設計: 二段構成
  *   PART 1 = 必須コア（これだけで制作着手できる）
  *   PART 2 = 任意の深掘り（こだわり・実データ・権利を最大限に引き出す）
- * ClaudeとCodexの協働で設計・レビュー（2026-07）。
+ * 制作フロー向けに設計・レビュー（2026-07）。
  * 注: 「その他」は showOtherOption で自由記入にし、具体内容を取りこぼさない。
  */
 function addQuestions() {
@@ -20,7 +20,7 @@ function addQuestions() {
   form.setTitle('VTuber・Vライバー向け HP制作ヒアリングシート');
   form.setDescription(
     'ホームページ制作のご相談ありがとうございます！\n' +
-    'この回答は、AIを活用したHP制作の「設計図」としてそのまま使います。Webの知識は不要です。\n\n' +
+    'この回答は、HP制作の「設計図」としてそのまま使います。Webの知識は不要です。\n\n' +
     '▼ 前半（★必須）だけでも制作を始められます。所要5〜10分。\n' +
     '▼ 後半は「もっとこだわりたい人」向けの深掘り（すべて任意）。実際の制作を最後まで進めるには、後半のURL・素材・権利の回答もいただくとスムーズです。\n' +
     '▼ 迷ったら「おまかせ」「未定」でOK。あなたの言葉で書いてくれるほど理想に近づきます。\n\n' +
@@ -172,7 +172,7 @@ function addQuestions() {
     .setHelpText('年齢・誕生日・種族・出身・身長・好きなもの・性格・物語など。※ここに書いた内容はHPに公開されます。出したくない情報は書かないでください。')
     .setRequired(true);
 
-  // 決定的に重要なので必須（AIが最終判断で必ず守る基準）
+  // 決定的に重要なので必須（最終判断で必ず守る基準）
   form.addSectionHeaderItem()
     .setTitle('⑥ これだけは、という要望')
     .setHelpText('制作の最終的なよりどころにします。');
@@ -206,9 +206,9 @@ function addQuestions() {
   form.addMultipleChoiceItem().setTitle('サイトの文章の語り手は？')
     .setChoiceValues(['本人が直接話しかける感じ', '第三者が紹介するプロフィール風', '場所によって使い分けたい', 'おまかせ']);
 
-  form.addTextItem().setTitle('キャッチコピー（あれば）').setHelpText('例：「歌と笑いで夜を彩るVライバー」／AIに考えてほしい場合はその旨');
+  form.addTextItem().setTitle('キャッチコピー（あれば）').setHelpText('例：「歌と笑いで夜を彩るVライバー」／お任せしたい場合はその旨');
   form.addParagraphTextItem().setTitle('避けたい言葉・言い方').setHelpText('例：「過度にかわいい口調は避けたい」「企業向けには砕けすぎない」');
-  form.addParagraphTextItem().setTitle('普段の話し方がわかるURL').setHelpText('X・YouTube・配信アーカイブなど。AIが実際の言葉遣いを参考にします。');
+  form.addParagraphTextItem().setTitle('普段の話し方がわかるURL').setHelpText('X・YouTube・配信アーカイブなど。実際の言葉遣いを文章づくりの参考にします。');
 
   // ⑧ 素材・権利
   form.addSectionHeaderItem()
@@ -238,8 +238,8 @@ function addQuestions() {
   form.addMultipleChoiceItem().setTitle('今ない素材は、どう進めたいですか？')
     .setChoiceValues(['仮画像・仮文字で先に制作したい', '素材が完成するまで待ちたい', '素材なしでも成立するデザインにしたい', 'フリー素材や生成素材を提案してほしい', '相談して決めたい']);
 
-  form.addMultipleChoiceItem().setTitle('AI生成の画像・装飾を使ってもよいですか？')
-    .setChoiceValues(['使ってよい', 'キャラクター以外の背景・装飾ならよい', '事前確認があればよい', '使わないでほしい', '相談したい']);
+  form.addMultipleChoiceItem().setTitle('用意できない画像・装飾を、生成した素材やフリー素材で補ってもよいですか？')
+    .setChoiceValues(['補ってよい', 'キャラクター以外の背景・装飾ならよい', '事前確認があればよい', '補わないでほしい', '相談したい']);
 
   // ⑨ SNS・問い合わせ・運用
   form.addSectionHeaderItem()
@@ -293,14 +293,14 @@ function addQuestions() {
 
   form.addMultipleChoiceItem()
     .setTitle('制作中、判断に迷ったときに優先してほしいものは？')
-    .setHelpText('細かい仕様をAIが判断するときの共通の基準になります。')
+    .setHelpText('細かい仕様を判断するときの共通の基準になります。')
     .setChoiceValues(['自分らしい世界観', '見やすさ・わかりやすさ', 'ファンへの親しみやすさ', '企業から見た信頼感', '印象に残る派手さ', '表示の軽さ・速さ', '費用を抑えること', 'おまかせ']);
 
-  form.addCheckboxItem().setTitle('AI・制作者に「おまかせ」してよい範囲（複数選択OK）')
+  form.addCheckboxItem().setTitle('制作側に「おまかせ」してよい範囲（複数選択OK）')
     .setChoiceValues(['ページ構成', '配色', 'フォント', '文章・キャッチコピー', '画像の配置・加工', '背景・装飾', 'アニメーション', 'ほぼ全部', 'おまかせせず相談しながら決めたい']);
 
   form.addParagraphTextItem()
-    .setTitle('最後に、AIと制作者へ伝えておきたいこと（自由）')
+    .setTitle('最後に、制作者へ伝えておきたいこと（自由）')
     .setHelpText('まだ設問に出ていない希望・こだわり・夢・不安・背景事情など、何でも自由に。');
 
   Logger.log('ヒアリングシート v3 生成完了！');
