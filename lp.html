@@ -349,6 +349,83 @@
     }
 
     /* ===== FLOW ===== */
+    /* ===== AFTER SUPPORT ===== */
+    .support { background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); }
+    .support-lead {
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.92rem;
+      line-height: 1.9;
+      margin-bottom: 44px;
+    }
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .support-card {
+      position: relative;
+      background: var(--dark3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 30px 24px;
+      transition: border-color 0.2s;
+    }
+    .support-card:hover { border-color: rgba(255,107,0,0.4); }
+    .support-card.recommended { border-color: var(--orange); }
+    .support-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: #fff;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+    .support-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .support-price {
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .support-price span { font-size: 0.85rem; font-weight: 400; color: var(--gray); }
+    .support-list { list-style: none; padding: 0; margin: 0; }
+    .support-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.78);
+    }
+    .support-list li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      color: var(--green);
+    }
+    .support-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--gray);
+      line-height: 1.9;
+    }
+
     .flow { background: var(--dark); }
     .flow-list { display: flex; flex-direction: column; gap: 0; max-width: 700px; margin: 0 auto; }
     .flow-item {
@@ -720,7 +797,50 @@
           </ul>
         </div>
       </div>
-      <p class="plan-note">※ 初回モニター価格は先着3名様限定です。<br>※ サーバー費用は別途0円〜（Vercel＋GitHub利用の場合）<br>月額サポート（更新代行）は ¥3,000/月で別途対応可</p>
+      <p class="plan-note">※ 初回モニター価格は先着3名様限定です。<br>※ サーバー費用は別途0円〜（Vercel＋GitHub利用の場合）<br>※ 納品後の保守・運用については下記「AFTER SUPPORT」をご覧ください。</p>
+    </div>
+  </section>
+
+  <!-- ===== AFTER SUPPORT ===== -->
+  <section class="lp-section support">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>AFTER SUPPORT</h2>
+        <p>納品後の保守・運用</p>
+      </div>
+      <p class="support-lead fade-in">納品したら終わり、ではありません。<br>活動が伸びるほど、HPの更新は増えていきます。無理のない範囲でお選びください。</p>
+      <div class="support-grid">
+        <div class="support-card fade-in">
+          <div class="support-name">保守なし</div>
+          <div class="support-price">¥0<span>/月</span></div>
+          <ul class="support-list">
+            <li>納品後はご自身で管理</li>
+            <li>納品から14日以内の不具合は無償対応</li>
+            <li>それ以降の修正はスポット対応（¥3,000/回〜）</li>
+          </ul>
+        </div>
+        <div class="support-card recommended fade-in">
+          <div class="support-badge">おすすめ</div>
+          <div class="support-name">ライト保守</div>
+          <div class="support-price">¥3,000<span>/月</span></div>
+          <ul class="support-list">
+            <li>月1回までの更新代行</li>
+            <li>文言・画像の差し替え、リンク追加</li>
+            <li>不具合対応</li>
+          </ul>
+        </div>
+        <div class="support-card fade-in">
+          <div class="support-name">しっかり保守</div>
+          <div class="support-price">¥6,000<span>/月</span></div>
+          <ul class="support-list">
+            <li>月3回までの更新代行</li>
+            <li>文言・画像の差し替え、リンク追加</li>
+            <li>不具合対応</li>
+            <li>優先対応</li>
+          </ul>
+        </div>
+      </div>
+      <p class="support-note">※ 保守はいつでも開始・停止できます（最低契約期間なし）。<br>※ 大幅なデザイン変更・ページ追加は保守の範囲外です。別途お見積りいたします。</p>
     </div>
   </section>
 
@@ -830,7 +950,7 @@
             <span class="faq-q-text">納品後に自分で内容を更新できますか？</span>
             <span class="faq-icon">+</span>
           </button>
-          <div class="faq-a">コードを直接編集する必要があるため、ある程度のリテラシーが必要です。更新代行が必要な場合は月額サポート（¥3,000/月）をご利用ください。</div>
+          <div class="faq-a">コードを直接編集する必要があるため、ある程度のリテラシーが必要です。更新代行が必要な場合は月額の保守プラン（¥3,000/月〜）をご利用ください。詳しくは「AFTER SUPPORT」をご覧ください。</div>
         </div>
         <div class="faq-item">
           <button class="faq-q">
