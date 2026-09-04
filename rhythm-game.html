@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>鬼拍子｜舞鬼法師（まいきー）リズムゲーム</title>
+  <meta name="description" content="舞鬼法師（まいきー）公式サイトのリズムゲーム「鬼拍子」。オリジナル曲「Coastline Radio」に合わせてビールジョッキのノーツを叩く無料ブラウザゲーム。">
+  <link rel="canonical" href="https://mikey-master.pages.dev/rhythm-game">
+  <!-- OGP（X / Facebook / LINE 等でのリンク共有用） -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mikey-master.pages.dev/rhythm-game">
+  <meta property="og:title" content="鬼拍子｜舞鬼法師（まいきー）リズムゲーム">
+  <meta property="og:description" content="舞鬼法師（まいきー）のオリジナル曲「Coastline Radio」で遊べる無料リズムゲーム「鬼拍子」。左右2レーンで夏のノーツを叩き、FEVER TIME を狙え！">
+  <meta property="og:image" content="https://mikey-master.pages.dev/assets/images/og/rhythm-game-thumb.jpg">
+  <meta property="og:site_name" content="舞鬼法師 | MIKEY MASTER">
+  <meta property="og:locale" content="ja_JP">
+  <!-- Twitter（X）カード -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@mai1k_master">
+  <meta name="twitter:creator" content="@mai1k_master">
+  <meta name="twitter:title" content="鬼拍子｜舞鬼法師（まいきー）リズムゲーム">
+  <meta name="twitter:description" content="舞鬼法師（まいきー）のオリジナル曲「Coastline Radio」で遊べる無料リズムゲーム「鬼拍子」。">
+  <meta name="twitter:image" content="https://mikey-master.pages.dev/assets/images/og/rhythm-game-thumb.jpg">
+  <link rel="icon" href="assets/images/icons/favicon.png">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { height:100%; }
+    body {
+      background:#05030a;
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Hiragino Mincho ProN','Yu Mincho',serif;
+      color:#fff;
+      touch-action:none; overscroll-behavior:none;
+      user-select:none; -webkit-user-select:none;
+      -webkit-tap-highlight-color:transparent;
+    }
+    /* 画面いっぱいの縦長ステージ。実際の画面比率に合わせて描画する */
+    #stage {
+      position:relative;
+      width:min(100vw, 480px);
+      height:100vh; height:100dvh;
+      overflow:hidden;
+      background:#05030a;
+      box-shadow:0 0 60px rgba(120,60,200,.35);
+    }
+    /* ===== 背景レイヤー（差し替え前提・CONFIG.bg で切替） ===== */
+    #bg-layer {
+      position:absolute; inset:0;
+      background-size:cover; background-position:center;
+      filter:blur(2px) saturate(.85) brightness(.62);
+      transform:scale(1.08);
+      animation:bgDrift 24s ease-in-out infinite alternate;
+    }
+    #bg-layer video, #bg-layer img {
+      width:100%; height:100%; object-fit:cover; display:block;
+    }
+    @keyframes bgDrift {
+      from { transform:scale(1.06) translate3d(0,0,0); }
+      to   { transform:scale(1.14) translate3d(0,-2%,0); }
+    }
+    #bg-veil {
+      position:absolute; inset:0;
+      background:linear-gradient(180deg, rgba(5,3,10,.82) 0%, rgba(6,2,16,.55) 38%, rgba(4,2,8,.94) 100%);
+      transition:background .6s ease;
+    }
+    #stage.fever #bg-veil {
+      background:linear-gradient(180deg, rgba(38,14,4,.80) 0%, rgba(30,8,18,.5) 38%, rgba(18,3,8,.92) 100%);
+    }
+    canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
+
+    /* ===== オーバーレイ UI ===== */
+    .overlay {
+      position:absolute; inset:0; z-index:5;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:18px; padding:24px;
+      background:rgba(5,3,10,.82);
+      backdrop-filter:blur(3px);
+      text-align:center;
+    }
+    .overlay.hidden { display:none; }
+    .oni-title {
+      font-size:clamp(2.4rem, 13vw, 4rem);
+      letter-spacing:.22em; text-indent:.22em;
+      color:#ffd76a;
+      text-shadow:0 0 18px rgba(255,120,40,.75), 0 3px 0 #7b1f1f;
+    }
+    .oni-sub { font-size:clamp(.7rem,3.4vw,.9rem); letter-spacing:.3em; color:#c9a2ff; }
+    .song { margin-top:6px; font-size:clamp(.85rem,4vw,1.05rem); color:#fff; letter-spacing:.08em; }
+    .song small { display:block; margin-top:4px; font-size:.72em; color:#9d8fc4; letter-spacing:.16em; }
+    .btn {
+      appearance:none; border:1px solid #ffb347;
+      background:linear-gradient(180deg, rgba(255,140,40,.28), rgba(120,30,10,.4));
+      color:#ffe6b8; font-family:inherit;
+      font-size:clamp(.9rem,4.2vw,1.1rem); letter-spacing:.2em; text-indent:.2em;
+      padding:13px 34px; border-radius:999px; cursor:pointer;
+      box-shadow:0 0 22px rgba(255,120,40,.3);
+      transition:transform .12s ease, box-shadow .2s ease;
+    }
+    .btn:hover { box-shadow:0 0 30px rgba(255,150,60,.55); }
+    .btn:active { transform:scale(.96); }
+    .btn.ghost { border-color:#7a6aa8; background:rgba(255,255,255,.05); color:#cfc4ee; box-shadow:none; }
+    .howto { font-size:clamp(.68rem,3.2vw,.8rem); line-height:2; color:#a99ec9; letter-spacing:.06em; }
+    .howto b { color:#ffd76a; font-weight:normal; }
+
+    .tuner { display:flex; align-items:center; gap:12px; font-size:.75rem; color:#a99ec9; letter-spacing:.1em; }
+    .tuner button {
+      width:32px; height:32px; border-radius:50%; cursor:pointer;
+      border:1px solid #7a6aa8; background:rgba(255,255,255,.06);
+      color:#cfc4ee; font-family:inherit; font-size:1rem; line-height:1;
+    }
+    .tuner span { min-width:74px; }
+
+    /* リザルト */
+    .rank { font-size:clamp(4rem,22vw,6.5rem); line-height:1; color:#ffd76a;
+            text-shadow:0 0 30px rgba(255,140,40,.8), 0 4px 0 #7b1f1f; }
+    .result-score { font-size:clamp(1.5rem,8vw,2.2rem); letter-spacing:.1em; color:#fff; }
+    .result-table {
+      display:inline-grid; grid-template-columns:auto auto; gap:3px 26px;
+      font-size:clamp(.72rem,3.4vw,.86rem); line-height:2; letter-spacing:.1em;
+    }
+    .result-table i { font-style:normal; color:#9d8fc4; text-align:left; }
+    .result-table b { color:#fff; font-weight:normal; text-align:right; font-variant-numeric:tabular-nums; }
+    .result-table .full { grid-column:1 / -1; text-align:center; color:#ffd76a; margin-top:6px; }
+    .result-actions { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+
+    /* 画面内ボタン（ポーズ・ミュート） */
+    .hud-btn {
+      position:absolute; z-index:4; width:42px; height:42px;
+      display:flex; align-items:center; justify-content:center;
+      border:none; border-radius:12px; cursor:pointer;
+      background:rgba(10,8,20,.55); color:#a8e6d8;
+      backdrop-filter:blur(2px);
+    }
+    .hud-btn svg { width:20px; height:20px; fill:currentColor; }
+    #pause-btn { top:12px; left:12px; }
+    #mute-btn  { bottom:12px; right:12px; border-radius:50%; color:#d8cff2; }
+    #mute-btn.muted { color:#7a6f95; }
+    .hud-btn.hidden { display:none; }
+
+    #back-link {
+      position:absolute; z-index:4; bottom:14px; left:14px;
+      font-size:.7rem; letter-spacing:.14em; color:#8d82ad;
+      text-decoration:none; padding:6px 10px; border-radius:999px;
+      background:rgba(10,8,20,.5);
+    }
+    #back-link:hover { color:#ffd76a; }
+    #back-link.hidden { display:none; }
+    #loading { font-size:.8rem; letter-spacing:.24em; color:#8d82ad; }
+  </style>
+</head>
+<body>
+<div id="stage">
+  <div id="bg-layer"></div>
+  <div id="bg-veil"></div>
+  <canvas id="cv"></canvas>
+
+  <button id="pause-btn" class="hud-btn hidden" aria-label="ポーズ">
+    <svg viewBox="0 0 24 24"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+  </button>
+  <button id="mute-btn" class="hud-btn hidden" aria-label="ミュート切替">
+    <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/></svg>
+  </button>
+  <a id="back-link" href="index.html#game">← 舞鬼法師トップ</a>
+
+  <!-- タイトル -->
+  <div class="overlay" id="ov-title">
+    <div>
+      <h1 class="oni-title">鬼拍子</h1>
+      <p class="oni-sub">ONI BEAT</p>
+    </div>
+    <p class="song">♪ Coastline Radio<small>舞鬼法師 / MIKEY MASTER</small></p>
+    <button class="btn" id="start-btn">は じ め る</button>
+    <p class="howto">
+      落ちてくる<b>ジョッキ</b>が輪に重なった瞬間、<b>その側の画面をタップ</b><br>
+      <b>瓶ビール</b>は光が消えるまで押しっぱなし／<b>スイカ</b>は FEVER 中のノーツ<br>
+      光る<b>陽と波</b>はスコア1.5倍のアクセント<br>
+      キーボードは <b>F</b>（左）と <b>J</b>（右）
+    </p>
+    <div class="tuner">
+      <button type="button" id="off-minus" aria-label="オフセットを下げる">−</button>
+      <span id="off-label">判定 +0 ms</span>
+      <button type="button" id="off-plus" aria-label="オフセットを上げる">＋</button>
+    </div>
+    <p id="loading"></p>
+  </div>
+
+  <!-- ポーズ -->
+  <div class="overlay hidden" id="ov-pause">
+    <h2 class="oni-title" style="font-size:clamp(1.6rem,9vw,2.4rem)">一 服</h2>
+    <div class="result-actions">
+      <button class="btn" id="resume-btn">つ づ け る</button>
+      <button class="btn ghost" id="retry-btn">やりなおす</button>
+    </div>
+  </div>
+
+  <!-- リザルト -->
+  <div class="overlay hidden" id="ov-result">
+    <div class="rank" id="r-rank">S</div>
+    <div class="result-score" id="r-score">0</div>
+    <div class="result-table" id="r-table"></div>
+    <div class="result-actions">
+      <button class="btn" id="again-btn">もう一度</button>
+      <a class="btn ghost" href="index.html#game" style="text-decoration:none">もどる</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ==========================================================================
+   鬼拍子 / ONI BEAT
+   舞鬼法師 オリジナル曲「Coastline Radio」用 2レーン リズムゲーム
+
+   譜面（CHART）は楽曲のオンセット解析から生成した固定データ。
+   BPM 137.82 / 先頭オフセット 0.140s。
+   ========================================================================== */
+
+/* --- 差し替え用の設定。背景はここだけ変えれば入れ替わる ------------------ */
+const CONFIG = {
+  audio:  'assets/audio/coastline-radio.mp3',
+  title:  'Coastline Radio',
+  bg: {
+    mode: 'image',                        // 'image' | 'video' | 'none'
+    src:  'assets/images/rhythm-bg.jpg',  // mode:'video' なら .mp4 を指定
+  },
+  approach: 1.55,   // ノーツが画面上端から判定線まで落ちる秒数（小さいほど速い）
+};
+
+const CHART = {"bpm":137.81999999999925,"offset":0.14,"duration":179.72,"fever":[[106.366,120.297],[163.832,177.763]],"notes":[{"t":3.623,"lane":0,"type":"mug"},{"t":5.364,"lane":1,"type":"mug"},{"t":7.106,"lane":0,"type":"mug"},{"t":8.847,"lane":1,"type":"mug"},{"t":10.588,"lane":0,"type":"mug"},{"t":10.806,"lane":1,"type":"mug"},{"t":11.024,"lane":0,"type":"mug"},{"t":12.33,"lane":1,"type":"bottle","len":0.827},{"t":13.418,"lane":1,"type":"mug"},{"t":13.636,"lane":0,"type":"mug"},{"t":14.071,"lane":1,"type":"bottle","len":1.306},{"t":15.813,"lane":0,"type":"bottle","len":1.306},{"t":17.554,"lane":1,"type":"bottle","len":1.306},{"t":19.295,"lane":0,"type":"bottle","len":1.306},{"t":21.037,"lane":1,"type":"bottle","len":1.306},{"t":22.778,"lane":0,"type":"bottle","len":1.045},{"t":24.084,"lane":1,"type":"mug"},{"t":24.52,"lane":0,"type":"mug"},{"t":24.737,"lane":1,"type":"sun"},{"t":24.955,"lane":0,"type":"bottle","len":0.61},{"t":25.826,"lane":1,"type":"mug"},{"t":26.261,"lane":0,"type":"sun"},{"t":26.696,"lane":1,"type":"bottle","len":1.306},{"t":29.744,"lane":0,"type":"bottle","len":1.306},{"t":31.485,"lane":1,"type":"bottle","len":1.306},{"t":33.227,"lane":0,"type":"bottle","len":1.306},{"t":34.968,"lane":1,"type":"bottle","len":1.306},{"t":36.709,"lane":0,"type":"bottle","len":1.306},{"t":38.451,"lane":1,"type":"bottle","len":1.306},{"t":40.192,"lane":0,"type":"bottle","len":0.828},{"t":41.281,"lane":1,"type":"mug"},{"t":41.498,"lane":0,"type":"mug"},{"t":41.716,"lane":1,"type":"mug"},{"t":41.934,"lane":0,"type":"mug"},{"t":42.369,"lane":1,"type":"mug"},{"t":42.587,"lane":0,"type":"sun"},{"t":43.24,"lane":1,"type":"mug"},{"t":43.675,"lane":0,"type":"bottle","len":1.306},{"t":45.416,"lane":1,"type":"bottle","len":1.306},{"t":47.158,"lane":0,"type":"bottle","len":1.306},{"t":48.899,"lane":1,"type":"bottle","len":1.306},{"t":50.641,"lane":0,"type":"bottle","len":1.306},{"t":52.382,"lane":1,"type":"bottle","len":1.306},{"t":54.123,"lane":0,"type":"bottle","len":1.306},{"t":55.865,"lane":1,"type":"bottle","len":1.306},{"t":57.606,"lane":0,"type":"bottle","len":1.306},{"t":59.348,"lane":1,"type":"bottle","len":1.306},{"t":61.089,"lane":0,"type":"bottle","len":1.306},{"t":62.83,"lane":1,"type":"bottle","len":1.306},{"t":64.572,"lane":0,"type":"bottle","len":1.263},{"t":66.096,"lane":0,"type":"mug"},{"t":66.313,"lane":1,"type":"bottle","len":0.61},{"t":67.184,"lane":0,"type":"mug"},{"t":68.055,"lane":1,"type":"mug"},{"t":68.49,"lane":0,"type":"mug"},{"t":68.925,"lane":1,"type":"mug"},{"t":69.796,"lane":0,"type":"sun"},{"t":70.667,"lane":1,"type":"sun"},{"t":71.32,"lane":0,"type":"mug"},{"t":71.537,"lane":1,"type":"sun"},{"t":71.973,"lane":0,"type":"mug"},{"t":72.408,"lane":1,"type":"mug"},{"t":72.844,"lane":0,"type":"mug"},{"t":73.279,"lane":1,"type":"sun"},{"t":73.932,"lane":0,"type":"mug"},{"t":74.15,"lane":0,"type":"mug"},{"t":74.585,"lane":1,"type":"mug"},{"t":75.02,"lane":0,"type":"mug"},{"t":75.456,"lane":1,"type":"mug"},{"t":75.891,"lane":1,"type":"mug"},{"t":76.326,"lane":0,"type":"mug"},{"t":76.762,"lane":1,"type":"sun"},{"t":77.197,"lane":1,"type":"mug"},{"t":77.632,"lane":0,"type":"mug"},{"t":78.068,"lane":0,"type":"mug"},{"t":78.503,"lane":1,"type":"sun"},{"t":78.938,"lane":0,"type":"mug"},{"t":79.374,"lane":1,"type":"mug"},{"t":79.809,"lane":1,"type":"mug"},{"t":80.244,"lane":0,"type":"sun"},{"t":80.68,"lane":0,"type":"mug"},{"t":81.115,"lane":0,"type":"mug"},{"t":81.551,"lane":1,"type":"mug"},{"t":81.986,"lane":0,"type":"mug"},{"t":82.421,"lane":1,"type":"mug"},{"t":82.857,"lane":0,"type":"mug"},{"t":83.292,"lane":1,"type":"mug"},{"t":83.727,"lane":0,"type":"mug"},{"t":84.163,"lane":1,"type":"mug"},{"t":84.598,"lane":1,"type":"mug"},{"t":85.033,"lane":0,"type":"mug"},{"t":85.469,"lane":1,"type":"mug"},{"t":86.339,"lane":0,"type":"mug"},{"t":87.21,"lane":1,"type":"mug"},{"t":87.645,"lane":1,"type":"mug"},{"t":88.516,"lane":0,"type":"mug"},{"t":88.951,"lane":1,"type":"mug"},{"t":89.387,"lane":0,"type":"mug"},{"t":90.258,"lane":1,"type":"mug"},{"t":90.693,"lane":0,"type":"mug"},{"t":91.128,"lane":1,"type":"mug"},{"t":91.564,"lane":0,"type":"mug"},{"t":91.781,"lane":1,"type":"mug"},{"t":91.999,"lane":0,"type":"mug"},{"t":92.434,"lane":1,"type":"mug"},{"t":92.87,"lane":1,"type":"mug"},{"t":93.74,"lane":0,"type":"mug"},{"t":94.176,"lane":1,"type":"mug"},{"t":94.611,"lane":0,"type":"mug"},{"t":95.046,"lane":0,"type":"mug"},{"t":95.917,"lane":1,"type":"mug"},{"t":96.352,"lane":0,"type":"mug"},{"t":96.788,"lane":1,"type":"mug"},{"t":97.223,"lane":0,"type":"mug"},{"t":97.659,"lane":1,"type":"sun"},{"t":98.094,"lane":1,"type":"mug"},{"t":98.529,"lane":0,"type":"mug"},{"t":98.965,"lane":0,"type":"mug"},{"t":99.4,"lane":1,"type":"sun"},{"t":100.271,"lane":0,"type":"mug"},{"t":100.706,"lane":0,"type":"mug"},{"t":101.141,"lane":1,"type":"mug"},{"t":102.012,"lane":0,"type":"mug"},{"t":102.447,"lane":1,"type":"mug"},{"t":102.883,"lane":0,"type":"mug"},{"t":103.318,"lane":0,"type":"mug"},{"t":103.536,"lane":1,"type":"sun"},{"t":103.753,"lane":1,"type":"mug"},{"t":104.189,"lane":0,"type":"mug"},{"t":104.406,"lane":1,"type":"mug"},{"t":104.624,"lane":0,"type":"mug"},{"t":104.842,"lane":1,"type":"mug"},{"t":105.495,"lane":0,"type":"mug"},{"t":105.93,"lane":0,"type":"mug"},{"t":106.366,"lane":1,"type":"mug"},{"t":106.801,"lane":0,"type":"melon"},{"t":107.236,"lane":1,"type":"melon"},{"t":107.672,"lane":1,"type":"melon"},{"t":108.107,"lane":0,"type":"melon"},{"t":108.325,"lane":1,"type":"melon"},{"t":108.542,"lane":0,"type":"melon"},{"t":108.76,"lane":1,"type":"melon"},{"t":108.978,"lane":0,"type":"melon"},{"t":109.413,"lane":0,"type":"melon"},{"t":109.631,"lane":1,"type":"melon"},{"t":109.848,"lane":0,"type":"melon"},{"t":110.284,"lane":0,"type":"melon"},{"t":110.719,"lane":1,"type":"melon"},{"t":111.154,"lane":0,"type":"melon"},{"t":111.59,"lane":1,"type":"melon"},{"t":111.807,"lane":1,"type":"melon"},{"t":112.025,"lane":0,"type":"melon"},{"t":112.46,"lane":0,"type":"melon"},{"t":112.896,"lane":1,"type":"melon"},{"t":113.113,"lane":1,"type":"melon"},{"t":113.331,"lane":0,"type":"melon"},{"t":113.549,"lane":0,"type":"melon"},{"t":113.766,"lane":0,"type":"melon"},{"t":114.202,"lane":1,"type":"melon"},{"t":114.637,"lane":1,"type":"melon"},{"t":114.855,"lane":0,"type":"melon"},{"t":115.073,"lane":1,"type":"melon"},{"t":115.508,"lane":1,"type":"melon"},{"t":115.726,"lane":0,"type":"melon"},{"t":115.943,"lane":1,"type":"melon"},{"t":116.161,"lane":0,"type":"melon"},{"t":116.379,"lane":0,"type":"melon"},{"t":116.596,"lane":0,"type":"melon"},{"t":116.814,"lane":1,"type":"melon"},{"t":117.249,"lane":0,"type":"melon"},{"t":117.467,"lane":0,"type":"melon"},{"t":117.685,"lane":1,"type":"melon"},{"t":118.12,"lane":0,"type":"melon"},{"t":118.555,"lane":1,"type":"melon"},{"t":118.773,"lane":0,"type":"melon"},{"t":118.991,"lane":0,"type":"melon"},{"t":119.208,"lane":0,"type":"melon"},{"t":119.426,"lane":0,"type":"melon"},{"t":119.644,"lane":0,"type":"melon"},{"t":119.861,"lane":0,"type":"melon"},{"t":120.079,"lane":1,"type":"melon"},{"t":120.297,"lane":0,"type":"melon"},{"t":120.732,"lane":1,"type":"mug"},{"t":121.167,"lane":0,"type":"mug"},{"t":121.603,"lane":0,"type":"mug"},{"t":122.038,"lane":1,"type":"sun"},{"t":122.473,"lane":0,"type":"sun"},{"t":122.909,"lane":1,"type":"mug"},{"t":123.344,"lane":0,"type":"sun"},{"t":123.78,"lane":1,"type":"sun"},{"t":124.215,"lane":0,"type":"sun"},{"t":124.65,"lane":1,"type":"mug"},{"t":125.086,"lane":0,"type":"mug"},{"t":125.521,"lane":1,"type":"sun"},{"t":125.956,"lane":0,"type":"sun"},{"t":126.392,"lane":1,"type":"mug"},{"t":126.827,"lane":0,"type":"mug"},{"t":127.262,"lane":1,"type":"sun"},{"t":127.698,"lane":0,"type":"mug"},{"t":128.133,"lane":1,"type":"mug"},{"t":128.568,"lane":0,"type":"mug"},{"t":129.004,"lane":1,"type":"sun"},{"t":129.439,"lane":0,"type":"mug"},{"t":129.874,"lane":0,"type":"mug"},{"t":130.31,"lane":0,"type":"mug"},{"t":130.745,"lane":1,"type":"sun"},{"t":131.18,"lane":0,"type":"mug"},{"t":131.616,"lane":1,"type":"mug"},{"t":132.051,"lane":0,"type":"mug"},{"t":132.269,"lane":0,"type":"mug"},{"t":132.487,"lane":1,"type":"sun"},{"t":132.704,"lane":1,"type":"mug"},{"t":132.922,"lane":1,"type":"mug"},{"t":133.357,"lane":0,"type":"mug"},{"t":133.793,"lane":0,"type":"mug"},{"t":134.228,"lane":1,"type":"mug"},{"t":134.663,"lane":0,"type":"mug"},{"t":134.881,"lane":1,"type":"sun"},{"t":135.099,"lane":0,"type":"mug"},{"t":135.316,"lane":1,"type":"mug"},{"t":135.534,"lane":0,"type":"sun"},{"t":135.752,"lane":1,"type":"sun"},{"t":135.969,"lane":0,"type":"sun"},{"t":136.405,"lane":1,"type":"sun"},{"t":136.84,"lane":1,"type":"mug"},{"t":137.711,"lane":0,"type":"mug"},{"t":138.146,"lane":1,"type":"sun"},{"t":139.452,"lane":0,"type":"sun"},{"t":139.887,"lane":1,"type":"sun"},{"t":140.323,"lane":0,"type":"mug"},{"t":141.194,"lane":1,"type":"mug"},{"t":141.847,"lane":0,"type":"mug"},{"t":142.5,"lane":1,"type":"mug"},{"t":142.935,"lane":0,"type":"mug"},{"t":144.241,"lane":1,"type":"mug"},{"t":144.676,"lane":0,"type":"mug"},{"t":146.418,"lane":1,"type":"mug"},{"t":148.159,"lane":0,"type":"mug"},{"t":149.901,"lane":1,"type":"mug"},{"t":151.642,"lane":0,"type":"mug"},{"t":153.383,"lane":1,"type":"mug"},{"t":155.125,"lane":0,"type":"mug"},{"t":156.866,"lane":1,"type":"mug"},{"t":158.608,"lane":0,"type":"mug"},{"t":160.349,"lane":1,"type":"mug"},{"t":162.09,"lane":0,"type":"mug"},{"t":163.832,"lane":1,"type":"mug"},{"t":165.573,"lane":0,"type":"melon"},{"t":167.315,"lane":1,"type":"melon"},{"t":169.056,"lane":0,"type":"melon"},{"t":169.927,"lane":0,"type":"melon"},{"t":170.362,"lane":1,"type":"melon"},{"t":170.797,"lane":0,"type":"melon"},{"t":171.45,"lane":1,"type":"melon"},{"t":171.886,"lane":1,"type":"melon"},{"t":172.321,"lane":0,"type":"melon"},{"t":172.539,"lane":1,"type":"melon"},{"t":172.756,"lane":1,"type":"melon"},{"t":172.974,"lane":0,"type":"melon"},{"t":173.192,"lane":0,"type":"melon"},{"t":173.409,"lane":1,"type":"melon"},{"t":173.627,"lane":1,"type":"melon"},{"t":173.845,"lane":0,"type":"melon"},{"t":174.063,"lane":1,"type":"melon"},{"t":174.28,"lane":0,"type":"melon"},{"t":174.498,"lane":1,"type":"melon"},{"t":174.716,"lane":0,"type":"melon"},{"t":174.933,"lane":0,"type":"melon"},{"t":175.151,"lane":1,"type":"melon"},{"t":175.369,"lane":0,"type":"melon"},{"t":175.586,"lane":0,"type":"melon"},{"t":175.804,"lane":1,"type":"melon"},{"t":176.022,"lane":0,"type":"melon"},{"t":176.457,"lane":1,"type":"melon"},{"t":176.675,"lane":0,"type":"melon"},{"t":176.892,"lane":1,"type":"melon"},{"t":177.11,"lane":0,"type":"melon"},{"t":177.328,"lane":0,"type":"melon"},{"t":177.545,"lane":1,"type":"melon"},{"t":177.763,"lane":0,"type":"melon"}]};
+
+/* --- 背景レイヤーの構築 -------------------------------------------------- */
+(function buildBg() {
+  const el = document.getElementById('bg-layer');
+  if (CONFIG.bg.mode === 'video') {
+    const v = document.createElement('video');
+    v.src = CONFIG.bg.src;
+    v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
+    v.setAttribute('playsinline', '');
+    el.appendChild(v);
+    el.style.animation = 'none';
+    v.play().catch(() => {});
+  } else if (CONFIG.bg.mode === 'image') {
+    el.style.backgroundImage = `url('${CONFIG.bg.src}')`;
+  } else {
+    el.style.background = 'radial-gradient(circle at 50% 30%, #2a1450, #05030a 70%)';
+    el.style.animation = 'none';
+  }
+})();
+
+/* --- 画面 ---------------------------------------------------------------- */
+const W = 450;                          // 論理幅（高さは画面比率から算出）
+let   H = 800;
+const LANE_X = [W * 0.265, W * 0.735];
+let   JUDGE_Y = H - 132;
+const RING_R = 46;
+const NOTE_R = 37;
+const SPAWN_Y = -70;
+
+const stage = document.getElementById('stage');
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+let dpr = 1;
+
+function resize() {
+  const r = stage.getBoundingClientRect();
+  dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  cv.width  = Math.round(r.width  * dpr);
+  cv.height = Math.round(r.height * dpr);
+  H = W * (r.height / r.width);
+  JUDGE_Y = H - Math.min(160, Math.max(120, H * 0.165));
+}
+window.addEventListener('resize', resize);
+resize();
+
+/* --- 音源 ---------------------------------------------------------------- */
+const audio = new Audio(CONFIG.audio);
+audio.preload = 'auto';
+const loading = document.getElementById('loading');
+const startBtn = document.getElementById('start-btn');
+loading.textContent = '楽曲を読み込み中…';
+startBtn.disabled = true;
+function ready() { loading.textContent = ''; startBtn.disabled = false; }
+audio.addEventListener('canplaythrough', ready, { once: true });
+audio.addEventListener('error', () => { loading.textContent = '楽曲を読み込めませんでした'; });
+setTimeout(ready, 6000);   // 進捗イベントが来ない環境向けの保険
+
+/* --- 判定 ---------------------------------------------------------------- */
+const JUDGE = [
+  { name: 'PERFECT', win: 0.055, w: 1.00, color: '#ffd76a' },
+  { name: 'GREAT',   win: 0.100, w: 0.60, color: '#8ef0d0' },
+  { name: 'GOOD',    win: 0.150, w: 0.25, color: '#9ec6ff' },
+];
+const MISS_LATE = 0.185;
+const HOLD_GRACE = 0.12;
+
+/* --- 状態 ---------------------------------------------------------------- */
+let notes = [], scene = 'title', paused = false;
+let score = 0, combo = 0, maxCombo = 0, weighted = 0, judgeable = 0;
+let counts = { PERFECT: 0, GREAT: 0, GOOD: 0, MISS: 0 };
+let feverOn = false;
+let offsetMs = 0;                        // ユーザー調整（＋で判定を遅らせる）
+const laneHeld = [false, false];
+const laneFlash = [0, 0];
+const ringPulse = [0, 0];
+let judgeFx = null;                      // { name, color, until }
+let particles = [], streaks = [];
+let startedAt = 0;                       // performance.now 基準の同期点
+let syncAudio = 0, syncPerf = 0, lastRaw = -1, pausedAt = 0;
+
+function buildNotes() {
+  notes = CHART.notes.map(n => ({
+    t: n.t, lane: n.lane, type: n.type,
+    len: n.len || 0,
+    state: 'idle',                       // idle | holding | done
+    result: null,
+  }));
+  judgeable = notes.length + notes.filter(n => n.len > 0).length;
+}
+
+/* --- 時刻 ---------------------------------------------------------------- */
+function songTime() {
+  if (scene !== 'play' || paused) return pausedAt;
+  const raw = audio.currentTime;
+  if (raw !== lastRaw) { lastRaw = raw; syncAudio = raw; syncPerf = performance.now(); }
+  let t = syncAudio + (performance.now() - syncPerf) / 1000;
+  if (t < raw) t = raw;                              // 逆行させない
+  if (t > raw + 0.25) t = raw + 0.25;                // 暴走を抑える
+  return t - offsetMs / 1000;
+}
+
+/* --- 入力 ---------------------------------------------------------------- */
+const pointerLane = new Map();
+
+function laneFromX(clientX) {
+  const r = stage.getBoundingClientRect();
+  return (clientX - r.left) < r.width / 2 ? 0 : 1;
+}
+function pressLane(lane) {
+  if (scene !== 'play' || paused) return;
+  laneHeld[lane] = true;
+  laneFlash[lane] = 1;
+  tryHit(lane);
+}
+function releaseLane(lane) { laneHeld[lane] = false; }
+
+stage.addEventListener('pointerdown', e => {
+  if (e.target.closest('button, a')) return;
+  const lane = laneFromX(e.clientX);
+  pointerLane.set(e.pointerId, lane);
+  pressLane(lane);
+}, { passive: true });
+function endPointer(e) {
+  const lane = pointerLane.get(e.pointerId);
+  if (lane === undefined) return;
+  pointerLane.delete(e.pointerId);
+  if (![...pointerLane.values()].includes(lane)) releaseLane(lane);
+}
+stage.addEventListener('pointerup', endPointer, { passive: true });
+stage.addEventListener('pointercancel', endPointer, { passive: true });
+
+const KEY_LANE = { KeyF: 0, ArrowLeft: 0, KeyJ: 1, ArrowRight: 1 };
+document.addEventListener('keydown', e => {
+  if (e.code === 'Escape' && scene === 'play') { togglePause(); return; }
+  const lane = KEY_LANE[e.code];
+  if (lane === undefined || e.repeat) return;
+  e.preventDefault();
+  pressLane(lane);
+});
+document.addEventListener('keyup', e => {
+  const lane = KEY_LANE[e.code];
+  if (lane !== undefined) releaseLane(lane);
+});
+
+/* --- 判定処理 ------------------------------------------------------------ */
+function applyJudge(name, w, color, lane, bonus) {
+  counts[name]++;
+  weighted += w;
+  if (name === 'MISS') {
+    combo = 0;
+  } else {
+    combo++;
+    if (combo > maxCombo) maxCombo = combo;
+    score += Math.round(w * 1000 * (1 + Math.min(combo, 100) / 200)
+                        * (feverOn ? 2 : 1) * (bonus || 1));
+    ringPulse[lane] = 1;
+    burst(lane, color);
+  }
+  judgeFx = { name, color, born: performance.now() };
+}
+
+function tryHit(lane) {
+  const now = songTime();
+  let best = null, bestDt = 9;
+  for (const n of notes) {
+    if (n.lane !== lane || n.state !== 'idle') continue;
+    const dt = n.t - now;
+    if (dt > JUDGE[2].win) break;                  // 譜面は時刻順
+    if (dt < -MISS_LATE) continue;
+    if (Math.abs(dt) < Math.abs(bestDt)) { best = n; bestDt = dt; }
+  }
+  if (!best) return;
+  const a = Math.abs(bestDt);
+  const j = JUDGE.find(x => a <= x.win);
+  if (!j) return;                                  // 判定枠外なら空打ち扱い
+  best.result = j.name;
+  applyJudge(j.name, j.w, best.type === 'sun' ? '#ffe06a' : j.color, lane,
+             best.type === 'sun' ? 1.5 : 1);
+  if (best.len > 0) { best.state = 'holding'; laneFlash[lane] = 1; }
+  else              { best.state = 'done'; }
+}
+
+function updateNotes(now) {
+  for (const n of notes) {
+    if (n.state === 'idle' && n.t < now - MISS_LATE) {
+      n.state = 'done'; n.result = 'MISS';
+      applyJudge('MISS', 0, '#ff6b8a', n.lane);
+      if (n.len > 0) { counts.MISS++; weighted += 0; }   // 尾も落とす
+    } else if (n.state === 'holding') {
+      const end = n.t + n.len;
+      if (now >= end) {
+        n.state = 'done';
+        applyJudge('PERFECT', 1, '#ffd76a', n.lane);
+      } else if (!laneHeld[n.lane] && now > n.t + HOLD_GRACE) {
+        n.state = 'done';
+        applyJudge('MISS', 0, '#ff6b8a', n.lane);
+      }
+    }
+  }
+}
+
+/* --- 演出 ---------------------------------------------------------------- */
+function burst(lane, color) {
+  const n = feverOn ? 14 : 9;
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2;
+    const sp = 1.4 + Math.random() * 3.4;
+    particles.push({
+      x: LANE_X[lane], y: JUDGE_Y,
+      vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 1.6,
+      life: 1, color, r: 2 + Math.random() * 3,
+      star: Math.random() < .45,
+    });
+  }
+}
+function updateFx() {
+  for (const p of particles) {
+    p.x += p.vx; p.y += p.vy; p.vy += 0.14; p.life -= 0.026;
+  }
+  particles = particles.filter(p => p.life > 0);
+
+  if (feverOn) {
+    if (streaks.length < 46) {
+      streaks.push({
+        x: Math.random() * W, y: -20 - Math.random() * 200,
+        v: 5 + Math.random() * 9, len: 20 + Math.random() * 70,
+        a: 0.25 + Math.random() * 0.5,
+      });
+    }
+    for (const s of streaks) s.y += s.v;
+    streaks = streaks.filter(s => s.y < H + 90);
+  } else if (streaks.length) {
+    for (const s of streaks) s.y += s.v;
+    streaks = streaks.filter(s => s.y < H + 90);
+  }
+  for (let i = 0; i < 2; i++) {
+    laneFlash[i] = Math.max(0, laneFlash[i] - 0.07);
+    ringPulse[i] = Math.max(0, ringPulse[i] - 0.05);
+  }
+}
+
+/* --- 夏モチーフの描画 ---------------------------------------------------- */
+function rrect(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y,     x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x,     y + h, r);
+  ctx.arcTo(x,     y + h, x,     y,     r);
+  ctx.arcTo(x,     y,     x + w, y,     r);
+  ctx.closePath();
+}
+
+/* 通常ノーツ：生ビールのジョッキ */
+function drawMug(x, y, r, alpha) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.translate(x, y);
+  const w = r * 1.24, h = r * 1.52;
+  // 取っ手
+  ctx.strokeStyle = '#f6dc9c'; ctx.lineWidth = r * 0.17; ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.arc(w * 0.52, h * 0.06, r * 0.36, -Math.PI * 0.46, Math.PI * 0.46);
+  ctx.stroke();
+  // ビール本体
+  const g = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
+  g.addColorStop(0, '#a85c07'); g.addColorStop(.32, '#ffc44a');
+  g.addColorStop(.62, '#f7a821'); g.addColorStop(1, '#b96e0d');
+  rrect(-w / 2, -h * 0.34, w, h * 0.84, r * 0.15);
+  ctx.fillStyle = g; ctx.fill();
+  // 気泡
+  ctx.fillStyle = 'rgba(255,246,205,.55)';
+  for (const b of [[-.22, .12, .075], [.06, -.06, .055], [-.05, .3, .05], [.24, .2, .06]]) {
+    ctx.beginPath(); ctx.arc(b[0] * w, b[1] * h, b[2] * r, 0, Math.PI * 2); ctx.fill();
+  }
+  // 泡（ヘッド）
+  ctx.fillStyle = '#fffdf3';
+  rrect(-w / 2 - r * .04, -h * 0.52, w + r * .08, h * 0.26, r * 0.12);
+  ctx.fill();
+  for (const b of [[-.32, .085], [-.06, .105], [.22, .09], [.38, .07]]) {
+    ctx.beginPath(); ctx.arc(b[0] * w, -h * 0.53, b[1] * r * 2.4, 0, Math.PI * 2); ctx.fill();
+  }
+  // ガラスの縁とハイライト
+  ctx.strokeStyle = 'rgba(255,247,214,.85)'; ctx.lineWidth = 2.2;
+  rrect(-w / 2, -h * 0.34, w, h * 0.84, r * 0.15); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = r * 0.11;
+  ctx.beginPath();
+  ctx.moveTo(-w * 0.30, -h * 0.18); ctx.lineTo(-w * 0.30, h * 0.32);
+  ctx.stroke();
+  ctx.restore();
+}
+
+/* ロングノーツ：瓶ビール（縦長なのでホールドの帯と繋がる） */
+function drawBottle(x, y, r, alpha) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.translate(x, y); ctx.rotate(-0.12);
+  const h = r * 1.94, w = r * 0.80, nk = w * 0.34;
+  const g = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
+  g.addColorStop(0, '#123d1c'); g.addColorStop(.35, '#3f8b3a');
+  g.addColorStop(.6, '#2c6b2b'); g.addColorStop(1, '#0e2f16');
+  ctx.beginPath();
+  ctx.moveTo(-w / 2, h * 0.46);
+  ctx.lineTo(-w / 2, -h * 0.06);
+  ctx.quadraticCurveTo(-w / 2, -h * 0.26, -nk, -h * 0.32);
+  ctx.lineTo(-nk, -h * 0.46);
+  ctx.lineTo(nk, -h * 0.46);
+  ctx.lineTo(nk, -h * 0.32);
+  ctx.quadraticCurveTo(w / 2, -h * 0.26, w / 2, -h * 0.06);
+  ctx.lineTo(w / 2, h * 0.46);
+  ctx.closePath();
+  ctx.fillStyle = g; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = 'rgba(210,255,200,.55)'; ctx.stroke();
+  // 王冠
+  ctx.fillStyle = '#ffd76a';
+  rrect(-nk * 1.25, -h * 0.52, nk * 2.5, h * 0.09, 2); ctx.fill();
+  // ラベル
+  ctx.fillStyle = '#fdf3d8';
+  rrect(-w / 2, h * 0.02, w, h * 0.30, 2); ctx.fill();
+  ctx.fillStyle = '#e0912a';
+  ctx.fillRect(-w / 2, h * 0.09, w, h * 0.055);
+  ctx.fillStyle = '#7d4a12';
+  ctx.beginPath(); ctx.arc(0, h * 0.235, r * 0.095, 0, Math.PI * 2); ctx.fill();
+  // ハイライト
+  ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = r * 0.09; ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(-w * 0.26, -h * 0.16); ctx.lineTo(-w * 0.26, h * 0.40);
+  ctx.stroke();
+  ctx.restore();
+}
+
+/* アクセントノーツ：陽と波（Coastline Radio の海と夕陽） */
+function drawSun(x, y, r, alpha) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.translate(x, y);
+  const R = r * 0.66;
+  // 光条
+  ctx.strokeStyle = '#ffdf7a'; ctx.lineWidth = r * 0.11; ctx.lineCap = 'round';
+  for (let i = 0; i < 8; i++) {
+    const a = i * Math.PI / 4 + 0.2;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(a) * R * 1.28, Math.sin(a) * R * 1.28);
+    ctx.lineTo(Math.cos(a) * R * 1.62, Math.sin(a) * R * 1.62);
+    ctx.stroke();
+  }
+  // 陽
+  const g = ctx.createLinearGradient(0, -R, 0, R);
+  g.addColorStop(0, '#fff2b0'); g.addColorStop(.5, '#ffc23c'); g.addColorStop(1, '#ff7a3c');
+  ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI * 2);
+  ctx.fillStyle = g; ctx.fill();
+  ctx.lineWidth = 2.2; ctx.strokeStyle = 'rgba(255,247,214,.9)'; ctx.stroke();
+  // 海（下半分を波で切り取る）
+  ctx.save();
+  ctx.beginPath(); ctx.arc(0, 0, R, 0, Math.PI * 2); ctx.clip();
+  const gs = ctx.createLinearGradient(0, R * 0.1, 0, R);
+  gs.addColorStop(0, '#3ec5e8'); gs.addColorStop(1, '#1668b8');
+  ctx.fillStyle = gs;
+  ctx.fillRect(-R, R * 0.14, R * 2, R);
+  ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.lineWidth = r * 0.075;
+  for (const yy of [R * 0.38, R * 0.66]) {
+    ctx.beginPath();
+    ctx.moveTo(-R, yy);
+    ctx.quadraticCurveTo(-R * 0.5, yy - R * 0.14, 0, yy);
+    ctx.quadraticCurveTo(R * 0.5, yy + R * 0.14, R, yy);
+    ctx.stroke();
+  }
+  ctx.restore();
+  ctx.restore();
+}
+
+/* FEVER 中のノーツ：スイカ */
+function drawMelon(x, y, r, alpha) {
+  ctx.save(); ctx.globalAlpha = alpha; ctx.translate(x, y); ctx.rotate(0.16);
+  const cy = -r * 0.42, R = r * 1.06;
+  // 皮（濃緑）
+  ctx.beginPath(); ctx.arc(0, cy, R, 0, Math.PI); ctx.closePath();
+  const g = ctx.createLinearGradient(0, cy, 0, cy + R);
+  g.addColorStop(0, '#4f9b3c'); g.addColorStop(1, '#1f5c22');
+  ctx.fillStyle = g; ctx.fill();
+  // 白い層
+  ctx.beginPath(); ctx.arc(0, cy, R * 0.87, 0, Math.PI); ctx.closePath();
+  ctx.fillStyle = '#f2f7e4'; ctx.fill();
+  // 果肉
+  ctx.beginPath(); ctx.arc(0, cy, R * 0.78, 0, Math.PI); ctx.closePath();
+  const gf = ctx.createLinearGradient(0, cy, 0, cy + R);
+  gf.addColorStop(0, '#ff6b7a'); gf.addColorStop(1, '#d8203c');
+  ctx.fillStyle = gf; ctx.fill();
+  // 種
+  ctx.fillStyle = '#2b1008';
+  for (const sd of [[-.42, .30], [-.14, .46], [.16, .44], [.44, .27], [0, .20]]) {
+    ctx.save();
+    ctx.translate(sd[0] * R, cy + sd[1] * R);
+    ctx.rotate(sd[0] * 0.9);
+    ctx.beginPath(); ctx.ellipse(0, 0, R * 0.055, R * 0.09, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.restore();
+  }
+  // 断面の縁
+  ctx.strokeStyle = 'rgba(255,240,220,.8)'; ctx.lineWidth = 2.2;
+  ctx.beginPath(); ctx.moveTo(-R, cy); ctx.lineTo(R, cy); ctx.stroke();
+  ctx.restore();
+}
+
+function drawNote(n, y) {
+  const r = NOTE_R, x = LANE_X[n.lane];
+  ctx.save();
+  ctx.shadowColor = n.type === 'melon' ? 'rgba(255,120,150,.95)'
+                  : n.type === 'sun'   ? 'rgba(255,210,90,1)'
+                  : 'rgba(255,170,50,.9)';
+  ctx.shadowBlur = (feverOn ? 22 : 14) + (n.type === 'sun' ? 10 : 0);
+  if (n.type === 'bottle')     drawBottle(x, y, r, 1);
+  else if (n.type === 'melon') drawMelon(x, y, r, 1);
+  else if (n.type === 'sun')   drawSun(x, y, r, 1);
+  else                         drawMug(x, y, r, 1);
+  ctx.restore();
+}
+
+/* --- 画面描画 ------------------------------------------------------------ */
+function noteY(t, now) {
+  return JUDGE_Y - (t - now) / CONFIG.approach * (JUDGE_Y - SPAWN_Y);
+}
+
+function drawLanes() {
+  const half = 96;
+  for (let i = 0; i < 2; i++) {
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    if (feverOn) {
+      g.addColorStop(0,  'rgba(255,205,110,.10)');
+      g.addColorStop(.6, 'rgba(255,190,90,.24)');
+      g.addColorStop(1,  'rgba(255,150,50,.42)');
+    } else {
+      g.addColorStop(0,  'rgba(120,90,210,.10)');
+      g.addColorStop(.6, 'rgba(130,95,225,.18)');
+      g.addColorStop(1,  'rgba(95,60,190,.34)');
+    }
+    ctx.fillStyle = g;
+    ctx.fillRect(LANE_X[i] - half, 0, half * 2, H);
+    if (laneFlash[i] > 0) {
+      ctx.fillStyle = `rgba(255,235,180,${laneFlash[i] * 0.16})`;
+      ctx.fillRect(LANE_X[i] - half, 0, half * 2, H);
+    }
+    ctx.strokeStyle = feverOn ? 'rgba(255,215,120,.5)' : 'rgba(180,150,255,.22)';
+    ctx.lineWidth = 1.5;
+    for (const s of [-1, 1]) {
+      ctx.beginPath();
+      ctx.moveTo(LANE_X[i] + s * half, 0); ctx.lineTo(LANE_X[i] + s * half, H);
+      ctx.stroke();
+    }
+  }
+}
+
+function drawStreaks() {
+  ctx.lineWidth = 1.6; ctx.lineCap = 'round';
+  for (const s of streaks) {
+    ctx.strokeStyle = `rgba(255,240,200,${s.a})`;
+    ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x, s.y + s.len); ctx.stroke();
+  }
+}
+
+function drawRings() {
+  const band = ctx.createLinearGradient(0, JUDGE_Y - 150, 0, H);
+  band.addColorStop(0, 'rgba(3,2,8,0)');
+  band.addColorStop(.6, 'rgba(3,2,8,.55)');
+  band.addColorStop(1, 'rgba(3,2,8,.85)');
+  ctx.fillStyle = band;
+  ctx.fillRect(0, JUDGE_Y - 150, W, H - JUDGE_Y + 150);
+  for (let i = 0; i < 2; i++) {
+    const x = LANE_X[i], p = ringPulse[i];
+    ctx.save();
+    ctx.beginPath(); ctx.arc(x, JUDGE_Y, RING_R, 0, Math.PI * 2);
+    ctx.fillStyle = feverOn ? 'rgba(255,150,60,.18)' : 'rgba(120,80,200,.16)';
+    ctx.fill();
+    ctx.lineWidth = 4 + p * 4;
+    ctx.strokeStyle = feverOn
+      ? `rgba(255,205,110,${0.75 + p * 0.25})`
+      : `rgba(200,170,255,${0.55 + p * 0.45})`;
+    ctx.shadowColor = feverOn ? 'rgba(255,150,60,.9)' : 'rgba(150,110,255,.7)';
+    ctx.shadowBlur = 14 + p * 26;
+    ctx.stroke();
+    if (p > 0) {
+      ctx.beginPath(); ctx.arc(x, JUDGE_Y, RING_R + (1 - p) * 34, 0, Math.PI * 2);
+      ctx.lineWidth = 3; ctx.shadowBlur = 0;
+      ctx.strokeStyle = `rgba(255,235,180,${p * .7})`;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+}
+
+function drawParticles() {
+  for (const p of particles) {
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, p.life);
+    ctx.fillStyle = p.color;
+    if (p.star) {
+      ctx.translate(p.x, p.y); ctx.rotate(p.life * 3);
+      ctx.beginPath();
+      for (let i = 0; i < 8; i++) {
+        const rr = i % 2 ? p.r * .4 : p.r * 1.6;
+        const a = i * Math.PI / 4;
+        ctx[i ? 'lineTo' : 'moveTo'](Math.cos(a) * rr, Math.sin(a) * rr);
+      }
+      ctx.closePath(); ctx.fill();
+    } else {
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
+function outlineText(text, x, y, size, fill, stroke, weight) {
+  ctx.save();
+  ctx.font = `${weight || 700} ${size}px "Hiragino Sans","Helvetica Neue",sans-serif`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.lineWidth = size * 0.16; ctx.lineJoin = 'round';
+  ctx.strokeStyle = stroke; ctx.strokeText(text, x, y);
+  ctx.fillStyle = fill; ctx.fillText(text, x, y);
+  ctx.restore();
+}
+
+function drawHud(now) {
+  // スコア
+  ctx.save();
+  ctx.font = '600 26px "Helvetica Neue",sans-serif';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+  ctx.fillStyle = 'rgba(255,255,255,.92)';
+  ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = 6;
+  ctx.fillText(score.toLocaleString('en-US'), W - 16, 16);
+  ctx.font = '400 11px "Helvetica Neue",sans-serif';
+  ctx.fillStyle = 'rgba(220,205,255,.7)';
+  ctx.fillText('SCORE', W - 16, 46);
+  ctx.restore();
+
+  // 判定文字
+  if (judgeFx) {
+    const age = (performance.now() - judgeFx.born) / 1000;
+    if (age < 0.6) {
+      const a = 1 - Math.max(0, (age - 0.35) / 0.25);
+      const pop = 1 + Math.max(0, 0.18 - age) * 1.6;
+      ctx.save(); ctx.globalAlpha = a;
+      ctx.translate(W / 2, H * 0.40); ctx.scale(pop, pop);
+      outlineText(judgeFx.name, 0, 0, 40, judgeFx.color, 'rgba(60,10,40,.85)');
+      ctx.restore();
+    } else if (age > 1.4) judgeFx = null;
+  }
+
+  // コンボ
+  if (combo > 1) {
+    outlineText(String(combo), W / 2, H * 0.48, 52, '#ffffff', 'rgba(40,10,60,.85)');
+    outlineText('COMBO', W / 2, H * 0.48 + 36, 14, 'rgba(220,210,255,.85)', 'rgba(40,10,60,.7)', 400);
+  }
+
+  // FEVER
+  if (feverOn) {
+    const w = 1 + Math.sin(now * 7) * 0.03;
+    ctx.save(); ctx.translate(W / 2, H * 0.60); ctx.scale(w, w);
+    outlineText('FEVER', 0, 0, 46, '#ffc93c', '#8a2b00');
+    outlineText('TIME', 0, 44, 46, '#ffc93c', '#8a2b00');
+    ctx.restore();
+  }
+
+  // 導入
+  if (now < 1.6 && now > -1) {
+    ctx.save(); ctx.globalAlpha = Math.min(1, 1.6 - now);
+    outlineText('READY', W / 2, H * 0.33, 34, '#ffe9a8', 'rgba(40,10,60,.8)');
+    ctx.restore();
+  }
+}
+
+function draw() {
+  const now = songTime();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  const s = cv.width / W;
+  ctx.setTransform(s, 0, 0, s, 0, 0);
+
+  drawLanes();
+  if (streaks.length) drawStreaks();
+
+  // ホールドの帯 → ノーツ本体（奥から手前へ）
+  for (const n of notes) {
+    if (n.state === 'done' || !n.len) continue;
+    const dt = n.t - now;
+    if (dt > CONFIG.approach + 0.4 || n.t + n.len < now - 0.3) continue;
+    const yh = n.state === 'holding' ? JUDGE_Y : noteY(n.t, now);
+    const yt = noteY(n.t + n.len, now);
+    ctx.save();
+    ctx.strokeStyle = n.state === 'holding'
+      ? 'rgba(255,225,150,.85)' : 'rgba(255,190,90,.45)';
+    ctx.lineWidth = 26; ctx.lineCap = 'round';
+    ctx.shadowColor = 'rgba(255,160,60,.8)'; ctx.shadowBlur = 16;
+    ctx.beginPath(); ctx.moveTo(LANE_X[n.lane], Math.min(yh, JUDGE_Y));
+    ctx.lineTo(LANE_X[n.lane], yt); ctx.stroke();
+    ctx.restore();
+  }
+
+  drawRings();
+
+  for (let i = notes.length - 1; i >= 0; i--) {
+    const n = notes[i];
+    if (n.state === 'done') continue;
+    const dt = n.t - now;
+    if (dt > CONFIG.approach + 0.1) continue;
+    if (dt < -MISS_LATE - 0.1 && n.state !== 'holding') continue;
+    drawNote(n, n.state === 'holding' ? JUDGE_Y : noteY(n.t, now));
+  }
+
+  drawParticles();
+  if (scene === 'play') drawHud(now);
+}
+
+/* --- 進行 ---------------------------------------------------------------- */
+const ovTitle  = document.getElementById('ov-title');
+const ovPause  = document.getElementById('ov-pause');
+const ovResult = document.getElementById('ov-result');
+const pauseBtn = document.getElementById('pause-btn');
+const muteBtn  = document.getElementById('mute-btn');
+const backLink = document.getElementById('back-link');
+
+function show(el, on) { el.classList.toggle('hidden', !on); }
+
+function startGame() {
+  buildNotes();
+  score = 0; combo = 0; maxCombo = 0; weighted = 0;
+  counts = { PERFECT: 0, GREAT: 0, GOOD: 0, MISS: 0 };
+  particles = []; streaks = []; judgeFx = null;
+  laneHeld[0] = laneHeld[1] = false;
+  laneFlash[0] = laneFlash[1] = 0;
+  ringPulse[0] = ringPulse[1] = 0;
+  feverOn = false; stage.classList.remove('fever');
+  lastRaw = -1; syncAudio = 0; syncPerf = performance.now(); pausedAt = 0;
+  paused = false; scene = 'play';
+  show(ovTitle, false); show(ovPause, false); show(ovResult, false);
+  show(pauseBtn, true); show(muteBtn, true); show(backLink, false);
+  audio.currentTime = 0;
+  audio.play().catch(() => {});
+}
+
+function togglePause() {
+  if (scene !== 'play') return;
+  if (!paused) {
+    pausedAt = songTime();   // 停止前の曲位置を控えてから止める
+    paused = true;
+    audio.pause();
+    laneHeld[0] = laneHeld[1] = false;
+    show(ovPause, true); show(pauseBtn, false); show(backLink, true);
+  } else {
+    paused = false;
+    lastRaw = -1; syncPerf = performance.now(); syncAudio = audio.currentTime;
+    audio.play().catch(() => {});
+    show(ovPause, false); show(pauseBtn, true); show(backLink, false);
+  }
+}
+
+function finish() {
+  scene = 'result';
+  audio.pause();
+  feverOn = false; stage.classList.remove('fever');
+  show(pauseBtn, false); show(backLink, true);
+
+  const acc = judgeable ? (weighted / judgeable) * 100 : 0;
+  const full = counts.MISS === 0;
+  let rank = 'D';
+  if (acc >= 97) rank = 'S'; else if (acc >= 92) rank = 'A';
+  else if (acc >= 82) rank = 'B'; else if (acc >= 65) rank = 'C';
+  if (acc >= 99.5 && full) rank = '鬼';
+
+  document.getElementById('r-rank').textContent = rank;
+  document.getElementById('r-score').textContent = score.toLocaleString('en-US');
+  document.getElementById('r-table').innerHTML =
+    `<i>PERFECT</i><b>${counts.PERFECT}</b>` +
+    `<i>GREAT</i><b>${counts.GREAT}</b>` +
+    `<i>GOOD</i><b>${counts.GOOD}</b>` +
+    `<i>MISS</i><b>${counts.MISS}</b>` +
+    `<i>最大コンボ</i><b>${maxCombo}</b>` +
+    `<i>精度</i><b>${acc.toFixed(2)}%</b>` +
+    (full ? '<span class="full">FULL COMBO !</span>' : '');
+  show(ovResult, true);
+}
+
+function loop() {
+  requestAnimationFrame(loop);
+  if (scene === 'play' && !paused) {
+    const now = songTime();
+    const f = CHART.fever.some(([a, b]) => now >= a && now < b);
+    if (f !== feverOn) { feverOn = f; stage.classList.toggle('fever', f); }
+    updateNotes(now);
+    if (now >= CHART.duration - 0.2 || (audio.ended && now > 1)) { finish(); return; }
+  }
+  updateFx();
+  draw();
+}
+
+/* --- UI 配線 ------------------------------------------------------------- */
+document.getElementById('start-btn').addEventListener('click', startGame);
+document.getElementById('again-btn').addEventListener('click', startGame);
+document.getElementById('retry-btn').addEventListener('click', startGame);
+document.getElementById('resume-btn').addEventListener('click', togglePause);
+pauseBtn.addEventListener('click', togglePause);
+
+muteBtn.addEventListener('click', () => {
+  audio.muted = !audio.muted;
+  muteBtn.classList.toggle('muted', audio.muted);
+  muteBtn.innerHTML = audio.muted
+    ? '<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4zm15.5 3 2.1-2.1-1.4-1.4-2.1 2.1-2.1-2.1-1.4 1.4 2.1 2.1-2.1 2.1 1.4 1.4 2.1-2.1 2.1 2.1 1.4-1.4z"/></svg>'
+    : '<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/></svg>';
+});
+
+const offLabel = document.getElementById('off-label');
+function setOffset(v) {
+  offsetMs = Math.max(-150, Math.min(150, v));
+  offLabel.textContent = `判定 ${offsetMs >= 0 ? '+' : ''}${offsetMs} ms`;
+  try { localStorage.setItem('oni-beat-offset', String(offsetMs)); } catch (e) {}
+}
+document.getElementById('off-minus').addEventListener('click', () => setOffset(offsetMs - 10));
+document.getElementById('off-plus').addEventListener('click',  () => setOffset(offsetMs + 10));
+let saved = 0;
+try { saved = parseInt(localStorage.getItem('oni-beat-offset') || '0', 10) || 0; } catch (e) {}
+setOffset(saved);
+
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden && scene === 'play' && !paused) togglePause();
+});
+
+loop();
+</script>
+</body>
+</html>

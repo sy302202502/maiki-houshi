@@ -505,6 +505,7 @@
     .game-card:hover { transform:translateY(-6px); }
     .game-card.action:hover { border-color:#FF6B00; box-shadow:0 12px 30px rgba(255,107,0,.3); }
     .game-card.love:hover   { border-color:#7aa8ff; box-shadow:0 12px 30px rgba(90,140,255,.3); }
+    .game-card.rhythm:hover { border-color:#ffd76a; box-shadow:0 12px 30px rgba(255,180,60,.3); }
     .game-card-thumb {
       aspect-ratio:16/9; background-size:cover; background-position:center;
       position:relative;
@@ -517,6 +518,7 @@
     }
     .game-card.action .game-card-tag { background:#FF6B00; color:#000; }
     .game-card.love   .game-card-tag { background:#7aa8ff; color:#000; }
+    .game-card.rhythm .game-card-tag { background:#ffd76a; color:#000; }
     .game-card-body h3 { font-size:1.15rem; letter-spacing:.08em; margin:0; }
     .game-card-body p { font-size:.82rem; color:rgba(255,255,255,.55); line-height:1.7; margin:0; }
     .game-card-btn {
@@ -525,6 +527,7 @@
     }
     .game-card.action .game-card-btn { color:#FF6B00; }
     .game-card.love   .game-card-btn { color:#7aa8ff; }
+    .game-card.rhythm .game-card-btn { color:#ffd76a; }
     .game-entry { display:flex; flex-direction:column; gap:10px; }
     .game-share { display:flex; gap:8px; flex-wrap:wrap; padding:0 2px; }
     .share-btn {
@@ -592,6 +595,29 @@
               <span class="label">Xで共有</span>
             </a>
             <button type="button" class="share-btn copy" data-url="https://mikey-master.pages.dev/love-game">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+              <span class="label">リンクをコピー</span>
+            </button>
+          </div>
+        </div>
+        <div class="game-entry">
+          <a class="game-card rhythm" href="rhythm-game.html">
+            <div class="game-card-thumb" style="background-image:url('assets/images/rhythm-thumb.jpg')"></div>
+            <div class="game-card-body">
+              <span class="game-card-tag">MUSIC</span>
+              <h3>鬼拍子</h3>
+              <p>オリジナル曲「Coastline Radio」で遊ぶリズムゲーム。落ちてくるビールや夏のモチーフを左右2レーンで叩き、FEVER TIME を狙え。</p>
+              <span class="game-card-btn">▶ PLAY</span>
+            </div>
+          </a>
+          <div class="game-share">
+            <a class="share-btn x" target="_blank" rel="noopener"
+               data-url="https://mikey-master.pages.dev/rhythm-game"
+               data-text="舞鬼法師のリズムゲーム「鬼拍子」で遊んでみて！">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span class="label">Xで共有</span>
+            </a>
+            <button type="button" class="share-btn copy" data-url="https://mikey-master.pages.dev/rhythm-game">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
               <span class="label">リンクをコピー</span>
             </button>
