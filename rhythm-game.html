@@ -100,6 +100,13 @@
     .btn:hover { box-shadow:0 0 30px rgba(255,150,60,.55); }
     .btn:active { transform:scale(.96); }
     .btn.ghost { border-color:#7a6aa8; background:rgba(255,255,255,.05); color:#cfc4ee; box-shadow:none; }
+    .btn.yt {
+      border-color:#FF0000; background:#FF0000; color:#fff;
+      box-shadow:0 0 24px rgba(255,0,0,.45); text-decoration:none;
+    }
+    .btn.yt:hover { box-shadow:0 0 34px rgba(255,0,0,.7); }
+    .result-cta { display:flex; flex-direction:column; align-items:center; gap:8px; margin:4px 0 2px; }
+    .result-cta small { color:#9d8fc4; font-size:clamp(.68rem,3vw,.78rem); letter-spacing:.06em; }
     .howto { font-size:clamp(.68rem,3.2vw,.8rem); line-height:2; color:#a99ec9; letter-spacing:.06em; }
     .howto b { color:#ffd76a; font-weight:normal; }
 
@@ -199,6 +206,11 @@
     <div class="rank" id="r-rank">S</div>
     <div class="result-score" id="r-score">0</div>
     <div class="result-table" id="r-table"></div>
+    <div class="result-cta">
+      <small>いま聴いた曲のフルMV</small>
+      <a class="btn yt" id="yt-cta" href="/go/coastline-radio?src=game"
+         target="_blank" rel="noopener">▶ 原曲を YouTube で聴く</a>
+    </div>
     <div class="result-actions">
       <button class="btn" id="again-btn">もう一度</button>
       <a class="btn ghost" href="index.html#game" style="text-decoration:none">もどる</a>
@@ -898,6 +910,14 @@ function finish() {
     `<i>精度</i><b>${acc.toFixed(2)}%</b>` +
     (full ? '<span class="full">FULL COMBO !</span>' : '');
   show(ovResult, true);
+
+  // 完了イベントを計測（fire-and-forget。失敗してもゲームには影響させない）
+  try {
+    const q = new URLSearchParams({ e: 'game_finish', v: acc.toFixed(1), d: rank });
+    const u = '/api/ev?' + q.toString();
+    if (navigator.sendBeacon) navigator.sendBeacon(u);
+    else fetch(u, { method: 'GET', keepalive: true }).catch(() => {});
+  } catch (_) {}
 }
 
 function loop() {
