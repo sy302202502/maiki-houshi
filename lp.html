@@ -353,6 +353,81 @@
     }
 
     /* ===== FLOW ===== */
+    /* ===== PLAN DIFFERENCE ===== */
+    .diff { background: var(--dark); }
+    .diff-lead {
+      text-align: center; color: var(--gray); font-size: 0.92rem;
+      line-height: 1.9; margin-bottom: 48px;
+    }
+    .diff-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px; margin-bottom: 56px;
+    }
+    .diff-col { text-align: center; }
+    .diff-name {
+      display: block; font-family: var(--font-en); font-size: 1.5rem;
+      letter-spacing: 0.1em; color: var(--white); margin-bottom: 4px;
+    }
+    .diff-tagline {
+      display: block; font-size: 0.8rem; color: var(--orange);
+      letter-spacing: 0.06em; margin-bottom: 18px;
+    }
+    .phone {
+      position: relative; width: 168px; height: 300px; margin: 0 auto 16px;
+      border: 2px solid rgba(255,255,255,0.16); border-radius: 20px;
+      background: var(--dark3); padding: 14px 10px 10px; overflow: hidden;
+    }
+    .phone::before {
+      content: ""; position: absolute; top: 6px; left: 50%;
+      transform: translateX(-50%); width: 38px; height: 4px;
+      border-radius: 2px; background: rgba(255,255,255,0.2);
+    }
+    .phone.stacked { box-shadow: 10px 10px 0 -2px var(--dark3), 10px 10px 0 0 rgba(255,255,255,0.14); }
+    .mk { padding: 4px 8px; }
+    .mk-avatar {
+      width: 46px; height: 46px; border-radius: 50%; margin: 4px auto 10px;
+      background: rgba(255,107,0,0.14); border: 1px solid var(--orange);
+    }
+    .mk-bar { height: 8px; border-radius: 3px; background: rgba(255,255,255,0.32); margin: 0 auto 6px; }
+    .mk-bar.dim { background: rgba(255,255,255,0.14); }
+    .w70 { width: 70%; } .w50 { width: 50%; } .w90 { width: 90%; }
+    .mk-links { display: flex; gap: 6px; justify-content: center; margin: 12px 0 10px; }
+    .mk-links i { width: 26px; height: 26px; border-radius: 6px; background: rgba(255,255,255,0.12); }
+    .mk-btn { height: 22px; border-radius: 5px; background: var(--orange); margin: 8px 6px 0; }
+    .mk-sec { margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.08); }
+    .mk-label { font-size: 0.52rem; letter-spacing: 0.1em; color: var(--gray); margin-bottom: 5px; }
+    .mk-cards { display: flex; gap: 5px; }
+    .mk-cards span { flex: 1; height: 26px; border-radius: 4px; background: rgba(255,255,255,0.1); }
+    .mk-fade {
+      position: absolute; left: 0; right: 0; bottom: 0; height: 66px;
+      background: linear-gradient(transparent, var(--dark3) 78%);
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 6px; font-size: 0.6rem; color: var(--orange); letter-spacing: 0.08em;
+    }
+    .mk-tabs { display: flex; gap: 4px; margin-bottom: 8px; }
+    .mk-tabs span { flex: 1; height: 9px; border-radius: 3px; background: rgba(255,255,255,0.12); }
+    .mk-tabs span.on { background: var(--orange); }
+    .mk-anim { display: flex; gap: 4px; justify-content: center; margin-top: 10px; }
+    .mk-anim b { width: 7px; height: 7px; border-radius: 50%; background: var(--green); opacity: 0.85; }
+    .diff-note { font-size: 0.8rem; line-height: 1.8; color: rgba(255,255,255,0.72); padding: 0 6px; }
+
+    .diff-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .diff-table { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 0.84rem; }
+    .diff-table th, .diff-table td { padding: 12px 10px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .diff-table thead th { font-family: var(--font-en); font-size: 1.05rem; letter-spacing: 0.08em; color: var(--white); }
+    .diff-table thead th.reco { color: var(--orange); }
+    .diff-table th.row { text-align: left; font-weight: 400; color: var(--gray); white-space: nowrap; }
+    .diff-table td { color: rgba(255,255,255,0.86); }
+    .diff-table td.no { color: rgba(255,255,255,0.22); }
+    .diff-table td.yes { color: var(--green); }
+    .diff-table tr.price td { font-weight: 900; color: var(--orange); font-size: 1.05rem; }
+    .diff-table col.hl { background: rgba(255,107,0,0.05); }
+    .diff-tblnote { margin-top: 18px; text-align: center; font-size: 0.78rem; color: var(--gray); line-height: 1.9; }
+
+    @media (max-width: 600px) {
+      .phone { width: 150px; height: 280px; }
+    }
+
     /* ===== AFTER SUPPORT ===== */
     .support { background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); }
     .support-lead {
@@ -587,6 +662,149 @@
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
     /* ===== RESPONSIVE ===== */
+
+    /* ===== MONITOR SLOT ===== */
+    .slot-banner {
+      background: linear-gradient(180deg, rgba(173,255,47,0.05), rgba(10,10,10,0));
+      border-top: 1px solid rgba(173,255,47,0.18);
+      border-bottom: 1px solid rgba(173,255,47,0.18);
+      padding: 36px 40px;
+    }
+    .slot-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .slot-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    .slot-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 5px 14px;
+      border-radius: 20px;
+      background: rgba(173,255,47,0.12);
+      border: 1px solid rgba(173,255,47,0.4);
+      color: var(--green);
+    }
+    .slot-count { font-size: 1.05rem; font-weight: 700; }
+    .slot-count strong { color: var(--green); font-size: 1.35rem; padding: 0 2px; }
+    .slot-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.9; margin-bottom: 18px; }
+    .slot-desc strong { color: var(--white); }
+    .slot-cond {
+      list-style: none;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: left;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.72);
+    }
+    .slot-cond li { padding-left: 22px; position: relative; }
+    .slot-cond li::before {
+      content: '✓';
+      position: absolute; left: 0;
+      color: var(--green); font-weight: 700;
+    }
+
+    /* ===== WORKS ===== */
+    .works { background: var(--dark); }
+    .work-card {
+      display: block;
+      background: var(--dark2);
+      border: 1px solid rgba(255,107,0,0.15);
+      border-radius: 12px;
+      padding: 32px 28px;
+      color: inherit;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    a.work-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+    .work-card.placeholder {
+      border-style: dashed;
+      border-color: rgba(173,255,47,0.3);
+      background: rgba(173,255,47,0.03);
+    }
+    .work-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      padding: 3px 10px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      background: rgba(255,107,0,0.1);
+      color: var(--orange);
+      border: 1px solid rgba(255,107,0,0.3);
+    }
+    .work-tag.empty {
+      background: rgba(173,255,47,0.1);
+      color: var(--green);
+      border-color: rgba(173,255,47,0.3);
+    }
+    .work-card h3 { font-size: 1.05rem; font-weight: 900; margin-bottom: 10px; }
+    .work-card p { font-size: 0.86rem; color: var(--gray); line-height: 1.8; }
+    .work-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    /* ===== ABOUT ===== */
+    .about { background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); }
+    .about-inner { max-width: 760px; margin: 0 auto; }
+    .about-name {
+      font-family: var(--font-en);
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      color: var(--orange);
+      margin-bottom: 4px;
+    }
+    .about-name-jp { font-size: 0.85rem; color: var(--gray); margin-bottom: 28px; letter-spacing: 0.08em; }
+    .about-points { list-style: none; display: flex; flex-direction: column; gap: 20px; margin-bottom: 32px; }
+    .about-points li {
+      padding-left: 26px;
+      position: relative;
+      font-size: 0.9rem;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.78);
+    }
+    .about-points li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 12px;
+      width: 12px; height: 2px;
+      background: var(--orange);
+    }
+    .about-points strong { color: var(--white); font-weight: 700; }
+    .about-links { display: flex; flex-wrap: wrap; gap: 12px; }
+    .about-link {
+      font-size: 0.82rem;
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--white);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .about-link:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* ===== PREPARATION ===== */
+    .prep { background: var(--dark2); border-top: 1px solid rgba(255,255,255,0.06); }
+    .prep-lead {
+      text-align: center;
+      font-size: 1.05rem;
+      color: var(--gray);
+      line-height: 1.9;
+      margin-bottom: 40px;
+    }
+    .prep-lead strong { color: var(--green); font-weight: 900; }
+    /* 4枚を2×2に収める（3+1の余りを出さない） */
+    .prep .features-grid { max-width: 880px; margin: 0 auto; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
     @media (max-width: 768px) {
       .lp-header { padding: 14px 20px; }
       .lp-section { padding: 72px 24px; }
@@ -597,6 +815,7 @@
     }
     @media (max-width: 480px) {
       .plans-grid, .features-grid, .pain-grid { grid-template-columns: 1fr; }
+      .slot-banner { padding: 28px 20px; }
     }
   </style>
 </head>
@@ -618,7 +837,7 @@
       </h1>
       <p class="lp-hero-sub">
         ヒアリングシートに答えるだけ。<br>
-        案件依頼を受けやすくなる、プロっぽいHPが手に入ります。
+        案件の相談を受ける窓口になる、プロっぽいHPが手に入ります。
       </p>
       <div class="lp-hero-btns">
         <a href="#cta" class="btn-primary-lp">
@@ -645,6 +864,27 @@
           <div class="proof-label">SP・PC対応</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ===== MONITOR SLOT ===== -->
+  <!-- 枠の更新は下部 <script> の MONITOR = { month, slots } を書き換えるだけでOK -->
+  <section class="slot-banner">
+    <div class="slot-inner">
+      <div class="slot-main">
+        <span class="slot-label">事例モニター枠</span>
+        <span class="slot-count"><strong data-monitor-month>9月</strong>：残り<strong data-monitor-slots>1</strong>組</span>
+      </div>
+      <p class="slot-desc">
+        制作事例として公開させていただける方を<strong>1組だけ</strong>、通常価格の約半額でお受けしています。<br>
+        埋まった場合、次の募集は翌月です。
+      </p>
+      <ul class="slot-cond">
+        <li>完成したサイトを制作事例として掲載できる方</li>
+        <li>完成後にひとこと感想をいただける方</li>
+        <li>18歳以上の方（未成年の方は保護者の同意をお願いしています）</li>
+        <li>立ち絵・イラストを商用利用できる状態の方（確認のしかたもご案内します）</li>
+      </ul>
     </div>
   </section>
 
@@ -742,6 +982,55 @@
     </div>
   </section>
 
+  <!-- ===== WORKS ===== -->
+  <section class="lp-section works">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>WORKS</h2>
+        <p>制作事例</p>
+      </div>
+      <div class="features-grid">
+        <a class="work-card fade-in" href="https://mikey-master.pages.dev" target="_blank" rel="noopener">
+          <span class="work-tag">制作者本人のサイト</span>
+          <h3>舞鬼法師（まいきー）公式サイト</h3>
+          <p>歌い手・Vライバーとしての活動まとめ。楽曲・配信・SNSへの導線と、案件のお問い合わせ窓口をまとめています。実際に公開・運用しているサイトです。</p>
+          <span class="work-link">サイトを見る →</span>
+        </a>
+        <div class="work-card placeholder fade-in">
+          <span class="work-tag empty">募集中</span>
+          <h3>ここに、あなたのサイトが入ります</h3>
+          <p>事例モニター枠でお受けしたサイトを、ご本人の許可のうえで掲載します。掲載できない場合はモニター価格の対象外となりますが、通常価格でのご依頼はいつでも歓迎です。</p>
+        </div>
+      </div>
+      <p class="plan-note">※ 掲載しているのは実際に公開・運用中のサイトのみです。架空のサンプルは載せていません。</p>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="lp-section about">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>ABOUT</h2>
+        <p>制作者について</p>
+      </div>
+      <div class="about-inner fade-in">
+        <div class="about-name">MIKEY MASTER</div>
+        <div class="about-name-jp">舞鬼法師（まいきー）／ 個人勢の歌い手・Vライバー</div>
+        <ul class="about-points">
+          <li><strong>制作会社ではなく、同じ個人勢が1人で作っています。</strong>「事務所がない」「立ち絵の権利がよくわからない」「フォロワーが少ない」——この前提を説明するところから始めなくて大丈夫です。</li>
+          <li><strong>このページも、公式サイトも、そこに置いてあるブラウザゲームも自作です。</strong>作れるかどうかは、実際に公開して動いているものを見て判断してください。</li>
+          <li><strong>ご契約の際には、本名と連絡先をご本人にのみお伝えします。</strong>お互いに中の人を伏せて活動している者同士なので、本人を特定できる情報をどう扱うかを、着手前に書面で決めてから進めます。</li>
+          <li><strong>立ち絵・BGM・写真の権利は、着手前に確認する手順を用意しています。</strong>曖昧なまま進めて、あとから公開できなくなる——という事態を避けるためです。確認の文面はこちらからお渡しします。</li>
+        </ul>
+        <div class="about-links">
+          <a class="about-link" href="https://mikey-master.pages.dev" target="_blank" rel="noopener">公式サイト</a>
+          <a class="about-link" href="https://x.com/mai1k_master" target="_blank" rel="noopener">X / @mai1k_master</a>
+          <a class="about-link" href="https://www.youtube.com/@mikey-master" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== PLANS ===== -->
   <section class="lp-section plans">
     <div class="lp-section-inner">
@@ -754,7 +1043,7 @@
           <div class="plan-name">LIGHT</div>
           <div class="plan-name-jp">ライトプラン</div>
           <div class="plan-price">¥12,000</div>
-          <div class="plan-monitor">初回モニター価格 <strong>¥6,000</strong></div>
+          <div class="plan-monitor">事例モニター価格 <strong>¥6,000</strong></div>
           <div class="plan-delivery">納期目安：5〜7日</div>
           <ul class="plan-features">
             <li>1ページ構成（シングルページ）</li>
@@ -771,7 +1060,7 @@
           <div class="plan-name">STANDARD</div>
           <div class="plan-name-jp">スタンダードプラン</div>
           <div class="plan-price">¥28,000</div>
-          <div class="plan-monitor">初回モニター価格 <strong>¥15,000</strong></div>
+          <div class="plan-monitor">事例モニター価格 <strong>¥15,000</strong></div>
           <div class="plan-delivery">納期目安：10〜14日</div>
           <ul class="plan-features">
             <li>複数セクション（5〜8種）</li>
@@ -788,7 +1077,7 @@
           <div class="plan-name">PREMIUM</div>
           <div class="plan-name-jp">プレミアムプラン</div>
           <div class="plan-price">¥55,000</div>
-          <div class="plan-monitor">初回モニター価格 <strong>¥30,000</strong></div>
+          <div class="plan-monitor">事例モニター価格 <strong>¥30,000</strong></div>
           <div class="plan-delivery">納期目安：2〜4週間</div>
           <ul class="plan-features">
             <li>フルカスタムデザイン</li>
@@ -801,7 +1090,112 @@
           </ul>
         </div>
       </div>
-      <p class="plan-note">※ 初回モニター価格は全プラン合計で先着3名様限定です。<br>※ サーバー費用は別途0円〜（Cloudflare Pages＋GitHub利用の場合）<br>※ 納品後の保守・運用については下記「AFTER SUPPORT」をご覧ください。</p>
+      <p class="plan-note">※ 事例モニター価格は「制作事例として掲載できる方」限定で、<strong data-monitor-month>9月</strong>は<strong data-monitor-slots>1</strong>組のみです。埋まった場合は通常価格でのご案内になります。<br>※ 制作費以外にかかる費用は0円です（独自ドメインを使う場合のみ、年1,500〜4,000円程度の実費）。<br>※ 納品後の保守・運用については下記「AFTER SUPPORT」をご覧ください。</p>
+    </div>
+  </section>
+
+  <!-- ===== PLAN DIFFERENCE ===== -->
+  <section class="lp-section diff">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>DIFFERENCE</h2>
+        <p>プランの違い</p>
+      </div>
+      <p class="diff-lead fade-in">「複数セクション」と言われてもピンと来ないと思います。<br>実際にどんなページになるのか、かたちで見てみてください。</p>
+
+      <div class="diff-grid">
+        <div class="diff-col fade-in">
+          <span class="diff-name">LIGHT</span>
+          <span class="diff-tagline">1画面におさまる名刺型</span>
+          <div class="phone">
+            <div class="mk">
+              <div class="mk-avatar"></div>
+              <div class="mk-bar w70"></div>
+              <div class="mk-bar w50 dim"></div>
+              <div class="mk-links"><i></i><i></i><i></i></div>
+              <div class="mk-btn"></div>
+            </div>
+          </div>
+          <p class="diff-note">アイコン・名前・SNSリンク・連絡先。<br>必要最低限が1画面で完結します。</p>
+        </div>
+
+        <div class="diff-col fade-in">
+          <span class="diff-name">STANDARD</span>
+          <span class="diff-tagline">スクロールして読ませる</span>
+          <div class="phone">
+            <div class="mk">
+              <div class="mk-avatar"></div>
+              <div class="mk-bar w70"></div>
+              <div class="mk-bar w50 dim"></div>
+              <div class="mk-sec">
+                <div class="mk-label">ABOUT</div>
+                <div class="mk-bar w90 dim"></div>
+                <div class="mk-bar w70 dim"></div>
+              </div>
+              <div class="mk-sec">
+                <div class="mk-label">WORKS</div>
+                <div class="mk-cards"><span></span><span></span><span></span></div>
+              </div>
+              <div class="mk-sec">
+                <div class="mk-label">CONTACT</div>
+                <div class="mk-btn"></div>
+              </div>
+            </div>
+            <div class="mk-fade">まだ下に続く</div>
+          </div>
+          <p class="diff-note">活動紹介・実績・問い合わせフォームなど、<br>5〜8個のセクションが縦に並びます。</p>
+        </div>
+
+        <div class="diff-col fade-in">
+          <span class="diff-name">PREMIUM</span>
+          <span class="diff-tagline">ページが分かれる</span>
+          <div class="phone stacked">
+            <div class="mk">
+              <div class="mk-tabs"><span class="on"></span><span></span><span></span></div>
+              <div class="mk-avatar"></div>
+              <div class="mk-bar w70"></div>
+              <div class="mk-anim"><b></b><b></b><b></b></div>
+              <div class="mk-sec">
+                <div class="mk-label">NEWS / BLOG</div>
+                <div class="mk-bar w90 dim"></div>
+                <div class="mk-bar w90 dim"></div>
+              </div>
+              <div class="mk-sec">
+                <div class="mk-label">CONTACT</div>
+                <div class="mk-btn"></div>
+              </div>
+            </div>
+            <div class="mk-fade">ページが複数</div>
+          </div>
+          <p class="diff-note">トップとは別にブログ等のページを持てます。<br>動きのある演出も入れられます。</p>
+        </div>
+      </div>
+
+      <div class="diff-table-wrap fade-in">
+        <table class="diff-table">
+          <colgroup><col><col><col class="hl"><col></colgroup>
+          <thead>
+            <tr><th class="row"></th><th>LIGHT</th><th class="reco">STANDARD</th><th>PREMIUM</th></tr>
+          </thead>
+          <tbody>
+        <tr><th class="row">ページ数</th><td class="">1ページ</td><td class="">1ページ</td><td class="">複数ページ</td></tr>
+        <tr><th class="row">セクション数</th><td class="">1〜2</td><td class="">5〜8</td><td class="">制限なし</td></tr>
+        <tr><th class="row">SNSリンク一覧</th><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><th class="row">お問い合わせ</th><td class="">導線のみ</td><td class="">フォーム付き</td><td class="">フォーム付き</td></tr>
+        <tr><th class="row">デザイン</th><td class="">おまかせ</td><td class="">カスタマイズ</td><td class="">フルカスタム</td></tr>
+        <tr><th class="row">アニメーション</th><td class="no">−</td><td class="no">−</td><td class="yes">✓</td></tr>
+        <tr><th class="row">ブログ・お知らせ</th><td class="no">−</td><td class="no">−</td><td class="yes">✓</td></tr>
+        <tr><th class="row">SEO設定（OGP等）</th><td class="no">−</td><td class="no">−</td><td class="yes">✓</td></tr>
+        <tr><th class="row">独自ドメイン設定</th><td class="no">−</td><td class="no">−</td><td class="yes">✓</td></tr>
+        <tr><th class="row">スマホ・PC対応</th><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><th class="row">修正回数</th><td class="">2回</td><td class="">3回</td><td class="">5回</td></tr>
+        <tr><th class="row">納品後サポート</th><td class="no">−</td><td class="">2週間</td><td class="">1ヶ月</td></tr>
+        <tr><th class="row">納期目安</th><td class="">5〜7日</td><td class="">10〜14日</td><td class="">2〜4週間</td></tr>
+            <tr class="price"><th class="row">料金</th><td>¥12,000</td><td>¥28,000</td><td>¥55,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="diff-tblnote">※ 上位プランは下位プランの内容をすべて含みます。<br>※ 迷ったら STANDARD をおすすめしています。案件受付に必要なものが一通り入ります。</p>
     </div>
   </section>
 
@@ -848,6 +1242,39 @@
     </div>
   </section>
 
+  <!-- ===== PREPARATION ===== -->
+  <section class="lp-section prep">
+    <div class="lp-section-inner">
+      <div class="lp-section-title fade-in">
+        <h2>PREPARATION</h2>
+        <p>ご依頼前に用意するもの</p>
+      </div>
+      <p class="prep-lead fade-in">結論から言うと、<strong>事前に用意していただくものはありません。</strong></p>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <span class="feature-icon">📝</span>
+          <h3>用意するもの：なし</h3>
+          <p>活動名とSNSのURLが分かれば始められます。載せる文章はこちらで下書きをつくり、それを見ながら直していただく進め方です。ゼロから文章を書く必要はありません。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">⏱️</span>
+          <h3>あなたの作業時間：合計30分ほど</h3>
+          <p>ヒアリングシート5〜10分＋初稿の確認20分ほど。それ以外の作業はすべてこちらで進めます。配信や制作の時間を削らずに終わります。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🎨</span>
+          <h3>素材がなくても大丈夫</h3>
+          <p>立ち絵や写真がなくても、色とレイアウトで成立するデザインにします。あとから立ち絵ができたときの差し替えにも対応します。</p>
+        </div>
+        <div class="feature-card fade-in">
+          <span class="feature-icon">🔤</span>
+          <h3>専門用語は使いません</h3>
+          <p>サーバー・ドメイン・デプロイといった作業は、意味が分からないままで大丈夫です。全部こちらで処理して、完成したURLだけをお渡しします。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== FLOW ===== -->
   <section class="lp-section flow">
     <div class="lp-section-inner">
@@ -876,8 +1303,8 @@
           <div class="flow-step">03</div>
           <div class="flow-content">
             <span class="flow-tag client">お客様</span>
-            <h3>ご確認・注文確定</h3>
-            <p>提案内容のご確認・調整。納得いただけたらご注文確定です。</p>
+            <h3>ご確認・注文確定（ここまで無料）</h3>
+            <p>提案内容のご確認・調整。ここまでは費用がかからないので、内容を見てからお断りいただいて大丈夫です。ご注文確定後、着手金として制作費の50%をお支払いいただきます。</p>
           </div>
         </div>
         <div class="flow-item fade-in">
@@ -901,7 +1328,7 @@
           <div class="flow-content">
             <span class="flow-tag maker">こちら</span>
             <h3>修正対応・本番デプロイ・納品</h3>
-            <p>修正完了後、Cloudflare Pages の本番環境にデプロイ。URLをお渡しして納品完了です。</p>
+            <p>修正完了後、Cloudflare Pages の本番環境にデプロイ。URLをお渡しして納品完了です。このタイミングで残りの50%をお支払いいただきます。ご提案時にお伝えした金額以外の請求はありません。</p>
           </div>
         </div>
       </div>
@@ -964,6 +1391,38 @@
           </button>
           <div class="faq-a">もちろんです。ヒアリングシートに記入いただければ無料で見積もりをお出しします。依頼しなくてもOKです。</div>
         </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">相談したあと、断りづらくないですか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">お断りいただいて大丈夫です。ご提案・お見積りまでは無料で、そこで終了しても費用は一切かかりません。こちらから催促のDMをお送りすることもありません。「今回は見送ります」の一言も不要です。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">モニター価格だと手を抜かれませんか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">作業内容・修正回数・サポートはすべて通常価格と同じです。むしろ制作事例として公開させていただく前提なので、手を抜けません。値引きの理由は「掲載させていただくこと」への対価であり、品質を下げるためのものではありません。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">立ち絵を描いてもらったものですが、サイトに使えますか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">イラストレーターさんとの取り決め次第です。Webサイトでの使用が許可されているかを確認していただく必要があるので、その確認文面はこちらでご用意します。使えない場合は、イラストを使わないデザインでお作りしますのでご安心ください。</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">
+            <span class="faq-q-mark">Q</span>
+            <span class="faq-q-text">未成年ですが依頼できますか？</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">保護者の方の同意があればお受けできます。同意の確認方法もこちらからご案内しますので、まずはご相談ください。</div>
+        </div>
       </div>
     </div>
   </section>
@@ -973,9 +1432,9 @@
     <div class="lp-cta-inner">
       <h2>まずはヒアリングシートを<br>記入してみてください。</h2>
       <p>
-        5〜10分で記入できます。<br>
+        5〜10分で記入できます。用意するものはありません。<br>
         記入後1〜2日以内に、構成・デザイン・費用をご提案します。<br>
-        相談だけでも、見積もりだけでも大歓迎です。
+        <strong>提案を見てからお断りいただいて大丈夫です。</strong>こちらから催促のご連絡はしません。
       </p>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform" class="btn-primary-lp" target="_blank" rel="noopener">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
@@ -998,6 +1457,16 @@
   </footer>
 
   <script>
+    // 事例モニター枠：ここだけ書き換えれば、ページ内の表示がすべて揃います
+    const MONITOR = { month: '9月', slots: 1 };
+    document.querySelectorAll('[data-monitor-month]').forEach(el => el.textContent = MONITOR.month);
+    document.querySelectorAll('[data-monitor-slots]').forEach(el => el.textContent = MONITOR.slots);
+    if (MONITOR.slots <= 0) {
+      document.querySelectorAll('.slot-count').forEach(el => {
+        el.innerHTML = '<strong>' + MONITOR.month + '</strong>：受付終了（次回は翌月）';
+      });
+    }
+
     // FAQ アコーディオン
     document.querySelectorAll('.faq-q').forEach(btn => {
       btn.addEventListener('click', () => {
