@@ -1,3 +1,20 @@
+// ===== 計測ビーコン =====
+// /api/ev に fire-and-forget で送る。失敗しても画面の動作は止めない。
+// ⚠️ 個人を識別する値は送らない。イベント名と、どこから押されたかだけ。
+function track(event, detail, value) {
+  try {
+    const q = new URLSearchParams({ e: event });
+    if (detail) q.set('d', detail);
+    if (value != null) q.set('v', String(value));
+    const url = '/api/ev?' + q.toString();
+    if (navigator.sendBeacon) navigator.sendBeacon(url);
+    else fetch(url, { method: 'GET', keepalive: true, mode: 'no-cors' });
+  } catch (_) { /* 計測失敗は無視 */ }
+}
+
+// ページ表示を1回だけ数える
+track('pageview', location.pathname + (document.referrer ? ' <- ' + new URL(document.referrer).host : ''));
+
 // ===== LOADING SCREEN =====
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -171,6 +188,7 @@ document.querySelectorAll('[data-video]').forEach(card => {
     if (card.classList.contains('is-playing')) return;
     const id = card.dataset.video;
     const title = card.dataset.videoTitle || 'YouTube video';
+    track('play', title);   // ページ内再生。/go/ を通らないので個別に数える
     const thumb = card.querySelector('.music-thumb, .music-featured-thumb');
     if (!thumb) return;
     const iframe = document.createElement('iframe');
@@ -181,5 +199,14 @@ document.querySelectorAll('[data-video]').forEach(card => {
     thumb.innerHTML = '';
     thumb.appendChild(iframe);
     card.classList.add('is-playing');
+  });
+});
+
+
+// ===== 外部へ出ていくリンクを数える =====
+document.querySelectorAll('a[href^="/go/"]').forEach(a => {
+  a.addEventListener('click', () => {
+    const u = new URL(a.href, location.origin);
+    track('out', u.pathname.replace('/go/', '') + '@' + (u.searchParams.get('src') || '-'));
   });
 });

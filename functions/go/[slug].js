@@ -8,8 +8,11 @@
  *   （YouTube側の帰属も取りたい場合は中間HTMLページ方式が必要）
  */
 const DESTINATIONS = {
-  'coastline-radio': 'https://www.youtube.com/watch?v=qkdBPhUHyPw',
+  'neon-tide':       'https://www.youtube.com/watch?v=PnDQp43p5jg',
   'august-fade':     'https://www.youtube.com/watch?v=i1CnU-3uneM',
+  'coastline-radio': 'https://www.youtube.com/watch?v=qkdBPhUHyPw',
+  'charles':         'https://www.youtube.com/watch?v=rMBv-4_VAtc',
+  'yoidore':         'https://www.youtube.com/watch?v=gUv6OLai54A',
   'channel':         'https://www.youtube.com/@mikey-master',
   'subscribe':       'https://www.youtube.com/@mikey-master?sub_confirmation=1',
 };
