@@ -5,6 +5,16 @@
  */
 export async function onRequest(context) {
   const { request, env } = context;
+
+  // 自己診断: /api/ev?e=__diag
+  // バインディングが本番に届いているかだけを返す。計測データは返さない。
+  if (new URL(request.url).searchParams.get('e') === '__diag') {
+    return Response.json({
+      EVENTS: Boolean(env && env.EVENTS),
+      CLICKS: Boolean(env && env.CLICKS),
+    });
+  }
+
   try {
     if (env && env.EVENTS) {
       const url = new URL(request.url);
