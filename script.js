@@ -16,11 +16,17 @@ function track(event, detail, value) {
 track('pageview', location.pathname + (document.referrer ? ' <- ' + new URL(document.referrer).host : ''));
 
 // ===== LOADING SCREEN =====
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    document.getElementById('loading').classList.add('hidden');
-  }, 1600);
-});
+// 以前は全画像の読込完了＋1.6秒待っていたが、初見の人を待たせすぎるため短縮
+(function () {
+  const loading = document.getElementById('loading');
+  if (!loading) return;
+  let seen = false;
+  try { seen = sessionStorage.getItem('maiki-loaded') === '1'; sessionStorage.setItem('maiki-loaded', '1'); } catch (_) {}
+  if (seen) { loading.classList.add('hidden'); return; }
+  const hide = () => setTimeout(() => loading.classList.add('hidden'), 400);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hide);
+  else hide();
+})();
 
 // ===== CUSTOM CURSOR =====
 const cursor = document.getElementById('cursor');
