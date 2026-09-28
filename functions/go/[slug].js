@@ -38,6 +38,8 @@ export async function onRequestGet(context) {
           url.searchParams.get('campaign') || '',
           request.headers.get('referer') || '',
           String(cf.country || 'unknown'),
+          // クローラー除外用。海外から全リンクを一斉に踏む巡回がクリックの大半を占めていた
+          (request.headers.get('user-agent') || '').slice(0, 200),
         ],
         doubles: [1],
       });

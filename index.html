@@ -771,7 +771,10 @@
           if (typeof track === 'function') track('making', on ? 'on' : 'off');
         });
       });
-      if (new URLSearchParams(location.search).get('making') === '1') set(true, false);
+      if (new URLSearchParams(location.search).get('making') === '1') {
+        set(true, false);
+        if (typeof track === 'function') track('making', 'link');
+      }
     })();
 
     // ゲーム共有ボタン（Xで共有 / リンクをコピー）

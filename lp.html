@@ -751,6 +751,7 @@
     }
     .work-card h3 { font-size: 1.05rem; font-weight: 900; margin-bottom: 10px; }
     .work-card p { font-size: 0.86rem; color: var(--gray); line-height: 1.8; }
+    .work-card p.work-making { margin-top: 10px; padding: 8px 12px; border: 1px dashed var(--green); border-radius: 6px; color: rgba(255,255,255,0.8); font-size: 0.8rem; }
     .work-link {
       display: inline-block;
       margin-top: 16px;
@@ -850,7 +851,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
           ヒアリングシートで無料相談
         </a>
-        <a href="https://mikey-master.pages.dev" class="btn-outline-lp" target="_blank" rel="noopener">制作サンプルを見る</a>
+        <a href="/?making=1" class="btn-outline-lp" target="_blank" rel="noopener">制作サンプルを見る（制作メモつき）</a>
       </div>
       <div class="lp-hero-proof">
         <div class="proof-item">
@@ -996,11 +997,12 @@
         <p>制作事例</p>
       </div>
       <div class="features-grid">
-        <a class="work-card fade-in" href="https://mikey-master.pages.dev" target="_blank" rel="noopener">
+        <a class="work-card fade-in" href="/?making=1" target="_blank" rel="noopener">
           <span class="work-tag">制作者本人のサイト</span>
           <h3>舞鬼法師（まいきー）公式サイト</h3>
-          <p>歌い手・Vライバーとしての活動まとめ。楽曲・配信・SNSへの導線と、案件のお問い合わせ窓口をまとめています。実際に公開・運用しているサイトです。</p>
-          <span class="work-link">サイトを見る →</span>
+          <p>歌い手・Vライバーとしての活動まとめ。楽曲・配信・SNSへの導線と、お仕事・コラボの窓口をまとめています。実際に公開・運用しているサイトです。</p>
+          <p class="work-making">開くと各パーツに「なぜここに置いたか」の制作メモが出ます。右下の🛠でオン・オフできます。</p>
+          <span class="work-link">制作メモつきで見る →</span>
         </a>
         <div class="work-card placeholder fade-in">
           <span class="work-tag empty">募集中</span>
@@ -1488,6 +1490,23 @@
   </footer>
 
   <script>
+    // 計測（公式サイトの script.js と同じ /api/ev に送る）。失敗しても画面は止めない
+    function track(event, detail) {
+      try {
+        const q = new URLSearchParams({ e: event });
+        if (detail) q.set('d', detail);
+        navigator.sendBeacon('/api/ev?' + q.toString());
+      } catch (_) { /* 計測失敗は無視 */ }
+    }
+    track('pageview', location.pathname + (document.referrer ? ' <- ' + new URL(document.referrer).host : ''));
+    document.addEventListener('click', ev => {
+      const a = ev.target.closest('a');
+      if (!a) return;
+      if (a.href.includes('docs.google.com/forms')) track('lp-cta', 'form');
+      else if (a.href.includes('x.com/mai1k_master')) track('lp-cta', 'x');
+      else if (a.href.includes('making=1')) track('lp-cta', 'making');
+    });
+
     // 事例モニター枠：ここだけ書き換えれば、ページ内の表示がすべて揃います
     const MONITOR = { month: '9月', slots: 1 };
     document.querySelectorAll('[data-monitor-month]').forEach(el => el.textContent = MONITOR.month);

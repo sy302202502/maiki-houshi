@@ -34,7 +34,18 @@ show "表示・再生" "SELECT index1 AS ev, blob1 AS detail, sum(_sample_interv
   FROM maiki_events WHERE timestamp > NOW() - INTERVAL '$DAYS' DAY
   GROUP BY ev, detail ORDER BY n DESC LIMIT 30"
 
-show "外部リンククリック" "SELECT index1 AS slug, blob1 AS src, sum(_sample_interval) AS n
+show "HP制作の反響" "SELECT index1 AS ev, blob1 AS detail, sum(_sample_interval) AS n
+  FROM maiki_events WHERE timestamp > NOW() - INTERVAL '$DAYS' DAY
+    AND (index1 IN ('making', 'lp-cta') OR (index1 = 'pageview' AND blob1 LIKE '/lp%'))
+  GROUP BY ev, detail ORDER BY n DESC LIMIT 30"
+
+# クローラー除外: UA を記録し始めた 2026-09-28 以降のみ・bot系UAを除く
+show "外部リンククリック（人のみ）" "SELECT index1 AS slug, blob1 AS src, sum(_sample_interval) AS n
   FROM maiki_clicks WHERE timestamp > NOW() - INTERVAL '$DAYS' DAY
+    AND blob5 != ''
+    AND lower(blob5) NOT LIKE '%bot%' AND lower(blob5) NOT LIKE '%crawl%'
+    AND lower(blob5) NOT LIKE '%spider%' AND lower(blob5) NOT LIKE '%preview%'
+    AND lower(blob5) NOT LIKE '%curl%' AND lower(blob5) NOT LIKE '%python%'
+    AND lower(blob5) NOT LIKE '%headless%'
   GROUP BY slug, src ORDER BY n DESC LIMIT 30"
 echo
