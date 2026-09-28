@@ -2,9 +2,10 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>舞鬼法師（まいきー）｜歌い手・Vライバー 公式サイト</title>
   <meta name="description" content="舞鬼法師（まいきー / MIKEY MASTER）公式サイト。歌ってみた・オリジナル曲・競馬予想で活動する個人勢Vライバー / 歌い手。3rdオリジナル曲『Neon Tide』公開、『August Fade』『Coastline Radio』も配信中。VTuber・Vライバー向けのHP制作も受付中。">
+  <meta name="theme-color" content="#0e0b16">
   <link rel="canonical" href="https://mikey-master.pages.dev/">
 
   <!-- OGP -->
@@ -75,64 +76,40 @@
   }
   </script>
 
+  <link rel="preload" as="image" href="assets/images/kv-maiki.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&family=Bebas+Neue&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho+B1:wght@600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ===== SKIP LINK ===== -->
-  <a href="#top" class="skip-link">メインコンテンツへスキップ</a>
+  <a href="#main" class="skip-link">メインコンテンツへスキップ</a>
 
   <!-- ===== LOADING ===== -->
-  <div id="loading">
-    <div class="loading-inner">
-      <img src="assets/images/maiki-logo.png" alt="舞鬼法師" class="loading-logo">
-      <div class="loading-bar"><div class="loading-bar-fill"></div></div>
-    </div>
+  <div id="loading" aria-hidden="true">
+    <img src="assets/images/maiki-logo.png" alt="" class="loading-logo" width="480" height="206">
   </div>
 
-  <!-- ===== CUSTOM CURSOR ===== -->
-  <div id="cursor"></div>
-  <div id="cursor-trail"></div>
-
-  <!-- ===== SCROLL PROGRESS ===== -->
-  <div id="scroll-progress"></div>
-
-  <!-- ===== NEWS TICKER ===== -->
-  <div class="news-ticker">
-    <span class="ticker-label">NEWS</span>
-    <div class="ticker-wrap">
-      <div class="ticker-inner">
-        <span>🎵 3rdオリジナル曲「Neon Tide」公開中！ — 最新MVをYouTubeでチェック！</span>
-        <span>🛠 VTuber・VライバーのHP制作を受付中 — このサイトも自作です</span>
-        <span>🎵 3rdオリジナル曲「Neon Tide」公開中！ — 最新MVをYouTubeでチェック！</span>
-        <span>🛠 VTuber・VライバーのHP制作を受付中 — このサイトも自作です</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== HEADER / NAV ===== -->
-  <header id="header">
+  <!-- ===== HEADER ===== -->
+  <header id="header" class="site-header">
     <div class="header-inner">
-      <a href="#top" class="header-logo">
-        <img src="assets/images/maiki-logo.png" alt="舞鬼法師">
+      <a href="#top" class="header-logo" aria-label="舞鬼法師 トップへ">
+        <img src="assets/images/maiki-logo.png" alt="舞鬼法師" width="480" height="206">
       </a>
-      <nav class="nav">
+      <nav class="nav" aria-label="メイン">
         <ul>
-          <li><a href="#top">TOP</a></li>
-          <li><a href="#profile">PROFILE</a></li>
-          <li><a href="#music">MUSIC</a></li>
-          <li><a href="#news">NEWS</a></li>
-          <li><a href="#links">LINKS</a></li>
-          <li><a href="#game">GAME</a></li>
-          <li><a href="#contact">CONTACT</a></li>
+          <li><a href="#profile">Profile</a></li>
+          <li><a href="#music">Music</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#links">Links</a></li>
+          <li><a href="#game">Game</a></li>
+          <li><a href="#contact">Contact</a></li>
           <li><a href="#commission" class="nav-commission">HP制作</a></li>
         </ul>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobileMenu">
-        <span></span><span></span><span></span>
+        <span></span><span></span>
       </button>
     </div>
   </header>
@@ -140,621 +117,489 @@
   <!-- モバイルメニュー -->
   <div class="mobile-menu" id="mobileMenu" inert>
     <ul>
-      <li><a href="#top" class="mobile-link">TOP</a></li>
-      <li><a href="#profile" class="mobile-link">PROFILE</a></li>
-      <li><a href="#music" class="mobile-link">MUSIC</a></li>
-      <li><a href="#news" class="mobile-link">NEWS</a></li>
-      <li><a href="#links" class="mobile-link">LINKS</a></li>
-      <li><a href="#game" class="mobile-link">GAME</a></li>
-      <li><a href="#contact" class="mobile-link">CONTACT</a></li>
-      <li><a href="#commission" class="mobile-link">HP制作</a></li>
+      <li><a href="#top" class="mobile-link"><span>Top</span>トップ</a></li>
+      <li><a href="#profile" class="mobile-link"><span>Profile</span>プロフィール</a></li>
+      <li><a href="#music" class="mobile-link"><span>Music</span>楽曲</a></li>
+      <li><a href="#news" class="mobile-link"><span>News</span>お知らせ</a></li>
+      <li><a href="#links" class="mobile-link"><span>Links</span>リンク</a></li>
+      <li><a href="#game" class="mobile-link"><span>Game</span>ミニゲーム</a></li>
+      <li><a href="#contact" class="mobile-link"><span>Contact</span>お仕事のご相談</a></li>
+      <li><a href="#commission" class="mobile-link"><span>Commission</span>HP制作</a></li>
     </ul>
   </div>
 
-  <!-- ===== HERO ===== -->
-  <section data-making id="top" class="hero">
-    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>ファーストビュー</strong>名前・キャッチコピー・最新作が3秒で伝わる構成。いちばん見てほしいものへ1タップで行けます。</aside>
-    <div class="hero-bg">
-      <div class="hero-grid"></div>
-      <div class="hero-particles" id="particles"></div>
-    </div>
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1 class="hero-title">
-          <span class="title-main" data-text="舞鬼法師">舞鬼法師</span>
-          <span class="title-sub">MIKEY MASTER</span>
-        </h1>
-        <p class="hero-catch">酒と馬と唄。</p>
-        <div class="hero-btns">
-          <a href="/go/neon-tide?src=hero" class="btn btn-primary btn-hero-main" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-            🎵 最新MV「Neon Tide」を見る
-          </a>
-        </div>
-        <div class="hero-sub-links">
-          <a href="/go/subscribe?src=hero" class="hero-sub-link" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-            チャンネル登録
-          </a>
-          <a href="https://x.com/mai1k_master" class="hero-sub-link" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            Twitter / X
-          </a>
-        </div>
-        <a href="#commission" class="hero-commission">
-          <span class="hero-commission-tag">HP制作</span>
-          <span class="hero-commission-text">このサイト、あなた用にも作れます</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-      </div>
-      <div class="hero-chara">
-        <div class="chara-glow"></div>
-        <img src="assets/images/chibi-maiki.webp" alt="舞鬼法師" class="chara-img" width="421" height="510" fetchpriority="high">
-        <div class="chara-shadow"></div>
-      </div>
-    </div>
-    <div class="scroll-hint">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
+  <main id="main">
 
-  <!-- ===== PROFILE ===== -->
-  <section data-making id="profile" class="section profile">
-    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>プロフィール</strong>初見さんも企業の担当者も、まず見るのはここ。キャラの特徴と活動内容を一枚にまとめます。</aside>
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">PROFILE</h2>
-        <span class="section-title-jp">プロフィール</span>
+    <!-- ===== HERO ===== -->
+    <section id="top" class="hero" data-making>
+      <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>ファーストビュー</strong>立ち絵を主役に、名前・キャッチコピー・最新作が3秒で伝わる構成。いちばん見てほしいものへ1タップで行けます。</aside>
+      <div class="hero-bg" aria-hidden="true">
+        <span class="hero-bg-word">MIKEY MASTER</span>
       </div>
-      <div class="profile-card">
-        <div class="profile-deco-left"></div>
-        <div class="profile-content">
-          <div class="profile-avatar">
-            <div class="avatar-ring"></div>
-            <img src="assets/images/chibi-maiki.webp" alt="舞鬼法師" loading="lazy">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <p class="hero-eyebrow">個人勢Vライバー／歌い手</p>
+          <h1 class="hero-title">
+            <img src="assets/images/maiki-logo.png" alt="舞鬼法師" width="480" height="206">
+            <span class="hero-title-en">MIKEY MASTER</span>
+          </h1>
+          <p class="hero-catch">酒と馬と唄。</p>
+          <div class="hero-latest">
+            <span class="hero-latest-label">Latest Release</span>
+            <a href="/go/neon-tide?src=hero" class="btn btn-primary" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              3rd「Neon Tide」MVを見る
+            </a>
           </div>
-          <div class="profile-info">
-            <h3 class="profile-name">
-              舞鬼法師
-              <span class="profile-name-en">MIKEY MASTER</span>
-            </h3>
-            <div class="profile-tags">
-              <span class="tag">🎤 歌ってみた</span>
-              <span class="tag">🎮 ゲーム実況</span>
-              <span class="tag">🍶 お酒好き</span>
-              <span class="tag">🏇 競馬予想</span>
-            </div>
-            <table class="profile-table">
-              <tr>
-                <th>所属</th>
-                <td>個人勢ライバー</td>
-              </tr>
-              <tr>
-                <th>活動内容</th>
-                <td>歌ってみた / ゲーム実況 / 雑談配信 / 競馬予想</td>
-              </tr>
-              <tr>
-                <th>特徴</th>
-                <td>銀髪に黒い鬼の角、白×黒の和装が目印</td>
-              </tr>
-            </table>
+          <div class="hero-sub-links">
+            <a href="/go/subscribe?src=hero" target="_blank" rel="noopener">YouTube チャンネル登録</a>
+            <a href="https://x.com/mai1k_master" target="_blank" rel="noopener">X @mai1k_master</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="assets/images/kv-maiki.webp" alt="舞鬼法師の立ち絵。銀髪に黒い鬼の角、紫の花柄の羽織" width="900" height="2123" fetchpriority="high">
+        </div>
+      </div>
+      <a href="#commission" class="hero-commission">
+        <span class="hero-commission-tag">HP制作</span>
+        <span>このサイト、あなた用にも作れます</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <div class="scroll-hint" aria-hidden="true"><span>Scroll</span><i></i></div>
+    </section>
+
+    <!-- ===== PROFILE ===== -->
+    <section id="profile" class="section profile" data-making>
+      <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>プロフィール</strong>初見さんも企業の担当者も、まず見るのはここ。キャラの特徴と活動内容を一枚にまとめます。</aside>
+      <div class="section-inner">
+        <div class="sec-head reveal">
+          <h2 class="sec-en">Profile</h2>
+          <p class="sec-ja">プロフィール</p>
+        </div>
+        <div class="profile-grid">
+          <figure class="profile-visual reveal">
+            <img src="assets/images/kv-maiki-upper.webp" alt="舞鬼法師の上半身の立ち絵" width="760" height="932" loading="lazy">
+          </figure>
+          <div class="profile-body reveal">
+            <p class="profile-kana">まいきー</p>
+            <h3 class="profile-name">舞鬼法師</h3>
+            <p class="profile-name-en">MIKEY MASTER</p>
+            <ul class="profile-tags">
+              <li>歌ってみた</li><li>オリジナル曲</li><li>競馬予想</li><li>ゲーム実況</li><li>雑談</li><li>お酒</li>
+            </ul>
             <p class="profile-bio">
               舞鬼法師です。競馬予想をメインに、雑談・歌・酒でゆるく活動してます。<br>
               レースを語りながら酒を飲んで、気が向いたら歌う——そういうやつです。<br>
               のぞいてってもらえたら嬉しいです。
             </p>
-          </div>
-        </div>
-        <div class="profile-deco-right"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== ACTIVITY ===== -->
-  <section id="activity" class="section activity">
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">ACTIVITY</h2>
-        <span class="section-title-jp">活動内容</span>
-      </div>
-      <div class="activity-grid">
-        <div class="activity-card" data-num="01">
-          <div class="activity-icon">🏇</div>
-          <h3>競馬予想</h3>
-          <p>俺専用AI「舞鬼AI」で導き出す、唯一無二の競馬顔面予想。理屈じゃなく、魂で馬を選ぶ。外れたって後悔はしない——たぶん。</p>
-        </div>
-        <div class="activity-card" data-num="02">
-          <div class="activity-icon">🎤</div>
-          <h3>歌ってみた</h3>
-          <p>ボカロを中心にカバー曲を投稿中。『シャルル』や『酔いどれ知らず』など、自分に刺さった曲だけを選んで歌ってます。上手いより気持ちが先。</p>
-        </div>
-        <div class="activity-card" data-num="03">
-          <div class="activity-icon">🎮</div>
-          <h3>ゲーム実況</h3>
-          <p>ジャンルはわりとなんでも。上手くはないけど本気でやってます。気軽に見てってください。</p>
-        </div>
-        <div class="activity-card" data-num="04">
-          <div class="activity-icon">💬</div>
-          <h3>雑談配信</h3>
-          <p>お酒片手に、来てくれた人とだらっと話す配信。特に何もないけど、それがいちばん好き。</p>
-        </div>
-        <div class="activity-card" data-num="05">
-          <div class="activity-icon">🎵</div>
-          <h3>オリジナル曲</h3>
-          <p>最新曲「Neon Tide」公開中。<a href="/go/neon-tide?src=activity" target="_blank" rel="noopener" style="color:var(--orange);text-decoration:none;font-weight:700;">今すぐ聴く →</a></p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== MUSIC / WORKS ===== -->
-  <section data-making id="music" class="section music">
-    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>作品紹介</strong>動画はこのページの中で再生。YouTubeに飛ばさないので、見たあともサイトに残ってもらえます。</aside>
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">MUSIC</h2>
-        <span class="section-title-jp">歌ってみた</span>
-        <img src="assets/images/chibi-sing.webp" alt="" class="section-chara" aria-hidden="true" loading="lazy">
-      </div>
-      <!-- オリジナル曲フィーチャーバナー -->
-      <a href="/go/neon-tide?src=featured" class="music-featured" target="_blank" rel="noopener" data-video="PnDQp43p5jg" data-video-title="Neon Tide">
-        <div class="music-featured-thumb">
-          <img src="https://img.youtube.com/vi/PnDQp43p5jg/maxresdefault.jpg" alt="Neon Tide" loading="lazy" onerror="this.src='https://img.youtube.com/vi/PnDQp43p5jg/hqdefault.jpg'">
-          <div class="music-featured-overlay">
-            <div class="music-featured-play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <dl class="profile-data">
+              <div><dt>所属</dt><dd>個人勢ライバー</dd></div>
+              <div><dt>活動内容</dt><dd>歌ってみた／オリジナル曲／ゲーム実況／雑談配信／競馬予想</dd></div>
+              <div><dt>特徴</dt><dd>銀髪に黒い鬼の角、和の羽織が目印</dd></div>
+              <div><dt>イメージカラー</dt><dd class="swatches"><span style="--c:#3b2166"></span>濃紫<span style="--c:#e8e4ef"></span>白銀<span style="--c:#f2a93b"></span>アンバー</dd></div>
+            </dl>
+            <div class="costumes">
+              <p class="costumes-title">Costume</p>
+              <ul>
+                <li><img src="assets/images/kv-maiki-upper.webp" alt="" width="760" height="932" loading="lazy"><span>Neon Tide</span></li>
+                <li><img src="assets/images/kv-maiki-summer.webp" alt="" width="760" height="1077" loading="lazy"><span>夏服</span></li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="music-featured-info">
-          <div class="music-featured-badges">
-            <span class="music-badge-new">NEW</span>
-            <span class="music-badge-orig">3rdオリジナル曲</span>
-          </div>
-          <h3 class="music-featured-title">Neon Tide</h3>
-          <p class="music-featured-artist">舞鬼法師</p>
-          <p class="music-featured-desc">ネオンに染まる夜を駆ける、3rdオリジナル曲。</p>
+      </div>
+    </section>
+
+    <!-- ===== ACTIVITY ===== -->
+    <section id="activity" class="section activity">
+      <div class="section-inner">
+        <div class="sec-head reveal">
+          <h2 class="sec-en">Activity</h2>
+          <p class="sec-ja">活動内容</p>
         </div>
-      </a>
+        <div class="activity-list">
+          <article class="activity-item reveal">
+            <span class="activity-no">01</span>
+            <h3>競馬予想</h3>
+            <p>俺専用AI「舞鬼AI」で導き出す、唯一無二の競馬顔面予想。理屈じゃなく、魂で馬を選ぶ。外れたって後悔はしない——たぶん。</p>
+          </article>
+          <article class="activity-item reveal">
+            <span class="activity-no">02</span>
+            <h3>歌ってみた</h3>
+            <p>ボカロを中心にカバー曲を投稿中。『シャルル』や『酔いどれ知らず』など、自分に刺さった曲だけを選んで歌ってます。上手いより気持ちが先。</p>
+          </article>
+          <article class="activity-item reveal">
+            <span class="activity-no">03</span>
+            <h3>オリジナル曲</h3>
+            <p>最新曲「Neon Tide」公開中。<a href="/go/neon-tide?src=activity" target="_blank" rel="noopener">今すぐ聴く →</a></p>
+          </article>
+          <article class="activity-item reveal">
+            <span class="activity-no">04</span>
+            <h3>ゲーム実況</h3>
+            <p>ジャンルはわりとなんでも。上手くはないけど本気でやってます。気軽に見てってください。</p>
+          </article>
+          <article class="activity-item reveal">
+            <span class="activity-no">05</span>
+            <h3>雑談配信</h3>
+            <p>お酒片手に、来てくれた人とだらっと話す配信。特に何もないけど、それがいちばん好き。</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-      <div class="music-grid">
-        <a href="/go/august-fade?src=grid" class="music-card" target="_blank" rel="noopener" data-video="i1CnU-3uneM" data-video-title="August Fade">
-          <div class="music-thumb">
-            <img src="https://img.youtube.com/vi/i1CnU-3uneM/maxresdefault.jpg" alt="August Fade" loading="lazy" onerror="this.src='https://img.youtube.com/vi/i1CnU-3uneM/hqdefault.jpg'">
-            <div class="music-play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <!-- ===== MUSIC ===== -->
+    <section id="music" class="section music" data-making>
+      <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>作品紹介</strong>動画はこのページの中で再生。YouTubeに飛ばさないので、見たあともサイトに残ってもらえます。</aside>
+      <div class="section-inner">
+        <div class="sec-head reveal">
+          <h2 class="sec-en">Music</h2>
+          <p class="sec-ja">楽曲</p>
+        </div>
+
+        <a href="/go/neon-tide?src=featured" class="music-featured reveal" target="_blank" rel="noopener" data-video="PnDQp43p5jg" data-video-title="Neon Tide">
+          <div class="music-featured-thumb">
+            <img src="https://img.youtube.com/vi/PnDQp43p5jg/maxresdefault.jpg" alt="Neon Tide" loading="lazy" onerror="this.src='https://img.youtube.com/vi/PnDQp43p5jg/hqdefault.jpg'">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          </div>
+          <div class="music-featured-info">
+            <p class="music-badges"><span class="badge-new">New</span><span>3rd Original</span></p>
+            <h3 class="music-featured-title">Neon Tide</h3>
+            <p class="music-featured-artist">舞鬼法師</p>
+            <p class="music-featured-desc">ネオンに染まる夜を駆ける、3rdオリジナル曲。</p>
+            <span class="music-featured-cta">ここで再生する</span>
+          </div>
+        </a>
+
+        <div class="music-grid">
+          <a href="/go/august-fade?src=grid" class="music-card reveal" target="_blank" rel="noopener" data-video="i1CnU-3uneM" data-video-title="August Fade">
+            <div class="music-thumb">
+              <img src="https://img.youtube.com/vi/i1CnU-3uneM/maxresdefault.jpg" alt="August Fade" loading="lazy" onerror="this.src='https://img.youtube.com/vi/i1CnU-3uneM/hqdefault.jpg'">
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
             </div>
-          </div>
-          <div class="music-info">
-            <span class="music-label">オリジナル曲</span>
-            <h3 class="music-title">August Fade</h3>
-            <p class="music-artist">舞鬼法師</p>
-          </div>
-        </a>
-        <a href="/go/coastline-radio?src=grid" class="music-card" target="_blank" rel="noopener" data-video="qkdBPhUHyPw" data-video-title="Coastline Radio">
-          <div class="music-thumb">
-            <img src="https://img.youtube.com/vi/qkdBPhUHyPw/maxresdefault.jpg" alt="Coastline Radio" loading="lazy" onerror="this.src='https://img.youtube.com/vi/qkdBPhUHyPw/hqdefault.jpg'">
-            <div class="music-play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div class="music-info">
-            <span class="music-label">オリジナル曲</span>
-            <h3 class="music-title">Coastline Radio</h3>
-            <p class="music-artist">舞鬼法師</p>
-          </div>
-        </a>
-        <a href="/go/charles?src=grid" class="music-card" target="_blank" rel="noopener" data-video="rMBv-4_VAtc" data-video-title="シャルル 歌ってみた">
-          <div class="music-thumb">
-            <img src="https://img.youtube.com/vi/rMBv-4_VAtc/maxresdefault.jpg" alt="シャルル 歌ってみた" loading="lazy" onerror="this.src='https://img.youtube.com/vi/rMBv-4_VAtc/hqdefault.jpg'">
-            <div class="music-play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div class="music-info">
-            <span class="music-label">歌ってみた</span>
-            <h3 class="music-title">シャルル</h3>
-            <p class="music-artist">バルーン / cover by 舞鬼法師</p>
-          </div>
-        </a>
-        <a href="/go/yoidore?src=grid" class="music-card" target="_blank" rel="noopener" data-video="gUv6OLai54A" data-video-title="酔いどれ知らず 歌ってみた">
-          <div class="music-thumb">
-            <img src="https://img.youtube.com/vi/gUv6OLai54A/maxresdefault.jpg" alt="酔いどれ知らず 歌ってみた" loading="lazy" onerror="this.src='https://img.youtube.com/vi/gUv6OLai54A/hqdefault.jpg'">
-            <div class="music-play">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-            </div>
-          </div>
-          <div class="music-info">
-            <span class="music-label">歌ってみた</span>
-            <h3 class="music-title">酔いどれ知らず</h3>
-            <p class="music-artist">チャムu族 / cover by 舞鬼法師</p>
-          </div>
-        </a>
-      </div>
-      <div class="music-more">
-        <a href="/go/channel?src=music" class="btn btn-outline" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-          もっと見る
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SCHEDULE ===== -->
-  <section id="schedule" class="section schedule" data-making>
-    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>配信予定</strong>決まった曜日がなくても大丈夫。「どこを見れば告知が届くか」を書いておけば、予定欄として機能します。</aside>
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">SCHEDULE</h2>
-        <span class="section-title-jp">配信スケジュール</span>
-      </div>
-      <div class="schedule-irregular">
-        <div class="irregular-icon">📅</div>
-        <h3 class="irregular-title">配信は不定期です</h3>
-        <p class="irregular-text">
-          気が向いたとき、歌いたいとき、話したいとき——<br>
-          決まった日はないけど、気まぐれに現れます。<br>
-          Xをフォローしておくと通知が届きます。
-        </p>
-        <a href="https://x.com/mai1k_master" class="btn btn-primary" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          @mai1k_master をフォロー
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== NEWS ===== -->
-  <section data-making id="news" class="section news">
-    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>お知らせ</strong>告知は1行書き足すだけ。Xで流れてしまう情報も、ここに残ります。</aside>
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">NEWS</h2>
-        <span class="section-title-jp">お知らせ</span>
-      </div>
-      <ul class="news-list">
-        <li class="news-item">
-          <time class="news-date" datetime="2026-09-28">2026.09.28</time>
-          <span class="news-tag news-tag-info">INFO</span>
-          <p class="news-text">このサイトを「制作者目線」で見られるようにしました。右下の🛠で、各パーツの制作メモが出ます。<a href="#commission">HP制作について →</a></p>
-        </li>
-        <li class="news-item">
-          <time class="news-date" datetime="2026-09-14">2026.09.14</time>
-          <span class="news-tag news-tag-release">RELEASE</span>
-          <p class="news-text">3rdオリジナル曲「Neon Tide」を公開しました！<a href="/go/neon-tide?src=news" target="_blank" rel="noopener">YouTubeで聴く →</a></p>
-        </li>
-        <li class="news-item">
-          <time class="news-date" datetime="2026-07">2026.07</time>
-          <span class="news-tag news-tag-release">RELEASE</span>
-          <p class="news-text">2ndオリジナル曲「August Fade」を公開しました！<a href="/go/august-fade?src=news" target="_blank" rel="noopener">YouTubeで聴く →</a></p>
-        </li>
-        <li class="news-item">
-          <time class="news-date" datetime="2026-06">2026.06</time>
-          <span class="news-tag news-tag-release">RELEASE</span>
-          <p class="news-text">オリジナル曲「Coastline Radio」をリリースしました！<a href="/go/coastline-radio?src=news" target="_blank" rel="noopener">YouTubeで聴く →</a></p>
-        </li>
-        <li class="news-item">
-          <time class="news-date" datetime="2026-06">2026.06</time>
-          <span class="news-tag news-tag-info">INFO</span>
-          <p class="news-text">VTuber・Vライバー向けHP制作サービスの受付を開始しました。<a href="#commission">詳しくはこちら →</a></p>
-        </li>
-        <li class="news-item">
-          <time class="news-date" datetime="2026-06">2026.06</time>
-          <span class="news-tag news-tag-info">INFO</span>
-          <p class="news-text">公式サイトをリニューアルしました（新ロゴ・新ミニキャラ）。</p>
-        </li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- ===== LINKS ===== -->
-  <section data-making id="links" class="section links">
-    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>リンク集</strong>各SNS・配信アプリへの入口を一か所に。リンクまとめサービスの代わりになります。</aside>
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">LINKS</h2>
-        <span class="section-title-jp">各種リンク</span>
-      </div>
-      <div class="links-grid">
-        <a href="/go/channel?src=links" class="link-card youtube" target="_blank" rel="noopener">
-          <div class="link-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-          </div>
-          <div class="link-info">
-            <span class="link-label">YouTube</span>
-            <span class="link-desc">チャンネル登録はこちら</span>
-          </div>
-          <span class="link-arrow">→</span>
-        </a>
-        <a href="https://x.com/mai1k_master" class="link-card twitter" target="_blank" rel="noopener">
-          <div class="link-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </div>
-          <div class="link-info">
-            <span class="link-label">Twitter / X</span>
-            <span class="link-desc">最新情報はこちら</span>
-          </div>
-          <span class="link-arrow">→</span>
-        </a>
-        <a href="https://www.tiktok.com/@mikey_master" class="link-card tiktok" target="_blank" rel="noopener">
-          <div class="link-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg>
-          </div>
-          <div class="link-info">
-            <span class="link-label">TikTok</span>
-            <span class="link-desc">ショート動画はこちら</span>
-          </div>
-          <span class="link-arrow">→</span>
-        </a>
-        <a href="https://www.twitch.tv/MikeyMaster" class="link-card twitch" target="_blank" rel="noopener">
-          <div class="link-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
-          </div>
-          <div class="link-info">
-            <span class="link-label">Twitch</span>
-            <span class="link-desc">ライブ配信はこちら</span>
-          </div>
-          <span class="link-arrow">→</span>
-        </a>
-        <a href="https://web.iriam.app/s/user/XR7cgAVLM7?uuid=e4538963" class="link-card iriam" target="_blank" rel="noopener">
-          <div class="link-icon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-          </div>
-          <div class="link-info">
-            <span class="link-label">IRIAM</span>
-            <span class="link-desc">ライブ配信はこちら</span>
-          </div>
-          <span class="link-arrow">→</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== GAME ===== -->
-  <style>
-    .game-cards {
-      display:grid; grid-template-columns:repeat(2,1fr);
-      gap:24px; max-width:840px; margin:0 auto;
-    }
-    .game-card {
-      display:flex; flex-direction:column;
-      background:#0e0e12; border:1px solid rgba(255,255,255,0.1);
-      border-radius:12px; overflow:hidden; text-decoration:none; color:#fff;
-      transition:transform .25s, box-shadow .25s, border-color .25s;
-    }
-    .game-card:hover { transform:translateY(-6px); }
-    .game-card.action:hover { border-color:#FF6B00; box-shadow:0 12px 30px rgba(255,107,0,.3); }
-    .game-card.love:hover   { border-color:#7aa8ff; box-shadow:0 12px 30px rgba(90,140,255,.3); }
-    .game-card.rhythm:hover { border-color:#ffd76a; box-shadow:0 12px 30px rgba(255,180,60,.3); }
-    .game-card-thumb {
-      aspect-ratio:16/9; background-size:cover; background-position:center;
-      position:relative;
-    }
-    .game-card.action .game-card-thumb { background-color:#0a0a0a; }
-    .game-card-body { padding:18px 20px 22px; display:flex; flex-direction:column; gap:8px; }
-    .game-card-tag {
-      align-self:flex-start; font-size:.68rem; letter-spacing:.2em;
-      padding:3px 12px; border-radius:4px; font-weight:bold;
-    }
-    .game-card.action .game-card-tag { background:#FF6B00; color:#000; }
-    .game-card.love   .game-card-tag { background:#7aa8ff; color:#000; }
-    .game-card.rhythm .game-card-tag { background:#ffd76a; color:#000; }
-    .game-card-body h3 { font-size:1.15rem; letter-spacing:.08em; margin:0; }
-    .game-card-body p { font-size:.82rem; color:rgba(255,255,255,.55); line-height:1.7; margin:0; }
-    .game-card-btn {
-      align-self:flex-start; margin-top:6px; font-size:.82rem; letter-spacing:.15em;
-      padding:7px 22px; border-radius:6px; border:1px solid currentColor;
-    }
-    .game-card.action .game-card-btn { color:#FF6B00; }
-    .game-card.love   .game-card-btn { color:#7aa8ff; }
-    .game-card.rhythm .game-card-btn { color:#ffd76a; }
-    .game-entry { display:flex; flex-direction:column; gap:10px; }
-    .game-share { display:flex; gap:8px; flex-wrap:wrap; padding:0 2px; }
-    .share-btn {
-      display:inline-flex; align-items:center; gap:6px;
-      font-family:inherit; font-size:.76rem; letter-spacing:.04em;
-      padding:8px 14px; border-radius:6px; cursor:pointer;
-      background:#14141a; color:rgba(255,255,255,.85);
-      border:1px solid rgba(255,255,255,.14); text-decoration:none;
-      transition:background .2s, border-color .2s, transform .15s, color .2s;
-    }
-    .share-btn:hover { transform:translateY(-2px); background:#1c1c24; border-color:rgba(255,255,255,.4); }
-    .share-btn.x:hover { border-color:#fff; color:#fff; }
-    .share-btn.copy.copied { border-color:#3ddc84; color:#3ddc84; background:rgba(61,220,132,.08); }
-    .share-btn svg { width:15px; height:15px; fill:currentColor; flex-shrink:0; }
-    @media screen and (max-width:680px) {
-      .game-cards { grid-template-columns:1fr; gap:26px; }
-    }
-  </style>
-  <section data-making id="game" class="section">
-    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>ミニゲーム</strong>ブラウザで遊べるゲームも置けます。立ち絵やオリジナル曲を使ったものなど、内容はご相談ください。</aside>
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">GAME</h2>
-        <span class="section-title-jp">ミニゲーム</span>
-        <img src="assets/images/chibi-game.webp" alt="" class="section-chara" aria-hidden="true" loading="lazy">
-      </div>
-      <div class="game-cards">
-        <div class="game-entry">
-          <a class="game-card action" href="game.html">
-            <div class="game-card-thumb" style="background-image:url('assets/images/game-thumb.png')"></div>
-            <div class="game-card-body">
-              <span class="game-card-tag">ACTION</span>
-              <h3>鬼の道中</h3>
-              <p>走って障害物を飛び越えろ！スコアが上がるほど加速する横スクロールアクション。二段ジャンプあり。</p>
-              <span class="game-card-btn">▶ PLAY</span>
+            <div class="music-info">
+              <span class="music-label">Original</span>
+              <h3 class="music-title">August Fade</h3>
+              <p class="music-artist">舞鬼法師</p>
             </div>
           </a>
-          <div class="game-share">
-            <a class="share-btn x" target="_blank" rel="noopener"
-               data-url="https://mikey-master.pages.dev/game"
-               data-text="舞鬼法師のミニアクション「鬼の道中」で遊んでみて！">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              <span class="label">Xで共有</span>
-            </a>
-            <button type="button" class="share-btn copy" data-url="https://mikey-master.pages.dev/game">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-              <span class="label">リンクをコピー</span>
-            </button>
-          </div>
-        </div>
-        <div class="game-entry">
-          <a class="game-card love" href="love-game.html">
-            <div class="game-card-thumb" style="background-image:url('assets/images/vn-title.jpg')"></div>
-            <div class="game-card-body">
-              <span class="game-card-tag">ROMANCE</span>
-              <h3>競馬場の鬼</h3>
-              <p>馬券売り場で出会った、涼しげな彼。選択次第で変わる、ふたつの結末。恋愛ノベルゲーム。</p>
-              <span class="game-card-btn">▶ PLAY</span>
+          <a href="/go/coastline-radio?src=grid" class="music-card reveal" target="_blank" rel="noopener" data-video="qkdBPhUHyPw" data-video-title="Coastline Radio">
+            <div class="music-thumb">
+              <img src="https://img.youtube.com/vi/qkdBPhUHyPw/maxresdefault.jpg" alt="Coastline Radio" loading="lazy" onerror="this.src='https://img.youtube.com/vi/qkdBPhUHyPw/hqdefault.jpg'">
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            </div>
+            <div class="music-info">
+              <span class="music-label">Original</span>
+              <h3 class="music-title">Coastline Radio</h3>
+              <p class="music-artist">舞鬼法師</p>
             </div>
           </a>
-          <div class="game-share">
-            <a class="share-btn x" target="_blank" rel="noopener"
-               data-url="https://mikey-master.pages.dev/love-game"
-               data-text="舞鬼法師の恋愛ノベルゲーム「競馬場の鬼」で遊んでみて！">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              <span class="label">Xで共有</span>
-            </a>
-            <button type="button" class="share-btn copy" data-url="https://mikey-master.pages.dev/love-game">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-              <span class="label">リンクをコピー</span>
-            </button>
-          </div>
-        </div>
-        <div class="game-entry">
-          <a class="game-card rhythm" href="rhythm-game.html">
-            <div class="game-card-thumb" style="background-image:url('assets/images/rhythm-thumb.jpg')"></div>
-            <div class="game-card-body">
-              <span class="game-card-tag">MUSIC</span>
-              <h3>鬼拍子</h3>
-              <p>オリジナル曲「Coastline Radio」で遊ぶリズムゲーム。落ちてくるビールや夏のモチーフを左右2レーンで叩き、FEVER TIME を狙え。</p>
-              <span class="game-card-btn">▶ PLAY</span>
+          <a href="/go/charles?src=grid" class="music-card reveal" target="_blank" rel="noopener" data-video="rMBv-4_VAtc" data-video-title="シャルル 歌ってみた">
+            <div class="music-thumb">
+              <img src="https://img.youtube.com/vi/rMBv-4_VAtc/maxresdefault.jpg" alt="シャルル 歌ってみた" loading="lazy" onerror="this.src='https://img.youtube.com/vi/rMBv-4_VAtc/hqdefault.jpg'">
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            </div>
+            <div class="music-info">
+              <span class="music-label">Cover</span>
+              <h3 class="music-title">シャルル</h3>
+              <p class="music-artist">バルーン / cover by 舞鬼法師</p>
             </div>
           </a>
-          <div class="game-share">
-            <a class="share-btn x" target="_blank" rel="noopener"
-               data-url="https://mikey-master.pages.dev/rhythm-game"
-               data-text="舞鬼法師のリズムゲーム「鬼拍子」で遊んでみて！">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              <span class="label">Xで共有</span>
-            </a>
-            <button type="button" class="share-btn copy" data-url="https://mikey-master.pages.dev/rhythm-game">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-              <span class="label">リンクをコピー</span>
-            </button>
-          </div>
+          <a href="/go/yoidore?src=grid" class="music-card reveal" target="_blank" rel="noopener" data-video="gUv6OLai54A" data-video-title="酔いどれ知らず 歌ってみた">
+            <div class="music-thumb">
+              <img src="https://img.youtube.com/vi/gUv6OLai54A/maxresdefault.jpg" alt="酔いどれ知らず 歌ってみた" loading="lazy" onerror="this.src='https://img.youtube.com/vi/gUv6OLai54A/hqdefault.jpg'">
+              <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            </div>
+            <div class="music-info">
+              <span class="music-label">Cover</span>
+              <h3 class="music-title">酔いどれ知らず</h3>
+              <p class="music-artist">チャムu族 / cover by 舞鬼法師</p>
+            </div>
+          </a>
+        </div>
+        <div class="section-more reveal">
+          <a href="/go/channel?src=music" class="btn btn-ghost" target="_blank" rel="noopener">YouTubeでもっと見る</a>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="section contact" data-making>
-    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>お仕事の窓口</strong>企業やコラボ相手が「どこに連絡すればいいか」で迷わないように、窓口をひとつに決めて書いておきます。</aside>
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">CONTACT</h2>
-        <span class="section-title-jp">お仕事・コラボのご相談</span>
+    <!-- ===== SCHEDULE ===== -->
+    <section id="schedule" class="section schedule" data-making>
+      <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>配信予定</strong>決まった曜日がなくても大丈夫。「どこを見れば告知が届くか」を書いておけば、予定欄として機能します。</aside>
+      <div class="section-inner">
+        <div class="schedule-card reveal">
+          <div>
+            <h2 class="sec-en">Schedule</h2>
+            <p class="sec-ja">配信スケジュール</p>
+          </div>
+          <div class="schedule-body">
+            <h3>配信は不定期です</h3>
+            <p>気が向いたとき、歌いたいとき、話したいとき——決まった日はないけど、気まぐれに現れます。Xをフォローしておくと通知が届きます。</p>
+            <a href="https://x.com/mai1k_master" class="btn btn-ghost" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              @mai1k_master をフォロー
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="contact-card">
-        <p class="contact-lead">お仕事・コラボのご相談は、XのDMで受け付けています。<br>企業・団体の方も、個人の方も同じ窓口です。</p>
-        <a href="https://x.com/mai1k_master" class="btn btn-primary" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          XでDMを送る
-        </a>
-        <ul class="contact-notes">
-          <li>プロフィール画面の「メッセージ」ボタンから送れます。</li>
-          <li>内容を確認のうえ、XのDMでお返事します。</li>
+    </section>
+
+    <!-- ===== NEWS ===== -->
+    <section id="news" class="section news" data-making>
+      <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>お知らせ</strong>告知は1行書き足すだけ。Xで流れてしまう情報も、ここに残ります。</aside>
+      <div class="section-inner">
+        <div class="sec-head reveal">
+          <h2 class="sec-en">News</h2>
+          <p class="sec-ja">お知らせ</p>
+        </div>
+        <ul class="news-list reveal">
+          <li class="news-item">
+            <time datetime="2026-09-28">2026.09.28</time>
+            <span class="news-tag">Info</span>
+            <p>このサイトを「制作者目線」で見られるようにしました。右下の🛠で、各パーツの制作メモが出ます。<a href="#commission">HP制作について →</a></p>
+          </li>
+          <li class="news-item">
+            <time datetime="2026-09-14">2026.09.14</time>
+            <span class="news-tag is-release">Release</span>
+            <p>3rdオリジナル曲「Neon Tide」を公開しました！<a href="/go/neon-tide?src=news" target="_blank" rel="noopener">YouTubeで聴く →</a></p>
+          </li>
+          <li class="news-item">
+            <time datetime="2026-07">2026.07</time>
+            <span class="news-tag is-release">Release</span>
+            <p>2ndオリジナル曲「August Fade」を公開しました！<a href="/go/august-fade?src=news" target="_blank" rel="noopener">YouTubeで聴く →</a></p>
+          </li>
+          <li class="news-item">
+            <time datetime="2026-06">2026.06</time>
+            <span class="news-tag is-release">Release</span>
+            <p>オリジナル曲「Coastline Radio」をリリースしました！<a href="/go/coastline-radio?src=news" target="_blank" rel="noopener">YouTubeで聴く →</a></p>
+          </li>
+          <li class="news-item">
+            <time datetime="2026-06">2026.06</time>
+            <span class="news-tag">Info</span>
+            <p>VTuber・Vライバー向けHP制作サービスの受付を開始しました。<a href="#commission">詳しくはこちら →</a></p>
+          </li>
+          <li class="news-item">
+            <time datetime="2026-06">2026.06</time>
+            <span class="news-tag">Info</span>
+            <p>公式サイトをリニューアルしました（新ロゴ・新ミニキャラ）。</p>
+          </li>
         </ul>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== COMMISSION ===== -->
-  <section id="commission" class="section commission">
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">COMMISSION</h2>
-        <span class="section-title-jp">HP制作のご依頼</span>
-        <img src="assets/images/chibi-letter.webp" alt="" class="section-chara" aria-hidden="true" loading="lazy">
+    <!-- ===== LINKS ===== -->
+    <section id="links" class="section links" data-making>
+      <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>リンク集</strong>各SNS・配信アプリへの入口を一か所に。リンクまとめサービスの代わりになります。</aside>
+      <div class="section-inner">
+        <div class="sec-head reveal">
+          <h2 class="sec-en">Links</h2>
+          <p class="sec-ja">各種リンク</p>
+        </div>
+        <div class="links-grid">
+          <a href="/go/channel?src=links" class="link-card reveal" target="_blank" rel="noopener" style="--brand:#ff3b3b">
+            <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></span>
+            <span class="link-info"><span class="link-label">YouTube</span><span class="link-desc">歌・MV・アーカイブ</span></span>
+            <span class="link-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="https://x.com/mai1k_master" class="link-card reveal" target="_blank" rel="noopener" style="--brand:#e8e4ef">
+            <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></span>
+            <span class="link-info"><span class="link-label">X</span><span class="link-desc">最新情報・配信告知</span></span>
+            <span class="link-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="https://www.tiktok.com/@mikey_master" class="link-card reveal" target="_blank" rel="noopener" style="--brand:#25f4ee">
+            <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg></span>
+            <span class="link-info"><span class="link-label">TikTok</span><span class="link-desc">ショート動画</span></span>
+            <span class="link-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="https://www.twitch.tv/MikeyMaster" class="link-card reveal" target="_blank" rel="noopener" style="--brand:#a970ff">
+            <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg></span>
+            <span class="link-info"><span class="link-label">Twitch</span><span class="link-desc">ライブ配信</span></span>
+            <span class="link-arrow" aria-hidden="true">→</span>
+          </a>
+          <a href="https://web.iriam.app/s/user/XR7cgAVLM7?uuid=e4538963" class="link-card reveal" target="_blank" rel="noopener" style="--brand:#ff7eb6">
+            <span class="link-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg></span>
+            <span class="link-info"><span class="link-label">IRIAM</span><span class="link-desc">ライブ配信</span></span>
+            <span class="link-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
-      <div class="commission-intro">
-        <p class="commission-eyebrow">VTuber・Vライバーのあなたへ</p>
-        <h3 class="commission-title">いま見ているこのサイトが、<br>制作サンプルです。</h3>
-        <p class="commission-desc">
-          このサイトは、個人勢Vライバーの舞鬼法師が自分でつくって運用しています。<br>
-          同じつくりで、<strong>あなたの世界観のホームページ</strong>をおつくりします。<br>
-          同じ立場なので、活動まわりの事情を一から説明しなくて大丈夫です。
+    </section>
+
+    <!-- ===== GAME ===== -->
+    <section id="game" class="section game" data-making>
+      <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>ミニゲーム</strong>ブラウザで遊べるゲームも置けます。立ち絵やオリジナル曲を使ったものなど、内容はご相談ください。</aside>
+      <div class="section-inner">
+        <div class="sec-head reveal">
+          <h2 class="sec-en">Game</h2>
+          <p class="sec-ja">ミニゲーム</p>
+          <img src="assets/images/chibi-game.webp" alt="" class="sec-chara" aria-hidden="true" width="260" height="250" loading="lazy">
+        </div>
+        <div class="game-cards">
+          <div class="game-entry reveal">
+            <a class="game-card" href="game.html" style="--g:#ff8a3d">
+              <div class="game-card-thumb" style="background-image:url('assets/images/game-thumb.png')"></div>
+              <div class="game-card-body">
+                <span class="game-card-tag">Action</span>
+                <h3>鬼の道中</h3>
+                <p>走って障害物を飛び越えろ！スコアが上がるほど加速する横スクロールアクション。二段ジャンプあり。</p>
+                <span class="game-card-btn">▶ Play</span>
+              </div>
+            </a>
+            <div class="game-share">
+              <a class="share-btn x" target="_blank" rel="noopener" data-url="https://mikey-master.pages.dev/game" data-text="舞鬼法師のミニアクション「鬼の道中」で遊んでみて！">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span class="label">Xで共有</span>
+              </a>
+              <button type="button" class="share-btn copy" data-url="https://mikey-master.pages.dev/game">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                <span class="label">リンクをコピー</span>
+              </button>
+            </div>
+          </div>
+          <div class="game-entry reveal">
+            <a class="game-card" href="love-game.html" style="--g:#9fb8ff">
+              <div class="game-card-thumb" style="background-image:url('assets/images/vn-title.jpg')"></div>
+              <div class="game-card-body">
+                <span class="game-card-tag">Romance</span>
+                <h3>競馬場の鬼</h3>
+                <p>馬券売り場で出会った、涼しげな彼。選択次第で変わる、ふたつの結末。恋愛ノベルゲーム。</p>
+                <span class="game-card-btn">▶ Play</span>
+              </div>
+            </a>
+            <div class="game-share">
+              <a class="share-btn x" target="_blank" rel="noopener" data-url="https://mikey-master.pages.dev/love-game" data-text="舞鬼法師の恋愛ノベルゲーム「競馬場の鬼」で遊んでみて！">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span class="label">Xで共有</span>
+              </a>
+              <button type="button" class="share-btn copy" data-url="https://mikey-master.pages.dev/love-game">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                <span class="label">リンクをコピー</span>
+              </button>
+            </div>
+          </div>
+          <div class="game-entry reveal">
+            <a class="game-card" href="rhythm-game.html" style="--g:#f2c14e">
+              <div class="game-card-thumb" style="background-image:url('assets/images/rhythm-thumb.jpg')"></div>
+              <div class="game-card-body">
+                <span class="game-card-tag">Music</span>
+                <h3>鬼拍子</h3>
+                <p>オリジナル曲「Coastline Radio」で遊ぶリズムゲーム。落ちてくるビールや夏のモチーフを左右2レーンで叩き、FEVER TIME を狙え。</p>
+                <span class="game-card-btn">▶ Play</span>
+              </div>
+            </a>
+            <div class="game-share">
+              <a class="share-btn x" target="_blank" rel="noopener" data-url="https://mikey-master.pages.dev/rhythm-game" data-text="舞鬼法師のリズムゲーム「鬼拍子」で遊んでみて！">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span class="label">Xで共有</span>
+              </a>
+              <button type="button" class="share-btn copy" data-url="https://mikey-master.pages.dev/rhythm-game">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                <span class="label">リンクをコピー</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="section contact" data-making>
+      <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>お仕事の窓口</strong>企業やコラボ相手が「どこに連絡すればいいか」で迷わないように、窓口をひとつに決めて書いておきます。</aside>
+      <div class="section-inner">
+        <div class="contact-card reveal">
+          <div>
+            <h2 class="sec-en">Contact</h2>
+            <p class="sec-ja">お仕事・コラボのご相談</p>
+          </div>
+          <div class="contact-body">
+            <p class="contact-lead">お仕事・コラボのご相談は、XのDMで受け付けています。<br>企業・団体の方も、個人の方も同じ窓口です。</p>
+            <a href="https://x.com/mai1k_master" class="btn btn-primary" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              XでDMを送る
+            </a>
+            <ul class="contact-notes">
+              <li>プロフィール画面の「メッセージ」ボタンから送れます。</li>
+              <li>内容を確認のうえ、XのDMでお返事します。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMMISSION ===== -->
+    <section id="commission" class="section commission">
+      <div class="section-inner">
+        <div class="sec-head reveal">
+          <h2 class="sec-en">Commission</h2>
+          <p class="sec-ja">HP制作のご依頼</p>
+          <img src="assets/images/chibi-letter.webp" alt="" class="sec-chara" aria-hidden="true" width="260" height="305" loading="lazy">
+        </div>
+        <div class="commission-intro reveal">
+          <p class="commission-eyebrow">VTuber・Vライバーのあなたへ</p>
+          <h3 class="commission-title"><span class="p">いま見ているこのサイトが、</span><span class="p">制作サンプルです。</span></h3>
+          <p class="commission-desc">
+            このサイトは、個人勢Vライバーの舞鬼法師が自分でつくって運用しています。
+            同じつくりで、<strong>あなたの世界観のホームページ</strong>をおつくりします。
+            同じ立場なので、活動まわりの事情を一から説明しなくて大丈夫です。
+          </p>
+          <button type="button" class="btn btn-ghost making-toggle-inline" data-making-toggle>🛠 制作者目線で見る</button>
+        </div>
+
+        <div class="commission-points">
+          <div class="commission-point reveal">
+            <span class="commission-point-num">01</span>
+            <h4>あなたの世界観で</h4>
+            <p>立ち絵・ロゴ・イメージカラーから、キャラに合ったデザインを組みます。テンプレートの色替えではありません。</p>
+          </div>
+          <div class="commission-point reveal">
+            <span class="commission-point-num">02</span>
+            <h4>活動と窓口を、ひとつに</h4>
+            <p>プロフィール・作品・SNS・お仕事の連絡先を一か所に。Xで流れてしまう情報も、ここに残せます。</p>
+          </div>
+          <div class="commission-point reveal">
+            <span class="commission-point-num">03</span>
+            <h4>維持費は0円から</h4>
+            <p>サーバー代はかかりません。サイトはあなた名義で持てるので、あとから自分で管理することもできます。</p>
+          </div>
+        </div>
+
+        <div class="commission-price reveal">
+          <span class="commission-price-label">制作費</span>
+          <span class="commission-price-value">¥12,000〜</span>
+          <span class="commission-price-note">ヒアリングと見積りは無料／提案を見てからお断りいただいて大丈夫です</span>
+        </div>
+
+        <div class="commission-cta reveal">
+          <a href="lp.html" class="btn btn-primary">料金プラン・制作の流れ・FAQを見る</a>
+          <a href="https://x.com/mai1k_master" class="btn btn-ghost" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            まずはDMで聞いてみる
+          </a>
+        </div>
+        <p class="commission-form-fallback">
+          依頼内容が決まっている方は
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform" target="_blank" rel="noopener">ヒアリングシート（5〜10分）へ →</a>
         </p>
-        <button type="button" class="btn btn-outline making-toggle-inline" data-making-toggle>
-          🛠 制作者目線で見る
-        </button>
       </div>
-
-      <div class="commission-points">
-        <div class="commission-point">
-          <span class="commission-point-num">01</span>
-          <h4>あなたの世界観で</h4>
-          <p>立ち絵・ロゴ・イメージカラーから、キャラに合ったデザインを組みます。テンプレートの色替えではありません。</p>
-        </div>
-        <div class="commission-point">
-          <span class="commission-point-num">02</span>
-          <h4>活動と窓口を、ひとつに</h4>
-          <p>プロフィール・作品・SNS・お仕事の連絡先を一か所に。Xで流れてしまう情報も、ここに残せます。</p>
-        </div>
-        <div class="commission-point">
-          <span class="commission-point-num">03</span>
-          <h4>維持費は0円から</h4>
-          <p>サーバー代はかかりません。サイトはあなた名義で持てるので、あとから自分で管理することもできます。</p>
-        </div>
-      </div>
-
-      <div class="commission-price">
-        <span class="commission-price-label">制作費</span>
-        <span class="commission-price-value">¥12,000〜</span>
-        <span class="commission-price-note">ヒアリングと見積りは無料／提案を見てからお断りいただいて大丈夫です</span>
-      </div>
-
-      <div class="commission-cta">
-        <a href="lp.html" class="btn btn-primary">料金プラン・制作の流れ・FAQを見る</a>
-        <a href="https://x.com/mai1k_master" class="btn btn-outline" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          まずはDMで聞いてみる
-        </a>
-      </div>
-      <p class="commission-form-fallback">
-        依頼内容が決まっている方は
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform" target="_blank" rel="noopener">ヒアリングシート（5〜10分）へ →</a>
-      </p>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-logo">
-        <img src="assets/images/maiki-logo.png" alt="舞鬼法師" loading="lazy">
-      </div>
-      <div class="footer-social">
-        <a href="/go/channel?src=footer" target="_blank" rel="noopener" aria-label="YouTube">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
-        </a>
-        <a href="https://x.com/mai1k_master" target="_blank" rel="noopener" aria-label="Twitter">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://www.tiktok.com/@mikey_master" target="_blank" rel="noopener" aria-label="TikTok">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg>
-        </a>
-      </div>
-      <nav class="footer-nav" aria-label="フッターナビゲーション">
-        <a href="#profile">PROFILE</a>
-        <a href="#music">MUSIC</a>
-        <a href="#news">NEWS</a>
-        <a href="#links">LINKS</a>
-        <a href="#contact">CONTACT</a>
+      <img src="assets/images/maiki-logo.png" alt="舞鬼法師" class="footer-logo" width="480" height="206" loading="lazy">
+      <nav class="footer-nav" aria-label="フッター">
+        <a href="#profile">Profile</a>
+        <a href="#music">Music</a>
+        <a href="#news">News</a>
+        <a href="#links">Links</a>
+        <a href="#contact">Contact</a>
         <a href="#commission">HP制作</a>
       </nav>
+      <div class="footer-social">
+        <a href="/go/channel?src=footer" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+        <a href="https://x.com/mai1k_master" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://www.tiktok.com/@mikey_master" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.77 1.52V6.75a4.85 4.85 0 0 1-1-.06z"/></svg></a>
+      </div>
       <p class="footer-copy">&copy; 2024–2026 舞鬼法師 / MIKEY MASTER. All Rights Reserved.</p>
     </div>
   </footer>
@@ -768,7 +613,7 @@
 
   <!-- ===== BACK TO TOP ===== -->
   <button id="back-to-top" aria-label="トップへ戻る">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
   <script src="script.js"></script>
@@ -800,10 +645,8 @@
     (function () {
       var TAGS = '舞鬼法師,まいきー';
       document.querySelectorAll('.share-btn.x').forEach(function (a) {
-        var url = a.getAttribute('data-url');
-        var text = a.getAttribute('data-text');
-        a.href = 'https://x.com/intent/tweet?text=' + encodeURIComponent(text) +
-                 '&url=' + encodeURIComponent(url) +
+        a.href = 'https://x.com/intent/tweet?text=' + encodeURIComponent(a.getAttribute('data-text')) +
+                 '&url=' + encodeURIComponent(a.getAttribute('data-url')) +
                  '&hashtags=' + encodeURIComponent(TAGS);
       });
       document.querySelectorAll('.share-btn.copy').forEach(function (btn) {
@@ -814,16 +657,8 @@
           var done = function () {
             btn.classList.add('copied');
             label.textContent = 'コピーしました！';
-            setTimeout(function () {
-              btn.classList.remove('copied');
-              label.textContent = original;
-            }, 1800);
+            setTimeout(function () { btn.classList.remove('copied'); label.textContent = original; }, 1800);
           };
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(url).then(done).catch(fallback);
-          } else {
-            fallback();
-          }
           function fallback() {
             var ta = document.createElement('textarea');
             ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
@@ -831,6 +666,8 @@
             try { document.execCommand('copy'); } catch (e) {}
             document.body.removeChild(ta); done();
           }
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(done).catch(fallback);
+          else fallback();
         });
       });
     })();
