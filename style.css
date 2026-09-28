@@ -17,7 +17,7 @@
   --amber-hi: #ffc062;
   --silver: #ece8f3;
   --muted: rgba(236, 232, 243, 0.66);
-  --faint: rgba(236, 232, 243, 0.42);
+  --faint: rgba(236, 232, 243, 0.55);
   --line: rgba(236, 232, 243, 0.12);
   --line-strong: rgba(236, 232, 243, 0.24);
   --making: #adff2f;
@@ -447,6 +447,8 @@ body.making-on [data-making] { outline: 1px dashed rgba(173, 255, 47, 0.3); outl
   .music-card { display: grid; grid-template-columns: 42% 1fr; align-items: center; }
   .music-info { padding: 12px 14px; }
   .commission-cta .btn { width: 100%; }
+  .schedule-card, .contact-card { padding: 28px 20px; }
+  .btn { padding: 0 20px; }
   #making-toggle { right: 16px; bottom: 80px; width: 46px; height: 46px; padding: 0; justify-content: center; font-size: 1.1rem; }
   #making-toggle .making-toggle-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   #back-to-top { right: 16px; }

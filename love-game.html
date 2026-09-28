@@ -178,9 +178,22 @@
       font-size:clamp(.7rem,1.9vw,.88rem); letter-spacing:.15em; cursor:pointer;
     }
     #retry-btn:hover { background:rgba(60,110,230,.5); }
+
+    /* 単独で開いたときだけ表示する「トップへ戻る」（iframe埋め込み時は出さない） */
+    .back-top {
+      position: fixed; z-index: 50; top: 12px; left: 12px; display: none;
+      font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; font-size: .74rem; letter-spacing: .1em;
+      color: rgba(236,232,243,.8); text-decoration: none;
+      padding: 7px 14px; border-radius: 999px;
+      background: rgba(14,11,22,.7); border: 1px solid rgba(236,232,243,.24);
+    }
+    .back-top:hover { color: #fff; border-color: #fff; }
+    body.standalone .back-top { display: inline-block; }
   </style>
 </head>
 <body>
+  <script>if (window.top === window.self) document.body.classList.add('standalone');</script>
+  <a class="back-top" href="index.html#game">← 舞鬼法師トップ</a>
 <div id="vn">
   <img id="bg" alt="">
   <canvas id="char" width="800" height="1200"></canvas>

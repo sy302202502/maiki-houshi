@@ -1,5 +1,5 @@
 #!/bin/bash
-# 計測データを表示する。使い方: ./計測を見る.sh [日数]  (既定 7日)
+# 計測データを表示する。使い方: ./docs/計測を見る.sh [日数]  (既定 7日)
 #
 # 認証情報は ~/.config/cloudflare/maiki.env に置く（リポジトリには入れない）:
 #   CF_ACCOUNT_ID=xxxxxxxx

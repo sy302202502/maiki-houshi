@@ -67,9 +67,23 @@
     }
     .ui-score { color: #FF6B00; }
     .ui-hint  { color: #ADFF2F; font-size: clamp(0.55rem, 2vw, 0.72rem); }
+
+    /* 単独で開いたときだけ表示する「トップへ戻る」（iframe埋め込み時は出さない） */
+    .back-top {
+      position: fixed; z-index: 50; top: 12px; left: 12px; display: none;
+      font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; font-size: .74rem; letter-spacing: .1em;
+      color: rgba(236,232,243,.8); text-decoration: none;
+      padding: 7px 14px; border-radius: 999px;
+      background: rgba(14,11,22,.7); border: 1px solid rgba(236,232,243,.24);
+    }
+    .back-top:hover { color: #fff; border-color: #fff; }
+    body.standalone .back-top { display: inline-block; }
+    body.standalone { background: #0e0b16; }
   </style>
 </head>
 <body>
+  <script>if (window.top === window.self) document.body.classList.add('standalone');</script>
+  <a class="back-top" href="index.html#game">← 舞鬼法師トップ</a>
   <div id="gameWrapper">
     <canvas id="gameCanvas" width="700" height="330"></canvas>
     <button id="bgm-btn" aria-label="BGM">🔊</button>
