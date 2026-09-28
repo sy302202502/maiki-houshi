@@ -239,6 +239,21 @@
     .about-links a { font-size: 0.82rem; text-decoration: none; color: var(--muted); border: 1px solid var(--line-strong); border-radius: 999px; padding: 6px 16px; transition: color 0.2s, border-color 0.2s; }
     .about-links a:hover { color: var(--paper); border-color: var(--paper); }
 
+
+    /* ---------- PROMISE ---------- */
+    .promises { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .promise { position: relative; padding: 30px 28px 28px; border: 1px solid var(--line); border-radius: var(--radius); background: linear-gradient(180deg, rgba(242, 169, 59, 0.05), transparent 60%), var(--ink); }
+    .promise::before { content: ''; position: absolute; left: 28px; top: 0; width: 36px; height: 2px; background: var(--accent); }
+    .promise .n { font-family: var(--latin); font-size: 0.95rem; color: var(--accent); letter-spacing: 0.12em; }
+    .promise h3 { font-family: var(--serif); font-weight: 800; font-size: 1.15rem; line-height: 1.55; margin: 8px 0 10px; }
+    .promise p { font-size: 0.87rem; color: var(--muted); }
+
+    /* ボタン下の一言 */
+    .assure { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 16px; font-size: 0.8rem; color: var(--muted); }
+    .assure span { display: inline-flex; align-items: center; gap: 6px; }
+    .assure span::before { content: ''; width: 9px; height: 5px; border-left: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent); transform: rotate(-45deg) translateY(-2px); }
+    .cta .assure { justify-content: center; margin-top: 20px; }
+
     /* ---------- PLANS ---------- */
     .plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
     .plan { position: relative; display: flex; flex-direction: column; padding: 36px 30px 32px; border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--ink); }
@@ -379,6 +394,7 @@
       .slot .wrap { grid-template-columns: 1fr; gap: 14px; }
       .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .work-hero { grid-template-columns: 1fr; }
+      .promises { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .plans, .supports, .diff-visual { grid-template-columns: 1fr; max-width: 520px; margin-left: auto; margin-right: auto; }
       .plans { gap: 28px; }
       .about { grid-template-columns: 1fr; }
@@ -396,7 +412,7 @@
       .sec-no { grid-row: auto; }
       .sec-intro { grid-column: 1; }
       .problems, .preps { grid-template-columns: 1fr; }
-      .features { grid-template-columns: 1fr; }
+      .features, .promises { grid-template-columns: 1fr; }
       .answer .btn { width: 100%; }
       .anatomy { grid-template-columns: 1fr; gap: 56px; }
       .anatomy figure { grid-template-columns: 44% 1fr; align-items: center; gap: 20px; }
@@ -429,6 +445,7 @@
       </a>
       <nav class="header-nav" aria-label="ページ内リンク">
         <a href="#works">作例</a>
+        <a href="#promise">お約束</a>
         <a href="#plans">料金</a>
         <a href="#flow">流れ</a>
         <a href="#faq">よくある質問</a>
@@ -454,6 +471,7 @@
             </a>
             <a href="/?making=1" class="btn btn-ghost" target="_blank" rel="noopener">作例を制作メモつきで見る</a>
           </div>
+          <p class="assure"><span>提案まで無料</span><span>催促なし</span><span>提示額以外の請求なし</span></p>
           <dl class="hero-facts">
             <div><dt>サーバー代</dt><dd>¥0</dd></div>
             <div><dt>最短納期</dt><dd>5<small>日〜</small></dd></div>
@@ -619,11 +637,34 @@
       </div>
     </section>
 
+
+    <!-- ===== PROMISE ===== -->
+    <!-- 文言の根拠はすべて下のFAQ・制作の流れ・料金の注記にある。ここは要約なので、変えるときは本文と一緒に -->
+    <section class="section" id="promise">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="sec-no">05</span>
+          <p class="sec-en">Promise</p>
+          <h2 class="sec-title"><span class="p">ご依頼の前に、</span><span class="p">お約束すること。</span></h2>
+          <p class="sec-intro">はじめての外注は、作品より「頼んだあと」が不安になるものだと思います。お金・連絡・中の人の情報について、先に決めてあることをまとめました。</p>
+        </div>
+        <ol class="promises">
+          <li class="promise reveal"><span class="n">01</span><h3>提案と見積りまでは無料です</h3><p>ヒアリングシートの記入から、構成・デザイン・費用のご提案まで費用はかかりません。内容を見てからお断りいただいて大丈夫です。</p></li>
+          <li class="promise reveal"><span class="n">02</span><h3>催促はしません</h3><p>お返事がなくても、こちらから催促のDMは送りません。「今回は見送ります」の一言も不要です。</p></li>
+          <li class="promise reveal"><span class="n">03</span><h3>提示した金額以外は請求しません</h3><p>ご提案時にお伝えした金額がすべてです。修正回数を超えた場合の料金（1回3,000円）も、あらかじめ明記しています。</p></li>
+          <li class="promise reveal"><span class="n">04</span><h3>中の人の情報を守ります</h3><p>公開されるページにご本名などは載りません。こちらの本名と連絡先はご契約者ご本人にのみお伝えし、扱いは着手前に一緒に決めます。</p></li>
+          <li class="promise reveal"><span class="n">05</span><h3>素材の権利を先に確認します</h3><p>立ち絵やBGMをサイトで使ってよいか、イラストレーターさん等への確認文面をこちらでご用意します。使えない素材は使わずにお作りします。</p></li>
+          <li class="promise reveal"><span class="n">06</span><h3>キャンセル条件を先に決めます</h3><p>着手金のご入金前なら、いつでも無料でキャンセルできます。こちらの都合で制作を続けられなくなった場合は、いただいた分を全額お返しします。</p></li>
+        </ol>
+        <p class="note reveal">※ 詳しい条件は「料金・プラン」「制作の流れ」「よくある質問」に記載しています。モニター価格でも、作業内容・修正回数・サポートは通常価格と同じです。</p>
+      </div>
+    </section>
+
     <!-- ===== PLANS ===== -->
     <section class="section" id="plans">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="sec-no">05</span>
+          <span class="sec-no">06</span>
           <p class="sec-en">Plans</p>
           <h2 class="sec-title">料金・プラン</h2>
         </div>
@@ -694,7 +735,7 @@
     <section class="section alt" id="difference">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="sec-no">06</span>
+          <span class="sec-no">07</span>
           <p class="sec-en">Difference</p>
           <h2 class="sec-title">プランの違い</h2>
           <p class="sec-intro">「複数セクション」と言われてもピンと来ないと思います。実際にどんなページになるのか、かたちで見てみてください。</p>
@@ -769,7 +810,7 @@
     <section class="section" id="support">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="sec-no">07</span>
+          <span class="sec-no">08</span>
           <p class="sec-en">After Support</p>
           <h2 class="sec-title">納品後の保守・運用</h2>
           <p class="sec-intro">納品したら終わり、ではありません。活動が伸びるほど、HPの更新は増えていきます。無理のない範囲でお選びください。</p>
@@ -816,7 +857,7 @@
     <section class="section alt" id="preparation">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="sec-no">08</span>
+          <span class="sec-no">09</span>
           <p class="sec-en">Preparation</p>
           <h2 class="sec-title">ご依頼前に用意するもの</h2>
         </div>
@@ -834,7 +875,7 @@
     <section class="section" id="flow">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="sec-no">09</span>
+          <span class="sec-no">10</span>
           <p class="sec-en">Flow</p>
           <h2 class="sec-title">制作の流れ</h2>
         </div>
@@ -853,7 +894,7 @@
     <section class="section alt" id="faq">
       <div class="wrap">
         <div class="sec-head reveal">
-          <span class="sec-no">10</span>
+          <span class="sec-no">11</span>
           <p class="sec-en">FAQ</p>
           <h2 class="sec-title">よくある質問</h2>
         </div>
@@ -893,6 +934,7 @@
             XのDMで相談する
           </a>
         </div>
+        <p class="assure reveal"><span>提案まで無料</span><span>催促なし</span><span>提示額以外の請求なし</span></p>
       </div>
     </section>
   </main>

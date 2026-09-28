@@ -339,6 +339,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline
 .commission-price-value { font-family: var(--latin); font-weight: 600; font-size: 3rem; line-height: 1.1; }
 .commission-price-note { font-size: 0.82rem; color: var(--muted); }
 .commission-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.assure { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin-top: 20px; font-size: 0.82rem; color: var(--muted); }
+.assure span { display: inline-flex; align-items: center; gap: 6px; }
+.assure span::before { content: ''; width: 9px; height: 5px; border-left: 1.5px solid var(--amber); border-bottom: 1.5px solid var(--amber); transform: rotate(-45deg) translateY(-2px); }
+.assure a { color: var(--amber); text-decoration: none; }
 .commission-form-fallback { margin-top: 18px; text-align: center; font-size: 0.82rem; color: var(--faint); }
 .commission-form-fallback a { color: var(--amber); }
 
