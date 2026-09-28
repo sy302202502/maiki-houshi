@@ -4,7 +4,14 @@
  * 運用メモ（docs/）や .gitignore もURLを知っていれば読めてしまう。
  * 対象パスだけがこの関数を通るよう _routes.json で絞っている。
  */
-const PRIVATE = [/^\/docs(\/|$)/, /^\/\.gitignore$/];
+// 2026-09-28 まで公開されていた旧資料も、配信網のキャッシュに残らないよう明示的に 404 にする
+const PRIVATE = [
+  /^\/docs(\/|$)/,
+  /^\/\.gitignore$/,
+  /^\/service-materials(\/|$)/,
+  /^\/addHearingSheet_v3\.gs$/,
+  /^\/計測(を見る\.sh|の見かた\.md)$/,
+];
 
 export async function onRequest(context) {
   const { request, env, next } = context;
