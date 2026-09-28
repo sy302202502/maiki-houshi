@@ -110,14 +110,12 @@
         <ul>
           <li><a href="#top">TOP</a></li>
           <li><a href="#profile">PROFILE</a></li>
-          <li><a href="#activity">ACTIVITY</a></li>
           <li><a href="#music">MUSIC</a></li>
-          <li><a href="#schedule">SCHEDULE</a></li>
           <li><a href="#news">NEWS</a></li>
-          <li><a href="#goods">GOODS</a></li>
           <li><a href="#links">LINKS</a></li>
           <li><a href="#game">GAME</a></li>
-          <li><a href="#commission">COMMISSION</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+          <li><a href="#commission" class="nav-commission">HP制作</a></li>
         </ul>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobileMenu">
@@ -131,19 +129,18 @@
     <ul>
       <li><a href="#top" class="mobile-link">TOP</a></li>
       <li><a href="#profile" class="mobile-link">PROFILE</a></li>
-      <li><a href="#activity" class="mobile-link">ACTIVITY</a></li>
       <li><a href="#music" class="mobile-link">MUSIC</a></li>
-      <li><a href="#schedule" class="mobile-link">SCHEDULE</a></li>
       <li><a href="#news" class="mobile-link">NEWS</a></li>
-      <li><a href="#goods" class="mobile-link">GOODS</a></li>
       <li><a href="#links" class="mobile-link">LINKS</a></li>
       <li><a href="#game" class="mobile-link">GAME</a></li>
-      <li><a href="#commission" class="mobile-link">COMMISSION</a></li>
+      <li><a href="#contact" class="mobile-link">CONTACT</a></li>
+      <li><a href="#commission" class="mobile-link">HP制作</a></li>
     </ul>
   </div>
 
   <!-- ===== HERO ===== -->
-  <section id="top" class="hero">
+  <section data-making id="top" class="hero">
+    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>ファーストビュー</strong>名前・キャッチコピー・最新作が3秒で伝わる構成。いちばん見てほしいものへ1タップで行けます。</aside>
     <div class="hero-bg">
       <div class="hero-grid"></div>
       <div class="hero-particles" id="particles"></div>
@@ -171,9 +168,9 @@
             Twitter / X
           </a>
         </div>
-        <a href="lp.html" class="hero-commission">
+        <a href="#commission" class="hero-commission">
           <span class="hero-commission-tag">HP制作</span>
-          <span class="hero-commission-text">VTuber・VライバーのHP、作ります</span>
+          <span class="hero-commission-text">このサイト、あなた用にも作れます</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
       </div>
@@ -190,7 +187,8 @@
   </section>
 
   <!-- ===== PROFILE ===== -->
-  <section id="profile" class="section profile">
+  <section data-making id="profile" class="section profile">
+    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>プロフィール</strong>初見さんも企業の担当者も、まず見るのはここ。キャラの特徴と活動内容を一枚にまとめます。</aside>
     <div class="section-inner">
       <div class="section-title-wrap">
         <h2 class="section-title">PROFILE</h2>
@@ -278,7 +276,8 @@
   </section>
 
   <!-- ===== MUSIC / WORKS ===== -->
-  <section id="music" class="section music">
+  <section data-making id="music" class="section music">
+    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>作品紹介</strong>動画はこのページの中で再生。YouTubeに飛ばさないので、見たあともサイトに残ってもらえます。</aside>
     <div class="section-inner">
       <div class="section-title-wrap">
         <h2 class="section-title">MUSIC</h2>
@@ -393,7 +392,8 @@
   </section>
 
   <!-- ===== NEWS ===== -->
-  <section id="news" class="section news">
+  <section data-making id="news" class="section news">
+    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>お知らせ</strong>告知は1行書き足すだけ。Xで流れてしまう情報も、ここに残ります。</aside>
     <div class="section-inner">
       <div class="section-title-wrap">
         <h2 class="section-title">NEWS</h2>
@@ -429,32 +429,9 @@
     </div>
   </section>
 
-  <!-- ===== GOODS ===== -->
-  <section id="goods" class="section goods">
-    <div class="section-inner">
-      <div class="section-title-wrap">
-        <h2 class="section-title">GOODS</h2>
-        <span class="section-title-jp">グッズ</span>
-      </div>
-      <div class="goods-coming">
-        <div class="goods-coming-inner">
-          <div class="goods-badge">COMING SOON</div>
-          <h3 class="goods-title">グッズ、準備中です。</h3>
-          <p class="goods-text">
-            只今鋭意準備中。<br>
-            リリースの際はXでお知らせします。
-          </p>
-          <a href="https://x.com/mai1k_master" class="btn btn-outline" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            @mai1k_master をフォロー
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===== LINKS ===== -->
-  <section id="links" class="section links">
+  <section data-making id="links" class="section links">
+    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>リンク集</strong>各SNS・配信アプリへの入口を一か所に。リンクまとめサービスの代わりになります。</aside>
     <div class="section-inner">
       <div class="section-title-wrap">
         <h2 class="section-title">LINKS</h2>
@@ -571,7 +548,8 @@
       .game-cards { grid-template-columns:1fr; gap:26px; }
     }
   </style>
-  <section id="game" class="section">
+  <section data-making id="game" class="section">
+    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>ミニゲーム</strong>ブラウザで遊べるゲームも置けます。立ち絵やオリジナル曲を使ったものなど、内容はご相談ください。</aside>
     <div class="section-inner">
       <div class="section-title-wrap">
         <h2 class="section-title">GAME</h2>
@@ -652,49 +630,84 @@
     </div>
   </section>
 
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section contact" data-making>
+    <aside class="making-note" aria-label="制作メモ"><span class="making-note-tag">MAKING</span><strong>お仕事の窓口</strong>企業やコラボ相手が「どこに連絡すればいいか」で迷わないように、窓口をひとつに決めて書いておきます。</aside>
+    <div class="section-inner">
+      <div class="section-title-wrap">
+        <h2 class="section-title">CONTACT</h2>
+        <span class="section-title-jp">お仕事・コラボのご相談</span>
+      </div>
+      <div class="contact-card">
+        <p class="contact-lead">お仕事・コラボのご相談は、XのDMで受け付けています。<br>企業・団体の方も、個人の方も同じ窓口です。</p>
+        <a href="https://x.com/mai1k_master" class="btn btn-primary" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          XでDMを送る
+        </a>
+        <ul class="contact-notes">
+          <li>プロフィール画面の「メッセージ」ボタンから送れます。</li>
+          <li>内容を確認のうえ、XのDMでお返事します。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== COMMISSION ===== -->
   <section id="commission" class="section commission">
     <div class="section-inner">
       <div class="section-title-wrap">
         <h2 class="section-title">COMMISSION</h2>
-        <span class="section-title-jp">HP制作依頼</span>
+        <span class="section-title-jp">HP制作のご依頼</span>
         <img src="assets/images/chibi-letter.png" alt="" class="section-chara" aria-hidden="true" loading="lazy">
       </div>
       <div class="commission-intro">
-        <div class="commission-badges">
-          <span class="comm-badge">✅ Webの知識ゼロでOK</span>
-          <span class="comm-badge">✅ サーバー代0円〜</span>
-          <span class="comm-badge">✅ スマホ・PC両対応</span>
-        </div>
-        <h3 class="commission-title">VTuber・Vライバー向けに<br>ホームページ、つくります。</h3>
+        <p class="commission-eyebrow">VTuber・Vライバーのあなたへ</p>
+        <h3 class="commission-title">いま見ているこのサイトが、<br>制作サンプルです。</h3>
         <p class="commission-desc">
-          活動をもっとプロっぽく見せたい。案件・コラボの依頼を受けやすくしたい。<br>
-          そんなあなたへ。Cloudflare Pages＋GitHubを使った<strong>月額0円から</strong>のHP制作サービスです。<br>
-          まずはヒアリングシートにお気軽にご記入ください。
+          このサイトは、個人勢Vライバーの舞鬼法師が自分でつくって運用しています。<br>
+          同じつくりで、<strong>あなたの世界観のホームページ</strong>をおつくりします。<br>
+          同じ立場なので、活動まわりの事情を一から説明しなくて大丈夫です。
         </p>
-        <div class="commission-lp-link">
-          <a href="lp.html" class="btn btn-primary" target="_blank" rel="noopener">
-            💰 料金プラン・制作の流れ・FAQはこちら
-          </a>
+        <button type="button" class="btn btn-outline making-toggle-inline" data-making-toggle>
+          🛠 制作者目線で見る
+        </button>
+      </div>
+
+      <div class="commission-points">
+        <div class="commission-point">
+          <span class="commission-point-num">01</span>
+          <h4>あなたの世界観で</h4>
+          <p>立ち絵・ロゴ・イメージカラーから、キャラに合ったデザインを組みます。テンプレートの色替えではありません。</p>
+        </div>
+        <div class="commission-point">
+          <span class="commission-point-num">02</span>
+          <h4>活動と窓口を、ひとつに</h4>
+          <p>プロフィール・作品・SNS・お仕事の連絡先を一か所に。Xで流れてしまう情報も、ここに残せます。</p>
+        </div>
+        <div class="commission-point">
+          <span class="commission-point-num">03</span>
+          <h4>維持費は0円から</h4>
+          <p>サーバー代はかかりません。サイトはあなた名義で持てるので、あとから自分で管理することもできます。</p>
         </div>
       </div>
-      <div class="commission-form-wrap">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform?embedded=true"
-          width="100%"
-          height="1800"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          title="VTuber・Vライバー向け HP制作ヒアリングシート"
-          loading="lazy">
-          読み込んでいます…
-        </iframe>
-        <p class="commission-form-fallback">
-          フォームが表示されない場合は
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform" target="_blank" rel="noopener">こちらから直接開けます →</a>
-        </p>
+
+      <div class="commission-price">
+        <span class="commission-price-label">制作費</span>
+        <span class="commission-price-value">¥12,000〜</span>
+        <span class="commission-price-note">ヒアリングと見積りは無料／提案を見てからお断りいただいて大丈夫です</span>
       </div>
+
+      <div class="commission-cta">
+        <a href="lp.html" class="btn btn-primary">料金プラン・制作の流れ・FAQを見る</a>
+        <a href="https://x.com/mai1k_master" class="btn btn-outline" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          まずはDMで聞いてみる
+        </a>
+      </div>
+      <p class="commission-form-fallback">
+        依頼内容が決まっている方は
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform" target="_blank" rel="noopener">ヒアリングシート（5〜10分）へ →</a>
+      </p>
     </div>
   </section>
 
@@ -720,11 +733,19 @@
         <a href="#music">MUSIC</a>
         <a href="#news">NEWS</a>
         <a href="#links">LINKS</a>
-        <a href="#commission">COMMISSION</a>
+        <a href="#contact">CONTACT</a>
+        <a href="#commission">HP制作</a>
       </nav>
       <p class="footer-copy">&copy; 2024–2026 舞鬼法師 / MIKEY MASTER. All Rights Reserved.</p>
     </div>
   </footer>
+
+  <!-- ===== MAKING MODE ===== -->
+  <!-- 制作者目線の注釈を表示する。?making=1 で最初からON（DMで送るリンク用） -->
+  <button type="button" id="making-toggle" data-making-toggle aria-pressed="false">
+    <span class="making-toggle-icon" aria-hidden="true">🛠</span>
+    <span class="making-toggle-label">制作者目線で見る</span>
+  </button>
 
   <!-- ===== BACK TO TOP ===== -->
   <button id="back-to-top" aria-label="トップへ戻る">
@@ -733,6 +754,26 @@
 
   <script src="script.js"></script>
   <script>
+    // 制作者目線モード（?making=1 で最初からON）
+    (function () {
+      var btn = document.getElementById('making-toggle');
+      var label = btn.querySelector('.making-toggle-label');
+      function set(on, scroll) {
+        document.body.classList.toggle('making-on', on);
+        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+        label.textContent = on ? '制作メモを閉じる' : '制作者目線で見る';
+        if (on && scroll) document.getElementById('top').scrollIntoView({ behavior: 'smooth' });
+      }
+      document.querySelectorAll('[data-making-toggle]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          var on = !document.body.classList.contains('making-on');
+          set(on, on && el !== btn);
+          if (typeof track === 'function') track('making', on ? 'on' : 'off');
+        });
+      });
+      if (new URLSearchParams(location.search).get('making') === '1') set(true, false);
+    })();
+
     // ゲーム共有ボタン（Xで共有 / リンクをコピー）
     (function () {
       var TAGS = '舞鬼法師,まいきー';
