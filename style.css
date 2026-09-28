@@ -129,11 +129,13 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline
   background: linear-gradient(transparent, var(--night)); pointer-events: none; z-index: 2;
 }
 .hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+/* 背景の「舞鬼」：縦書きで右端に置き、立ち絵の横から見えるようにする */
 .hero-bg-word {
-  position: absolute; right: -2vw; bottom: 4vh;
-  font-family: var(--latin); font-style: italic; font-weight: 600;
-  font-size: clamp(5rem, 15vw, 15rem); line-height: 0.9; letter-spacing: -0.01em;
-  color: transparent; -webkit-text-stroke: 1px rgba(236, 232, 243, 0.08);
+  position: absolute; right: 1.5vw; top: calc(var(--header-h) + 2vh);
+  writing-mode: vertical-rl;
+  font-family: var(--serif); font-weight: 800;
+  font-size: clamp(9rem, 19vw, 17rem); line-height: 1; letter-spacing: 0.02em;
+  color: rgba(143, 99, 217, 0.07); -webkit-text-stroke: 1px rgba(236, 232, 243, 0.14);
   white-space: nowrap;
 }
 .hero-inner {
@@ -431,7 +433,7 @@ body.making-on [data-making] { outline: 1px dashed rgba(173, 255, 47, 0.3); outl
   .hero-latest { justify-items: stretch; }
   .hero-commission { position: relative; left: auto; bottom: auto; margin: 0 var(--gutter) 56px; display: flex; justify-content: center; }
   .scroll-hint { display: none; }
-  .hero-bg-word { bottom: auto; top: 14svh; font-size: 7rem; }
+  .hero-bg-word { top: calc(var(--header-h) + 2svh); right: -2vw; font-size: 9.5rem; }
   body.making-on .hero .making-note { position: relative; top: auto; left: auto; width: auto; margin: calc(var(--header-h) + 8px) var(--gutter) 0; }
 
   .profile-grid { grid-template-columns: 1fr; }
