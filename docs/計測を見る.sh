@@ -40,12 +40,28 @@ show "HP制作の反響" "SELECT index1 AS ev, blob1 AS detail, sum(_sample_inte
   GROUP BY ev, detail ORDER BY n DESC LIMIT 30"
 
 # クローラー除外: UA を記録し始めた 2026-09-28 以降のみ・bot系UAを除く
-show "外部リンククリック（人のみ）" "SELECT index1 AS slug, blob1 AS src, sum(_sample_interval) AS n
+# 人のクリックだけを数える。UA に bot 等を含むものを除いたうえで、
+# 同じ UA が1時間に6回以上クリックしている塊も除く（ブラウザを装った巡回。2026-10 に 1時間26件などを確認）
+echo; echo "── 外部リンククリック（人のみ）（直近 ${DAYS} 日）"
+q "SELECT toStartOfHour(timestamp) AS h, blob5 AS ua, index1 AS slug, blob1 AS src, sum(_sample_interval) AS n
   FROM maiki_clicks WHERE timestamp > NOW() - INTERVAL '$DAYS' DAY
     AND blob5 != ''
     AND lower(blob5) NOT LIKE '%bot%' AND lower(blob5) NOT LIKE '%crawl%'
     AND lower(blob5) NOT LIKE '%spider%' AND lower(blob5) NOT LIKE '%preview%'
     AND lower(blob5) NOT LIKE '%curl%' AND lower(blob5) NOT LIKE '%python%'
     AND lower(blob5) NOT LIKE '%headless%'
-  GROUP BY slug, src ORDER BY n DESC LIMIT 30"
+  GROUP BY h, ua, slug, src LIMIT 2000" | python3 -c '
+import sys, json
+from collections import Counter
+d = json.load(sys.stdin).get("data", [])
+burst = Counter()
+for r in d: burst[(r["h"], r["ua"])] += float(r["n"])
+kept, cut = Counter(), 0
+for r in d:
+    if burst[(r["h"], r["ua"])] >= 6: cut += float(r["n"]); continue
+    if r["src"].startswith("verify"): continue      # 動作確認用のテストクリック
+    kept[(r["slug"], r["src"])] += float(r["n"])
+if not kept: print("  データなし")
+for (slug, src), n in kept.most_common(30): print(f"  {slug:<16} {src:<18} {int(n):>4}")
+print(f"  （連続クリックの塊として除外: {int(cut)} 件）")'
 echo
