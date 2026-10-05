@@ -37,7 +37,8 @@
     /* 画面いっぱいの縦長ステージ。実際の画面比率に合わせて描画する */
     #stage {
       position:relative;
-      width:min(100vw, 480px);
+      /* 横長・背の低い画面でも縦長比率(9:16以上)を保つ。判定ラインが画面外に出ないように */
+      width:min(100vw, 480px, 56.25vh); width:min(100vw, 480px, 56.25dvh);
       height:100vh; height:100dvh;
       overflow:hidden;
       background:#05030a;
@@ -275,6 +276,7 @@ let dpr = 1;
 
 function resize() {
   const r = stage.getBoundingClientRect();
+  if (!(r.width > 0 && r.height > 0)) return;   // 非表示中などで寸法が0のときは前回の値を保つ（H が NaN になるのを防ぐ）
   dpr = Math.min(window.devicePixelRatio || 1, 2.5);
   cv.width  = Math.round(r.width  * dpr);
   cv.height = Math.round(r.height * dpr);
