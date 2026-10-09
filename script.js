@@ -139,3 +139,11 @@ document.querySelectorAll('a[href^="/go/"]').forEach(a => {
     track('out', u.pathname.replace('/go/', '') + '@' + (u.searchParams.get('src') || '-'));
   });
 });
+
+
+// ===== 壁紙のダウンロード・拡大表示を数える =====
+document.querySelectorAll('[data-wallpaper]').forEach(a => {
+  a.addEventListener('click', () => {
+    track('wallpaper', a.dataset.wallpaper + (a.hasAttribute('download') ? '@download' : '@open'));
+  });
+});
