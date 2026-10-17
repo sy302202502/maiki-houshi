@@ -8,6 +8,7 @@
  *   （YouTube側の帰属も取りたい場合は中間HTMLページ方式が必要）
  */
 const DESTINATIONS = {
+  'wear-it-well':    'https://www.youtube.com/watch?v=qjQ-L2pZIZY',
   'neon-tide':       'https://www.youtube.com/watch?v=PnDQp43p5jg',
   'august-fade':     'https://www.youtube.com/watch?v=i1CnU-3uneM',
   'coastline-radio': 'https://www.youtube.com/watch?v=qkdBPhUHyPw',
