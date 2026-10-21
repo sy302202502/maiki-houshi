@@ -394,6 +394,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline
   border: 1px solid rgba(173, 255, 47, 0.5); border-radius: 999px; padding: 10px 16px; cursor: pointer;
   transition: background 0.2s, color 0.2s, transform 0.2s;
 }
+#making-toggle[hidden] { display: none; }
 #making-toggle:hover { transform: translateY(-2px); }
 #making-toggle[aria-pressed="true"] { background: var(--making); color: #0e0b16; }
 
