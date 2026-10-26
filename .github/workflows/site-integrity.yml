@@ -18,3 +18,5 @@ jobs:
           python-version: '3.12'
       - name: Check site links, sitemap, canonical URLs and private routes
         run: python -m unittest discover -s tests -v
+      - name: Check private-path middleware behavior (offline)
+        run: node --test tests/middleware.test.mjs
