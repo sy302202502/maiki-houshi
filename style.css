@@ -219,8 +219,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline
 .swatches span:first-child { margin-left: 0; }
 .costumes { margin-top: 30px; }
 .costumes-title { font-family: var(--latin); font-style: italic; font-size: 1.1rem; color: var(--faint); letter-spacing: 0.06em; margin-bottom: 10px; }
-.costumes ul { list-style: none; display: flex; gap: 12px; }
-.costumes li { position: relative; width: 132px; aspect-ratio: 3 / 4; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(80% 60% at 50% 25%, rgba(143, 99, 217, 0.35), transparent 70%), var(--night-3); }
+.costumes ul { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 132px)); gap: 12px; }
+.costumes li { position: relative; aspect-ratio: 3 / 4; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: radial-gradient(80% 60% at 50% 25%, rgba(143, 99, 217, 0.35), transparent 70%), var(--night-3); }
 .costumes img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .costumes span { position: absolute; inset: auto 0 0 0; padding: 18px 10px 6px; font-size: 0.72rem; letter-spacing: 0.08em; background: linear-gradient(transparent, rgba(14, 11, 22, 0.9)); }
 
@@ -462,6 +462,7 @@ body.making-on [data-making] { outline: 1px dashed rgba(173, 255, 47, 0.3); outl
 }
 
 @media (max-width: 600px) {
+  .costumes ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .activity-list, .commission-points, .game-cards, .music-grid { grid-template-columns: 1fr; }
   .music-grid { gap: 14px; }
   .music-card { display: grid; grid-template-columns: 42% 1fr; align-items: center; }
