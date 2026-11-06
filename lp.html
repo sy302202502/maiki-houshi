@@ -262,6 +262,7 @@
     .plan-en { font-family: var(--latin); font-size: 1rem; letter-spacing: 0.2em; color: var(--muted); }
     .plan-ja { font-family: var(--serif); font-weight: 800; font-size: 1.3rem; margin-top: 2px; }
     .plan-price { font-family: var(--latin); font-weight: 600; font-size: 2.8rem; line-height: 1.1; margin-top: 20px; letter-spacing: 0.01em; }
+    .note a, .faq .a a { color: var(--accent, #f2a93b); }
     .plan-price small { font-family: var(--sans); font-size: 0.78rem; color: var(--faint); font-weight: 500; margin-left: 4px; }
     .plan-monitor { font-size: 0.8rem; color: var(--accent); margin-top: 6px; }
     .plan-monitor strong { color: var(--accent); font-size: 0.95rem; }
@@ -463,19 +464,19 @@
           <span class="eyebrow">個人勢VTuber・Vライバーのためのホームページ制作</span>
           <h1 class="hero-title"><span class="p">あなたの世界観を、</span><br><span class="p"><em>ひとつの場所</em>に。</span></h1>
           <p class="hero-lead-strong"><span class="p">Web知識ゼロ・</span><span class="p">サーバー代0円から。</span></p>
-          <p class="hero-lead">作るのは、現役の個人勢Vライバーです。ヒアリングシートに答えるだけで、活動の世界観と案件の窓口がそろったホームページをお届けします。</p>
+          <p class="hero-lead">作るのは、現役の個人勢Vライバーです。無料の相談フォームから始めて、活動の世界観と案件の窓口がそろったホームページをお作りします。</p>
           <div class="hero-actions">
             <a href="#cta" class="btn btn-accent">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-              ヒアリングシートで無料相談
+              無料で相談する
             </a>
             <a href="/?making=1" class="btn btn-ghost" target="_blank" rel="noopener">作例を制作メモつきで見る</a>
           </div>
-          <p class="assure"><span>提案まで無料</span><span>催促なし</span><span>提示額以外の請求なし</span></p>
+          <p class="assure"><span>提案まで無料</span><span>提案後の催促なし</span><span>同意のない追加請求なし</span></p>
           <dl class="hero-facts">
-            <div><dt>サーバー代</dt><dd>¥0</dd></div>
-            <div><dt>最短納期</dt><dd>5<small>日〜</small></dd></div>
-            <div><dt>制作費</dt><dd>¥12,000<small>〜</small></dd></div>
+            <div><dt>サーバー代</dt><dd>¥0<small>〜</small></dd></div>
+            <div><dt>納期目安</dt><dd>5<small>日〜</small></dd></div>
+            <div><dt>制作費（税込）</dt><dd>¥12,000<small>〜</small></dd></div>
             <div><dt>全プラン</dt><dd>SP<small>・</small>PC</dd></div>
           </dl>
         </div>
@@ -492,18 +493,18 @@
     </section>
 
     <!-- ===== MONITOR SLOT ===== -->
-    <!-- 枠の更新は下部 <script> の MONITOR = { month, slots } を書き換えるだけでOK -->
+    <!-- 枠の更新は下部 <script> の MONITOR = { year, monthNo, slots } を書き換えるだけでOK -->
     <section class="slot" aria-label="事例モニター枠">
       <div class="wrap">
         <div>
           <span class="slot-label">事例モニター枠</span>
-          <span class="slot-count"><strong data-monitor-month>10月</strong>：残り<strong data-monitor-slots>1</strong>組</span>
+          <span class="slot-count"><strong data-monitor-month>11月</strong>：残り<strong data-monitor-slots>1</strong>組</span>
         </div>
-        <p class="slot-desc">制作事例として公開させていただける方を<strong>1組だけ</strong>、通常価格の約半額でお受けしています。埋まった場合、次の募集は翌月です。</p>
+        <p class="slot-desc">制作事例として公開させていただける方を<strong>1組だけ</strong>、通常価格の約半額でお受けしています。埋まった場合は、通常価格でのご案内になります。</p>
         <ul class="slot-cond">
           <li>完成したサイトを制作事例として掲載できる方</li>
           <li>完成後にひとこと感想をいただける方</li>
-          <li>18歳以上の方（未成年の方は保護者の同意をお願いしています）</li>
+          <li>18歳以上の方（18歳未満の方は、保護者の方にご契約者になっていただきます）</li>
           <li>立ち絵・イラストを商用利用できる状態の方（確認のしかたもご案内します）</li>
         </ul>
       </div>
@@ -527,8 +528,8 @@
         </div>
         <div class="answer reveal">
           <div>
-            <h3>全部、解決できます。</h3>
-            <p>ヒアリングシートに答えるだけで、あとは全部こちらがやります。</p>
+            <h3>ひとつずつ、一緒に解決できます。</h3>
+            <p>相談フォームに答えていただければ、公開までの進め方はこちらがご案内します。</p>
           </div>
           <a href="#cta" class="btn btn-accent">無料で相談してみる</a>
         </div>
@@ -544,8 +545,8 @@
           <h2 class="sec-title">このサービスの特長</h2>
         </div>
         <div class="features">
-          <div class="feature reveal"><span class="n">01</span><h3>Web知識ゼロでOK</h3><p>専門用語なし。ヒアリングシートに「好きなデザイン」「載せたい内容」を選ぶだけ。わからないところは「おまかせ」でOK。</p></div>
-          <div class="feature reveal"><span class="n">02</span><h3>サーバー代0円〜スタート</h3><p>Cloudflare Pages＋GitHubを使えば月額ランニングコストゼロ。制作費だけで本番公開できます（独自ドメインは別途実費）。</p></div>
+          <div class="feature reveal"><span class="n">01</span><h3>Web知識ゼロでOK</h3><p>専門用語なし。相談フォームで「好きなデザイン」「載せたい内容」を選ぶところから始められます。わからないところは「おまかせ」でOK。</p></div>
+          <div class="feature reveal"><span class="n">02</span><h3>サーバー代0円〜スタート</h3><p>Cloudflare Pages＋GitHubの無料枠の範囲なら、月額のサーバー代はかかりません（独自ドメインは別途実費）。</p></div>
           <div class="feature reveal"><span class="n">03</span><h3>スマホ・PC両対応</h3><p>全プランでレスポンシブデザイン対応。スマホで見ても、PCで見ても、きれいに表示されます。</p></div>
           <div class="feature reveal"><span class="n">04</span><h3>キャラに合ったデザイン</h3><p>クール・ポップ・ダーク・和風・ゲーミングなど、あなたのキャラクターや活動スタイルに合わせてカスタマイズ。</p></div>
           <div class="feature reveal"><span class="n">05</span><h3>案件受付フォーム設置</h3><p>企業案件・コラボ依頼・ファンからのメッセージを受けるお問い合わせフォーム（Google Forms連携）を組み込めます。</p></div>
@@ -624,7 +625,7 @@
           <div class="reveal">
             <ul class="about-points">
               <li><strong>個人勢のVライバーです。</strong>事務所に所属せず活動しているので、活動まわりの事情を前提から説明しなくて大丈夫です。</li>
-              <li><strong>Webサイト制作とブラウザゲーム開発をしています。</strong>このページも公式サイトも、そこに置いてあるゲームも自作です。</li>
+              <li><strong>Webサイト制作とブラウザゲーム開発をしています。</strong>このページも公式サイトも、そこに置いてあるゲームも、設計・制作・運用を私が担当しています。</li>
               <li><strong>歌ってみたやオリジナル曲の制作など、音楽活動もしています。</strong>YouTubeで公開しています。</li>
             </ul>
             <div class="about-links">
@@ -649,14 +650,14 @@
           <p class="sec-intro">はじめての外注は、作品より「頼んだあと」が不安になるものだと思います。お金・連絡・中の人の情報について、先に決めてあることをまとめました。</p>
         </div>
         <ol class="promises">
-          <li class="promise reveal"><span class="n">01</span><h3>提案と見積りまでは無料です</h3><p>ヒアリングシートの記入から、構成・デザイン・費用のご提案まで費用はかかりません。内容を見てからお断りいただいて大丈夫です。</p></li>
-          <li class="promise reveal"><span class="n">02</span><h3>催促はしません</h3><p>お返事がなくても、こちらから催促のDMは送りません。「今回は見送ります」の一言も不要です。</p></li>
-          <li class="promise reveal"><span class="n">03</span><h3>提示した金額以外は請求しません</h3><p>ご提案時にお伝えした金額がすべてです。修正回数を超えた場合の料金（1回3,000円）も、あらかじめ明記しています。</p></li>
-          <li class="promise reveal"><span class="n">04</span><h3>中の人の情報を守ります</h3><p>公開されるページにご本名などは載りません。こちらの本名と連絡先はご契約者ご本人にのみお伝えし、扱いは着手前に一緒に決めます。</p></li>
+          <li class="promise reveal"><span class="n">01</span><h3>提案と見積りまでは無料です</h3><p>相談フォームの記入から、構成・デザイン・費用のご提案まで費用はかかりません。内容を見てからお断りいただいて大丈夫です。</p></li>
+          <li class="promise reveal"><span class="n">02</span><h3>ご提案のあとは催促しません</h3><p>ご提案へのお返事がなくても、催促のDMは送りません。「今回は見送ります」の一言も不要です。ご注文後は、制作を進めるために必要なご連絡をします。</p></li>
+          <li class="promise reveal"><span class="n">03</span><h3>同意のない追加請求はしません</h3><p>ご注文時に確定した金額で制作します。追加の作業が必要なときは、先に金額をお伝えし、ご了承いただいてから進めます。修正回数を超えた場合の料金（1回3,000円・税込）も、あらかじめ明記しています。</p></li>
+          <li class="promise reveal"><span class="n">04</span><h3>中の人の情報を守ります</h3><p>公開されるページにご本名などは載りません。お互いの情報の扱いは、着手前に一緒に決めます。</p></li>
           <li class="promise reveal"><span class="n">05</span><h3>素材の権利を先に確認します</h3><p>立ち絵やBGMをサイトで使ってよいか、イラストレーターさん等への確認文面をこちらでご用意します。使えない素材は使わずにお作りします。</p></li>
-          <li class="promise reveal"><span class="n">06</span><h3>キャンセル条件を先に決めます</h3><p>着手金のご入金前なら、いつでも無料でキャンセルできます。こちらの都合で制作を続けられなくなった場合は、いただいた分を全額お返しします。</p></li>
+          <li class="promise reveal"><span class="n">06</span><h3>キャンセル条件を先に決めます</h3><p>制作作業を始める前なら、いつでも無料でキャンセルできます。始めたあとは、終わった作業の分で精算します。こちらの都合で制作を続けられなくなった場合は、いただいた分を全額お返しします。</p></li>
         </ol>
-        <p class="note reveal">※ 詳しい条件は「料金・プラン」「制作の流れ」「よくある質問」に記載しています。モニター価格でも、作業内容・修正回数・サポートは通常価格と同じです。</p>
+        <p class="note reveal">※ 詳しい条件は「料金・プラン」「制作の流れ」「よくある質問」、<a href="/tokushoho">特定商取引法に基づく表記</a>に記載しています。モニター価格でも、作業内容・修正回数・サポートは通常価格と同じです。</p>
       </div>
     </section>
 
@@ -672,7 +673,7 @@
           <div class="plan reveal">
             <div class="plan-en">LIGHT</div>
             <div class="plan-ja">ライトプラン</div>
-            <div class="plan-price">¥12,000</div>
+            <div class="plan-price">¥12,000<small>（税込）</small></div>
             <div class="plan-monitor">事例モニター価格 <strong>¥6,000</strong></div>
             <div class="plan-delivery">納期目安：5〜7日</div>
             <ul>
@@ -690,7 +691,7 @@
             <span class="plan-badge">おすすめ</span>
             <div class="plan-en">STANDARD</div>
             <div class="plan-ja">スタンダードプラン</div>
-            <div class="plan-price">¥28,000</div>
+            <div class="plan-price">¥28,000<small>（税込）</small></div>
             <div class="plan-monitor">事例モニター価格 <strong>¥15,000</strong></div>
             <div class="plan-delivery">納期目安：10〜14日</div>
             <ul>
@@ -707,7 +708,7 @@
           <div class="plan reveal">
             <div class="plan-en">PREMIUM</div>
             <div class="plan-ja">プレミアムプラン</div>
-            <div class="plan-price">¥55,000</div>
+            <div class="plan-price">¥55,000<small>（税込）</small></div>
             <div class="plan-monitor">事例モニター価格 <strong>¥30,000</strong></div>
             <div class="plan-delivery">納期目安：2〜4週間</div>
             <ul>
@@ -722,10 +723,11 @@
           </div>
         </div>
         <div class="note">
-          <p>※ <strong class="hl">ヒアリングシートへのご記入とお見積もりは無料です。</strong>正式にご依頼いただくまで、費用はかかりません。</p>
-          <p>※ 事例モニター価格は「制作事例として掲載できる方」限定で、<strong data-monitor-month>10月</strong>は<strong data-monitor-slots>1</strong>組のみです。埋まった場合は通常価格でのご案内になります。</p>
-          <p>※ 納期は、ヒアリングシートのご回答と必要な素材が揃った日から数えます。ご返信をお待ちしている期間は含みません。</p>
-          <p>※ 制作費以外にかかる費用は0円です（独自ドメインを使う場合のみ、年1,500〜4,000円程度の実費）。</p>
+          <p>※ <strong class="hl">表示価格はすべて税込です。相談フォームへのご記入とお見積もりは無料です。</strong>ご注文を確定するまで、費用はかかりません。</p>
+          <p data-monitor-note>※ 事例モニター価格は「制作事例として掲載できる方」限定で、<strong data-monitor-month>11月</strong>は<strong data-monitor-slots>1</strong>組のみです。埋まった場合は通常価格でのご案内になります。</p>
+          <p>※ 納期は、ご入金の確認後に、ヒアリングシートのご回答と必要な素材が揃った日から数える目安です。ご返信をお待ちしている期間は含みません。</p>
+          <p>※ 制作費のほかに、振込手数料をご負担いただきます。独自ドメインを使う場合は実費（年1,500〜4,000円程度が目安。種類や時期で変わります）がかかります。有料素材を使う場合は、購入前に金額を確認します。</p>
+          <p>※ サーバー代は、GitHub・Cloudflareの無料枠の範囲で0円です（2026年11月時点）。各社の料金や仕様が変わった場合は、費用や移行作業が必要になることがあります。</p>
           <p>※ 納品後の保守・運用については下記「納品後の保守・運用」をご覧ください。</p>
         </div>
       </div>
@@ -749,7 +751,7 @@
               <div class="row"><i></i><i></i><i></i><i></i></div>
               <i class="blk">CONTACT</i>
             </div>
-            <p>アイコン・名前・SNSリンク・連絡先が1画面で完結。ヒアリングの回答だけで仕上げるので、打ち合わせなしで最短5日です。</p>
+            <p>アイコン・名前・SNSリンク・連絡先が1画面で完結。ヒアリングの回答をもとに仕上げるプランで、デザインの打ち合わせはありません。納期の目安は5〜7日です。</p>
           </div>
           <div class="diff-card reveal">
             <div class="plan-en">STANDARD</div>
@@ -793,14 +795,15 @@
               <tr><th scope="row">修正回数</th><td>2回</td><td class="rec">3回</td><td>5回</td></tr>
               <tr><th scope="row">納品後サポート</th><td><span class="no">−</span></td><td class="rec">2週間</td><td>1ヶ月</td></tr>
               <tr><th scope="row">納期目安</th><td>5〜7日</td><td class="rec">10〜14日</td><td>2〜4週間</td></tr>
-              <tr class="price"><th scope="row">料金</th><td>¥12,000</td><td class="rec">¥28,000</td><td>¥55,000</td></tr>
+              <tr class="price"><th scope="row">料金（税込）</th><td>¥12,000</td><td class="rec">¥28,000</td><td>¥55,000</td></tr>
             </tbody>
           </table>
         </div>
         <div class="note">
           <p>※ 上位プランは下位プランの内容をすべて含みます。</p>
           <p>※ LIGHT はヒアリングシートのご回答をもとに、こちらで設計してお渡しするプランです。デザインのご相談をしながら進めたい場合は STANDARD 以上をお選びください。</p>
-          <p>※ 修正回数を超えた分は、1回 3,000円で承ります。</p>
+          <p>※ 修正1回は、確認していただいた内容をまとめてお伝えいただく1回分です。こちらのミスや、ご注文内容との違いを直す作業は回数に含みません。</p>
+          <p>※ 修正回数を超えた分は、1回 3,000円（税込）で承ります。ページの追加や大きな変更は別途お見積りし、ご了承いただいてから進めます。</p>
           <p>※ 迷ったら STANDARD をおすすめしています。案件受付に必要なものが一通り入ります。</p>
         </div>
       </div>
@@ -822,13 +825,13 @@
             <ul>
               <li>納品後はご自身で管理</li>
               <li>サポート期間内の不具合は無償対応（STANDARD：2週間／PREMIUM：1ヶ月）</li>
-              <li>LIGHTプラン・サポート期間終了後の修正はスポット対応（¥3,000/回〜）</li>
+              <li>LIGHTプラン・サポート期間終了後の修正はスポット対応（¥3,000/回〜・税込）</li>
             </ul>
           </div>
           <div class="support rec reveal">
             <span class="plan-badge">おすすめ</span>
             <h3>ライト保守</h3>
-            <div class="price">¥3,000<small>/月</small></div>
+            <div class="price">¥3,000<small>/月（税込）</small></div>
             <ul>
               <li>月1回までの更新代行</li>
               <li>文言・画像の差し替え、リンク追加</li>
@@ -837,7 +840,7 @@
           </div>
           <div class="support reveal">
             <h3>しっかり保守</h3>
-            <div class="price">¥6,000<small>/月</small></div>
+            <div class="price">¥6,000<small>/月（税込）</small></div>
             <ul>
               <li>月3回までの更新代行</li>
               <li>文言・画像の差し替え、リンク追加</li>
@@ -847,7 +850,8 @@
           </div>
         </div>
         <div class="note">
-          <p>※ 保守はいつでも開始・停止できます（最低契約期間なし）。</p>
+          <p>※ 保守はいつでも開始・停止できます（最低契約期間なし）。月の途中で停止しても、その月の分の日割りはありません。</p>
+          <p>※ 不具合対応は、納品時の表示や動作に戻す作業が対象です。各サービスの仕様変更に伴う移行作業は別途お見積りします。</p>
           <p>※ 大幅なデザイン変更・ページ追加は保守の範囲外です。別途お見積りいたします。</p>
         </div>
       </div>
@@ -861,12 +865,12 @@
           <p class="sec-en">Preparation</p>
           <h2 class="sec-title">ご依頼前に用意するもの</h2>
         </div>
-        <p class="lead-quote reveal">結論から言うと、事前に用意していただくものはありません。</p>
+        <p class="lead-quote reveal">結論から言うと、ご相談の時点で用意していただくものはありません。</p>
         <div class="preps">
           <div class="prep reveal"><h3>用意するもの：<span>なし</span></h3><p>活動名とSNSのURLが分かれば始められます。載せる文章はこちらで下書きをつくり、それを見ながら直していただく進め方です。ゼロから文章を書く必要はありません。</p></div>
-          <div class="prep reveal"><h3>あなたの作業時間：<span>合計40分ほど</span></h3><p>ヒアリングシート5〜10分＋アカウント作成10分ほど＋初稿の確認20分ほど。それ以外の作業はすべてこちらで進めます。配信や制作の時間を削らずに終わります。</p></div>
+          <div class="prep reveal"><h3>あなたの作業時間：<span>合計1時間〜1時間半ほどが目安</span></h3><p>相談フォーム5〜10分＋ご注文後の詳しいヒアリングシート20〜40分＋アカウント作成10分ほど＋初稿の確認20分ほど。素材の権利確認や、修正のやり取りの時間は別にかかります。</p></div>
           <div class="prep reveal"><h3>素材がなくても大丈夫</h3><p>立ち絵や写真がなくても、色とレイアウトで成立するデザインにします。あとから立ち絵ができたときの差し替えにも対応します。</p></div>
-          <div class="prep reveal"><h3>専門用語は使いません</h3><p>サーバー・ドメイン・デプロイといった作業は、意味が分からないままで大丈夫です。ご依頼後に無料のアカウントだけ画面を見ながら作っていただき、あとはこちらで処理して、完成したURLをお渡しします。</p></div>
+          <div class="prep reveal"><h3>専門用語は使いません</h3><p>サーバー・ドメイン・デプロイといった作業は、意味が分からないままで大丈夫です。ご注文後に無料のアカウントを画面を見ながら作っていただき、公開の連携を操作していただくところだけご本人にお願いしています。あとはこちらで進めて、完成したURLをお渡しします。</p></div>
         </div>
       </div>
     </section>
@@ -880,12 +884,15 @@
           <h2 class="sec-title">制作の流れ</h2>
         </div>
         <ol class="flow">
-          <li class="step you reveal"><span class="step-no">01</span><div><span class="who">お客様</span><h3>ヒアリングシートに記入（5〜10分）</h3><p>活動名・デザインの好み・載せたい内容などを選択式で回答。「わからない・おまかせ」でもOK。</p></div></li>
-          <li class="step reveal"><span class="step-no">02</span><div><span class="who">こちら</span><h3>構成・デザイン・費用をご提案（1〜2日）</h3><p>ヒアリング内容をもとに、ページ構成・デザイン方向性・費用をDMまたはメールでご連絡します。</p></div></li>
-          <li class="step you reveal"><span class="step-no">03</span><div><span class="who">お客様</span><h3>ご確認・注文確定（ここまで無料）</h3><p>提案内容のご確認・調整。<strong class="free">ここまでは費用がかからないので、内容を見てからお断りいただいて大丈夫です。</strong>ご注文確定後、着手金として制作費の50%をお支払いいただきます。ご注文後に、公開用の無料アカウントを画面を見ながら作っていただきます（10分ほど）。</p></div></li>
-          <li class="step reveal"><span class="step-no">04</span><div><span class="who">こちら</span><h3>制作・デザイン・コーディング</h3><p>確定後、制作をスタート。希望があれば途中経過のURLをお送りします。</p></div></li>
-          <li class="step you reveal"><span class="step-no">05</span><div><span class="who">お客様</span><h3>初稿確認・修正フィードバック</h3><p>確認用URLをお送りします。スマホ・PCで確認していただき、気になる点をお伝えください。</p></div></li>
-          <li class="step reveal"><span class="step-no">06</span><div><span class="who">こちら</span><h3>修正対応・本番デプロイ・納品</h3><p>修正完了後、Cloudflare Pages の本番環境にデプロイ。URLをお渡しして納品完了です。このタイミングで残りの50%をお支払いいただきます。ご提案時にお伝えした金額以外の請求はありません。</p></div></li>
+          <li class="step you reveal"><span class="step-no">01</span><div><span class="who">お客様</span><h3>相談フォームに記入（5〜10分）</h3><p>活動名・デザインの好み・載せたい内容などを、ほとんど選択式で回答。「わからない・おまかせ」でもOK。送信しただけではご注文になりません。</p></div></li>
+          <li class="step reveal"><span class="step-no">02</span><div><span class="who">こちら</span><h3>構成・デザイン・費用をご提案（1〜2日）</h3><p>回答をもとに、ページ構成・デザイン方向性・費用をDMまたはメールでご連絡します。</p></div></li>
+          <li class="step you reveal"><span class="step-no">03</span><div><span class="who">お客様</span><h3>ご確認・ご注文（ここまで無料）</h3><p>提案内容のご確認・調整。<strong class="free">ここまでは費用がかからないので、内容を見てからお断りいただいて大丈夫です。</strong>ご注文の際は注文書の内容をご確認いただき、同意のお返事をいただきます。そのあと着手金として制作費の50%をお支払いください（ライトプランと事例モニター枠は全額前払いも選べます）。</p></div></li>
+          <li class="step you reveal"><span class="step-no">04</span><div><span class="who">お客様</span><h3>詳しいヒアリング・アカウント作成（30〜50分）</h3><p>ご入金の確認後に、詳しいヒアリングシートをお送りします。公開用の無料アカウントも、画面を見ながら作っていただきます。</p></div></li>
+          <li class="step reveal"><span class="step-no">05</span><div><span class="who">こちら</span><h3>制作・デザイン・コーディング</h3><p>回答と素材が揃ったら制作をスタート。希望があれば途中経過のURLをお送りします。</p></div></li>
+          <li class="step you reveal"><span class="step-no">06</span><div><span class="who">お客様</span><h3>初稿確認・修正フィードバック（7日以内）</h3><p>確認用URLをお送りします。スマホ・PCで確認していただき、気になる点をまとめてお伝えください。</p></div></li>
+          <li class="step reveal"><span class="step-no">07</span><div><span class="who">こちら</span><h3>修正対応</h3><p>いただいた内容を反映し、確認用URLで再度ご確認いただきます。</p></div></li>
+          <li class="step you reveal"><span class="step-no">08</span><div><span class="who">お客様</span><h3>最終確認・残金のお支払い</h3><p>内容に問題がなければ「最終確認OK」とお知らせください。残りの50%をお支払いいただきます。追加作業にご了承いただいた分があれば、ここで合わせて精算します。</p></div></li>
+          <li class="step reveal"><span class="step-no">09</span><div><span class="who">こちら</span><h3>本番公開・納品</h3><p>ご入金を確認してから本番公開し、URL・素材の原本・更新方法の説明書をお渡しして納品完了です。</p></div></li>
         </ol>
       </div>
     </section>
@@ -899,21 +906,23 @@
           <h2 class="sec-title">よくある質問</h2>
         </div>
         <div class="faq reveal">
-          <details><summary><span class="q">Q</span><span>Webやプログラミングの知識がなくても本当に大丈夫ですか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">大丈夫です。ヒアリングシートに答えていただくだけで、こちらがすべて設計・制作します。専門用語は使いません。「わからない・おまかせ」の選択肢もあります。</div></details>
-          <details><summary><span class="q">Q</span><span>サーバー代0円というのは本当ですか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">本当です。Cloudflare Pages（ホスティング）とGitHub（コード管理）を使うことで月額ゼロで公開できます。ただし独自ドメイン（例：○○.com）を使う場合は年間1,500〜4,000円程度の実費がかかります（ドメインの種類により異なります）。</div></details>
+          <details><summary><span class="q">Q</span><span>Webやプログラミングの知識がなくても本当に大丈夫ですか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">大丈夫です。フォームに答えていただいた内容をもとに、こちらで設計・制作します。専門用語は使いません。「わからない・おまかせ」の選択肢もあります。</div></details>
+          <details><summary><span class="q">Q</span><span>サーバー代0円というのは本当ですか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">Cloudflare Pages（ホスティング）とGitHub（コード管理）の無料枠の範囲なら、月額0円で公開できます（2026年11月時点）。各社の料金や仕様が変わった場合は、費用や移行作業が必要になることがあります。独自ドメイン（例：○○.com）を使う場合は、年間1,500〜4,000円程度の実費が目安です（種類や時期で変わります）。</div></details>
           <details><summary><span class="q">Q</span><span>フォロワーが少なくても依頼できますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">もちろんです。フォロワー数・活動歴は問いません。「これから本気でやっていきたい」という気持ちがある方を歓迎します。むしろ早めにホームページを持っておくと後で楽になります。</div></details>
           <details><summary><span class="q">Q</span><span>使いたい画像・素材がない場合は？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">ご用意できる素材だけで大丈夫です。キャラクターイラストや写真がなくてもテキストとフリー素材で対応できます。</div></details>
           <details><summary><span class="q">Q</span><span>納品後に自分で内容を更新できますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">コードを直接編集する必要があるため、ある程度のリテラシーが必要です。更新代行が必要な場合は月額の保守プラン（¥3,000/月〜）をご利用ください。詳しくは「納品後の保守・運用」をご覧ください。</div></details>
-          <details><summary><span class="q">Q</span><span>完成したホームページは誰のものになりますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">ご依頼者さまのものです。公開に使うGitHubとCloudflareのアカウントは、活動用のメールアドレスで作っていただく、ご依頼者さま名義のものです。独自ドメインを使う場合も同じです。パスワードをお預かりすることはなく、こちらは共同管理者として招待していただいて作業します。</div></details>
-          <details><summary><span class="q">Q</span><span>保守をやめたり、管理を自分や別の制作者に移したりできますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">できます。最初からご依頼者さま名義でつくるので、移管の費用はかかりません。こちらの管理権限を外し、サイトのデータ、素材の原本、更新方法の説明書をお渡しします。</div></details>
-          <details><summary><span class="q">Q</span><span>まず見積もりだけもらえますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">もちろんです。ヒアリングシートに記入いただければ無料で見積もりをお出しします。依頼しなくてもOKです。</div></details>
-          <details><summary><span class="q">Q</span><span>中の人の情報を伏せたまま依頼できますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">はい。公開されるページにご本名などが載ることはありません。こちらの本名と連絡先も、ご契約者ご本人にのみお伝えしています。お互い中の人を伏せて活動しているので、その扱いは着手前に決めさせてください。</div></details>
-          <details><summary><span class="q">Q</span><span>相談したあと、断りづらくないですか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">お断りいただいて大丈夫です。ご提案・お見積りまでは無料で、そこで終了しても費用は一切かかりません。こちらから催促のDMをお送りすることもありません。「今回は見送ります」の一言も不要です。</div></details>
+          <details><summary><span class="q">Q</span><span>完成したホームページは誰のものになりますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">公開に使うGitHubとCloudflareのアカウントは、活動用のメールアドレスで作っていただく、ご依頼者さま名義のものです。独自ドメインを使う場合も同じです。パスワードをお預かりすることはなく、こちらは共同管理者として招待していただいて作業します。制作代金の全額をお支払いいただいた時点で、今回のために作った部分の著作権をお渡しします。こちらが以前から持っている汎用の部品と、第三者のライブラリ・フォント・素材は含みません（使ったものの一覧をお渡しします）。</div></details>
+          <details><summary><span class="q">Q</span><span>保守をやめたり、管理を自分や別の制作者に移したりできますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">できます。最初からご依頼者さま名義でつくるので、名義を移す作業はありません。こちらの管理権限を外し、サイトのデータ、素材の原本、更新方法の説明書をお渡しするところまでは無料です。別の制作者との打ち合わせ、別のサービスへの引っ越し、ドメインの設定変更などは別途お見積りします。</div></details>
+          <details><summary><span class="q">Q</span><span>まず見積もりだけもらえますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">もちろんです。相談フォームに記入いただければ無料で見積もりをお出しします。依頼しなくてもOKです。</div></details>
+          <details><summary><span class="q">Q</span><span>中の人の情報を伏せたまま依頼できますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">はい。公開されるページにご本名などが載ることはありません。こちらの本名・住所・電話番号はサイトに載せていませんが、ご請求があれば、お申し込みの前にお伝えします（<a href="/tokushoho">特定商取引法に基づく表記</a>）。お互い中の人を伏せて活動しているので、情報の扱いは着手前に決めさせてください。</div></details>
+          <details><summary><span class="q">Q</span><span>相談したあと、断りづらくないですか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">お断りいただいて大丈夫です。ご提案・お見積りまでは無料で、そこで終了しても費用はかかりません。ご提案のあとに催促のDMをお送りすることもありません。「今回は見送ります」の一言も不要です。</div></details>
           <details><summary><span class="q">Q</span><span>モニター価格だと手を抜かれませんか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">作業内容・修正回数・サポートはすべて通常価格と同じです。むしろ制作事例として公開させていただく前提なので、手を抜けません。値引きの理由は「掲載させていただくこと」への対価であり、品質を下げるためのものではありません。</div></details>
+          <details><summary><span class="q">Q</span><span>事例の掲載は、あとから取り下げられますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">できます。DMでお知らせいただければ、こちらのサイトとXの掲載を取り下げます。理由は不要で、差額の請求もありません。ほかの方の転載や検索結果の表示までは消せない場合があります。</div></details>
           <details><summary><span class="q">Q</span><span>立ち絵を描いてもらったものですが、サイトに使えますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">イラストレーターさんとの取り決め次第です。Webサイトでの使用が許可されているかを確認していただく必要があるので、その確認文面はこちらでご用意します。BGMや写真など、他の方に作っていただいた素材も同じように確認させてください。使えない場合は、その素材を使わないデザインでお作りしますのでご安心ください。</div></details>
-          <details><summary><span class="q">Q</span><span>未成年ですが依頼できますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">保護者の方の同意があればお受けできます。同意の確認方法もこちらからご案内しますので、まずはご相談ください。</div></details>
-          <details><summary><span class="q">Q</span><span>支払いのタイミングと方法は？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">銀行振込で、着手金として半額、納品時に残り半額をお願いしています。ご提案とお見積りまでは無料で、着手金のご入金を確認してから制作を始めます。振込手数料はご依頼者さまのご負担でお願いします。</div></details>
-          <details><summary><span class="q">Q</span><span>途中でキャンセルできますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">着手金のご入金前でしたら、いつでも無料でキャンセルできます。理由も不要です。着手後にキャンセルされる場合は、初稿をお見せする前までは着手金のみ、初稿をお見せしたあとは全額のご負担をお願いしています。こちらの都合で制作を続けられなくなった場合は、いただいた分を全額お返しします。</div></details>
+          <details><summary><span class="q">Q</span><span>未成年ですが依頼できますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">お受けできます。18歳未満の方は、保護者の方にご契約者になっていただき、お支払いと公開用アカウントの名義もお願いしています。進め方はこちらからご案内しますので、まずはご相談ください。</div></details>
+          <details><summary><span class="q">Q</span><span>支払いのタイミングと方法は？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">銀行振込で、ご注文から7日以内に着手金として半額、最終確認のあと本番公開の前に残り半額をお願いしています。ライトプランと事例モニター枠は全額前払いも選べます。ご提案とお見積りまでは無料で、着手金のご入金を確認してから制作を始めます。振込手数料はご依頼者さまのご負担でお願いします。</div></details>
+          <details><summary><span class="q">Q</span><span>途中でキャンセルできますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">キャンセルは、XのDMまたはやり取り中の連絡先へお知らせください。理由は不要です。着手金のご入金前は無料です。ご入金後でも、制作作業を始める前なら全額お返しします。制作作業を始めたあとは、終わった作業の分と、すでにかかった実費をご負担いただき、残りを14日以内にお返しします。ご負担の上限は、初稿をお見せする前が制作費の30%、初稿をお見せしたあとが70%、最終確認のあとが100%です。こちらの都合で制作を続けられなくなった場合は、いただいた分を全額お返しします。</div></details>
+          <details><summary><span class="q">Q</span><span>確認の返信が遅れたらどうなりますか？</span><span class="pm" aria-hidden="true"></span></summary><div class="a">確認をお願いしてから7日を過ぎると、納期はお返事をいただくまで止まります。30日お返事がない場合は中断のご連絡をし、60日お返事がない場合は、終わった作業の分を精算して終了とします。事情があるときは、先にご相談いただければ調整します。再開するときは、空き状況に合わせて納期を決め直します。</div></details>
         </div>
       </div>
     </section>
@@ -921,22 +930,22 @@
     <!-- ===== CTA ===== -->
     <section class="cta" id="cta">
       <div class="wrap">
-        <h2 class="reveal"><span class="p">まずはヒアリングシートを</span><br><span class="p">記入してみてください。</span></h2>
+        <h2 class="reveal"><span class="p">まずは相談フォームを</span><br><span class="p">記入してみてください。</span></h2>
         <p class="reveal">
-          5〜10分で記入できます。用意するものはありません。記入後1〜2日以内に、構成・デザイン・費用をご提案します。<br>
-          <strong>提案を見てからお断りいただいて大丈夫です。</strong>こちらから催促のご連絡はしません。
+          5〜10分で記入できます。用意するものはありません。送信してもご注文にはなりません。記入後1〜2日以内に、構成・デザイン・費用をご提案します。<br>
+          <strong>提案を見てからお断りいただいて大丈夫です。</strong>ご提案のあとに催促のご連絡はしません。
         </p>
         <div class="actions reveal">
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfzpyddkCqbz8-EEgq2HdEURjTFEFCmVBAB2pi12ck20L7Pog/viewform" class="btn btn-accent" target="_blank" rel="noopener">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeODDCY8F-YYGkvt2-VjaXdRq0tspSUQAIiKQQBX2CcPtuhiA/viewform" class="btn btn-accent" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            無料でヒアリングシートを記入する
+            無料の相談フォームを記入する
           </a>
           <a href="https://x.com/mai1k_master" class="btn btn-ghost" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             XのDMで相談する
           </a>
         </div>
-        <p class="assure reveal"><span>提案まで無料</span><span>催促なし</span><span>提示額以外の請求なし</span></p>
+        <p class="assure reveal"><span>提案まで無料</span><span>提案後の催促なし</span><span>同意のない追加請求なし</span></p>
       </div>
     </section>
   </main>
@@ -950,6 +959,8 @@
         <a href="https://x.com/mai1k_master" target="_blank" rel="noopener">X / @mai1k_master</a>
         <a href="https://www.youtube.com/@mikey-master" target="_blank" rel="noopener">YouTube</a>
         <a href="/#commission">HP制作依頼</a>
+        <a href="/privacy">プライバシーポリシー</a>
+        <a href="/tokushoho">特定商取引法に基づく表記</a>
       </nav>
       <p class="copy">&copy; 2024–2026 舞鬼法師 / MIKEY MASTER. All Rights Reserved.</p>
     </div>
@@ -957,7 +968,7 @@
 
   <!-- スマホ用：ファーストビューを過ぎたら相談ボタンを下に固定する -->
   <div class="sticky-cta" id="stickyCta">
-    <a href="#cta" class="btn btn-accent">無料で相談する（ヒアリングシート）</a>
+    <a href="#cta" class="btn btn-accent">無料で相談する（相談フォーム）</a>
   </div>
 
   <script>
@@ -980,12 +991,19 @@
     });
 
     // 事例モニター枠：ここだけ書き換えれば、ページ内の表示がすべて揃います
-    const MONITOR = { month: '10月', slots: 1 };
-    document.querySelectorAll('[data-monitor-month]').forEach(el => el.textContent = MONITOR.month);
+    const MONITOR = { year: 2026, monthNo: 11, slots: 1 };
+    const monitorLabel = MONITOR.monthNo + '月';
+    const jstNow = new Date(Date.now() + 9 * 3600 * 1000);
+    const monitorExpired = jstNow.getUTCFullYear() * 12 + jstNow.getUTCMonth() + 1 > MONITOR.year * 12 + MONITOR.monthNo;
+    document.querySelectorAll('[data-monitor-month]').forEach(el => el.textContent = monitorLabel);
     document.querySelectorAll('[data-monitor-slots]').forEach(el => el.textContent = MONITOR.slots);
-    if (MONITOR.slots <= 0) {
+    if (monitorExpired) {
+      // 更新を忘れても、過ぎた月の枠は表示しない
+      document.querySelectorAll('.slot-count').forEach(el => { el.textContent = '受付状況はお問い合わせください'; });
+      document.querySelectorAll('[data-monitor-note]').forEach(el => { el.textContent = '※ 事例モニター価格は「制作事例として掲載できる方」限定です。受付状況はお問い合わせください。'; });
+    } else if (MONITOR.slots <= 0) {
       document.querySelectorAll('.slot-count').forEach(el => {
-        el.innerHTML = '<strong>' + MONITOR.month + '</strong>：受付終了（次回は翌月）';
+        el.innerHTML = '<strong>' + monitorLabel + '</strong>：受付終了';
       });
     }
 

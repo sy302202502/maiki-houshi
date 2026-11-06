@@ -352,6 +352,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline
 .commission-price { display: grid; justify-items: center; gap: 2px; margin-bottom: 28px; text-align: center; }
 .commission-price-label { font-size: 0.78rem; color: var(--faint); letter-spacing: 0.14em; }
 .commission-price-value { font-family: var(--latin); font-weight: 600; font-size: 3rem; line-height: 1.1; }
+.commission-price-value small { font-family: var(--sans); font-size: 0.8rem; font-weight: 500; color: var(--muted); margin-left: 4px; }
 .commission-price-note { font-size: 0.82rem; color: var(--muted); }
 .commission-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
 .assure { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin-top: 20px; font-size: 0.82rem; color: var(--muted); }
@@ -372,6 +373,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline
 .footer-social a { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--line-strong); color: var(--muted); transition: color 0.2s, border-color 0.2s; }
 .footer-social a:hover { color: var(--silver); border-color: var(--silver); }
 .footer-social svg { width: 16px; height: 16px; }
+.footer-legal a { font-size: 0.78rem; color: var(--muted); text-decoration: none; }
+.footer-legal a:hover { color: var(--silver); }
 .footer-copy { font-size: 0.74rem; color: var(--faint); }
 
 /* ---------- 固定ボタン ---------- */
