@@ -493,14 +493,14 @@
     </section>
 
     <!-- ===== MONITOR SLOT ===== -->
-    <!-- 枠の更新は下部 <script> の MONITOR = { year, monthNo, slots } を書き換えるだけでOK -->
+    <!-- 枠の更新は下部 <script> の MONITOR = { until, open } を書き換えるだけでOK（上限は社内メモで管理・表示は「数名」） -->
     <section class="slot" aria-label="事例モニター枠">
       <div class="wrap">
         <div>
           <span class="slot-label">事例モニター枠</span>
-          <span class="slot-count"><strong data-monitor-month>11月</strong>：残り<strong data-monitor-slots>1</strong>組</span>
+          <span class="slot-count"><strong>2026年内</strong>：数名さま限定</span>
         </div>
-        <p class="slot-desc">制作事例として公開させていただける方を<strong>1組だけ</strong>、通常価格の約半額でお受けしています。埋まった場合は、通常価格でのご案内になります。</p>
+        <p class="slot-desc">制作事例として公開させていただける方を、2026年内は<strong>数名さまだけ</strong>、通常価格の約半額でお受けしています。制作は一度に1件ずつ、順番にご案内します。枠が埋まった場合は、通常価格でのご案内になります。</p>
         <ul class="slot-cond">
           <li>完成したサイトを制作事例として掲載できる方</li>
           <li>完成後にひとこと感想をいただける方</li>
@@ -724,7 +724,7 @@
         </div>
         <div class="note">
           <p>※ <strong class="hl">表示価格はすべて税込です。相談フォームへのご記入とお見積もりは無料です。</strong>ご注文を確定するまで、費用はかかりません。</p>
-          <p data-monitor-note>※ 事例モニター価格は「制作事例として掲載できる方」限定で、<strong data-monitor-month>11月</strong>は<strong data-monitor-slots>1</strong>組のみです。埋まった場合は通常価格でのご案内になります。</p>
+          <p data-monitor-note>※ 事例モニター価格は「制作事例として掲載できる方」限定で、2026年内は数名さまのみです。埋まった場合は通常価格でのご案内になります。</p>
           <p>※ 納期は、ご入金の確認後に、ヒアリングシートのご回答と必要な素材が揃った日から数える目安です。ご返信をお待ちしている期間は含みません。</p>
           <p>※ 制作費のほかに、振込手数料をご負担いただきます。独自ドメインを使う場合は実費（年1,500〜4,000円程度が目安。種類や時期で変わります）がかかります。有料素材を使う場合は、購入前に金額を確認します。</p>
           <p>※ サーバー代は、GitHub・Cloudflareの無料枠の範囲で0円です（2026年11月時点）。各社の料金や仕様が変わった場合は、費用や移行作業が必要になることがあります。</p>
@@ -991,20 +991,15 @@
     });
 
     // 事例モニター枠：ここだけ書き換えれば、ページ内の表示がすべて揃います
-    const MONITOR = { year: 2026, monthNo: 11, slots: 1 };
-    const monitorLabel = MONITOR.monthNo + '月';
-    const jstNow = new Date(Date.now() + 9 * 3600 * 1000);
-    const monitorExpired = jstNow.getUTCFullYear() * 12 + jstNow.getUTCMonth() + 1 > MONITOR.year * 12 + MONITOR.monthNo;
-    document.querySelectorAll('[data-monitor-month]').forEach(el => el.textContent = monitorLabel);
-    document.querySelectorAll('[data-monitor-slots]').forEach(el => el.textContent = MONITOR.slots);
-    if (monitorExpired) {
-      // 更新を忘れても、過ぎた月の枠は表示しない
+    // until を過ぎたら自動で「お問い合わせください」、埋まったら open: false
+    const MONITOR = { until: '2026-12-31', open: true };
+    const jstToday = new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+    if (jstToday > MONITOR.until) {
       document.querySelectorAll('.slot-count').forEach(el => { el.textContent = '受付状況はお問い合わせください'; });
       document.querySelectorAll('[data-monitor-note]').forEach(el => { el.textContent = '※ 事例モニター価格は「制作事例として掲載できる方」限定です。受付状況はお問い合わせください。'; });
-    } else if (MONITOR.slots <= 0) {
-      document.querySelectorAll('.slot-count').forEach(el => {
-        el.innerHTML = '<strong>' + monitorLabel + '</strong>：受付終了';
-      });
+    } else if (!MONITOR.open) {
+      document.querySelectorAll('.slot-count').forEach(el => { el.innerHTML = '<strong>2026年内</strong>：受付終了'; });
+      document.querySelectorAll('[data-monitor-note]').forEach(el => { el.textContent = '※ 事例モニター価格の受付は、2026年内の枠が埋まったため終了しました。'; });
     }
 
     // スクロールで出現
