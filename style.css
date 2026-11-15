@@ -483,3 +483,26 @@ body.making-on [data-making] { outline: 1px dashed rgba(173, 255, 47, 0.3); outl
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero-visual img, .loading-logo, .scroll-hint i { animation: none; }
 }
+
+/* ===== 2026-11 整理: 小さくした欄・折りたたみ ===== */
+.section.compact { padding: clamp(56px, 8vw, 96px) 0; }
+details.costumes > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: baseline; gap: 12px; }
+details.costumes > summary::-webkit-details-marker { display: none; }
+.costumes-open { font-family: var(--sans); font-style: normal; white-space: nowrap; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--amber); border: 1px solid var(--line); border-radius: 999px; padding: 4px 14px; }
+details.costumes[open] .costumes-open { display: none; }
+details.costumes > ul { margin-top: 14px; }
+.game.compact .game-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 2vw, 20px); max-width: 860px; margin: 0 auto; }
+.game.compact .game-card-body { padding: 12px 12px 14px; gap: 4px; }
+.game.compact .game-card-body p { display: none; }
+.game.compact .game-card-body h3 { font-size: clamp(0.86rem, 2.4vw, 1.05rem); }
+.game.compact .game-card-tag { font-size: 0.72rem; }
+.game.compact .game-card-btn { font-size: 0.85rem; padding-top: 4px; }
+.wallpaper.compact .wallpaper-lead { margin-bottom: 24px; }
+.wallpaper.compact .wallpaper-grid { grid-template-columns: repeat(2, minmax(0, 150px)); }
+.wallpaper.compact .wallpaper-item img { border-radius: 16px; }
+details.wallpaper-note { margin-top: 24px; }
+details.wallpaper-note > summary { cursor: pointer; color: var(--muted); text-align: center; }
+details.wallpaper-note[open] > summary { margin-bottom: 4px; }
+.commission.compact .commission-intro { margin-bottom: 26px; }
+.commission-price-line { text-align: center; color: var(--muted); font-size: 0.92rem; margin-bottom: 26px; }
+.commission-price-line strong { color: var(--silver); font-family: var(--latin); font-size: 1.5rem; font-weight: 600; margin: 0 4px; }
