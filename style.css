@@ -506,3 +506,13 @@ details.wallpaper-note[open] > summary { margin-bottom: 4px; }
 .commission.compact .commission-intro { margin-bottom: 26px; }
 .commission-price-line { text-align: center; color: var(--muted); font-size: 0.92rem; margin-bottom: 26px; }
 .commission-price-line strong { color: var(--silver); font-family: var(--latin); font-size: 1.5rem; font-weight: 600; margin: 0 4px; }
+details.news-more { margin-top: 18px; }
+details.news-more > summary { cursor: pointer; color: var(--muted); font-size: 0.86rem; text-align: center; padding: 8px 0; }
+details.news-more[open] > summary { margin-bottom: 10px; }
+details.news-more .news-list { border-top: 1px solid var(--line); }
+@media (max-width: 600px) {
+  .activity.two-col .activity-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 18px; }
+  .activity.two-col .activity-item { padding-top: 16px; }
+  .activity.two-col .activity-item h3 { font-size: 1.08rem; margin: 6px 0 8px; }
+  .activity.two-col .activity-item p { font-size: 0.8rem; line-height: 1.75; }
+}
